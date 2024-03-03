@@ -1,7 +1,6 @@
 import type { Schema } from 'ajv'
 import Ajv from 'ajv'
 import localize from 'ajv-i18n/localize/zh'
-import schemas from '../../generated/schemas.json'
 
 const ajv = new Ajv({
   discriminator: true,
@@ -13,7 +12,8 @@ ajv.addKeyword({
   valid: true,
 })
 
-ajv.addSchema(schemas as Schema[])
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+ajv.addSchema(require('../../generated/schemas.json') as Schema[])
 
 export const validate = (id: string) => async (data: unknown) => {
   const validate = ajv.getSchema(id)
