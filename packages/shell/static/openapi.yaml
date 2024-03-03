@@ -1,0 +1,392 @@
+openapi: 3.1.0
+info:
+  title: Chronocat Satori
+  version: 0.0.50
+  description: |
+    # Chronocat Satori OpenAPI 定义
+
+    这是一份 Chronocat Satori OpenAPI 的完整定义文件。
+
+    任何时候，你都可以从 <https://chronocat.vercel.app/openapi.yaml> 获取到此文件。
+
+  contact:
+    name: Team Chrononeko
+    url: https://github.com/chrononeko
+  license:
+    name: AGPL-3.0
+    url: https://www.gnu.org/licenses/agpl-3.0.html
+
+externalDocs:
+  description: Chronocat 文档
+  url: https://chronocat.vercel.app
+
+servers:
+  - url: '{protocol}://{host}:{port}/{version}'
+    description: Chronocat Satori 服务
+    variables:
+      protocol:
+        default: http
+      host:
+        default: localhost
+      port:
+        default: '5500'
+      version:
+        default: v1
+
+tags:
+  - name: Channel
+    description: 「频道」——消息的集合。
+    externalDocs:
+      description: 概念介绍
+      url: https://chronocat.vercel.app/develop/satori/fundamentals/resources
+  - name: ChannelMember
+    description: 「频道成员」——用户在特定频道内的信息。
+    externalDocs:
+      description: 概念介绍
+      url: https://chronocat.vercel.app/develop/satori/fundamentals/resources
+  - name: Guild
+    description: 「群组」——用户的集合。
+    externalDocs:
+      description: 概念介绍
+      url: https://chronocat.vercel.app/develop/satori/fundamentals/resources
+  - name: GuildMember
+    description: 「群组成员」——用户在特定群组内的信息。
+    externalDocs:
+      description: 概念介绍
+      url: https://chronocat.vercel.app/develop/satori/fundamentals/resources
+  - name: GuildRole
+    description: 「群组角色」——用户在群组内的角色或权限。
+    externalDocs:
+      description: 概念介绍
+      url: https://chronocat.vercel.app/develop/satori/fundamentals/resources
+  - name: Login
+    description: 「登录信息」——实现侧当前的状态。
+    externalDocs:
+      description: 概念介绍
+      url: https://chronocat.vercel.app/develop/satori/fundamentals/resources
+  - name: Message
+    description: 「消息」——频道中发送的内容。
+    externalDocs:
+      description: 概念介绍
+      url: https://chronocat.vercel.app/develop/satori/fundamentals/resources
+  - name: Reaction
+    description: 「表态」——用户对消息的回应。
+    externalDocs:
+      description: 概念介绍
+      url: https://chronocat.vercel.app/develop/satori/fundamentals/resources
+  - name: User
+    description: 「用户」——群组内的个体。
+    externalDocs:
+      description: 概念介绍
+      url: https://chronocat.vercel.app/develop/satori/fundamentals/resources
+
+security:
+  - satori: []
+
+paths:
+  /:
+    get:
+      summary: Satori 欢迎页
+      description: 展示 Satori 欢迎页面。无任何实际用途。
+      responses:
+        '200':
+          description: 成功返回 Satori 欢迎页
+          content:
+            text/html:
+              schema:
+                type: string
+                const: <html>（Satori 欢迎页的 HTML 内容）</html>
+      security:
+        - {}
+
+  /assets/{assetData}:
+    get:
+      operationId: assets
+      summary: 获取单个资源
+      description: |
+        获取单个资源。该 URL 通常为 Satori 服务生成并在事件携带的消息元素中出现。
+        如果客户端无法通过此链接访问到 Chronocat Satori 服务，则需修改配置文件中的 `self_url` 项。
+      parameters:
+        - name: assetData
+          in: path
+          description: 资源信息。通常为 Satori 服务生成。
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 成功获取资源
+          content:
+            '*/*': {}
+      security:
+        - {}
+
+  /unsafe.channel.mute:
+    post:
+      operationId: channelMute
+      tags:
+        - Channel
+      summary: 频道全体禁言
+      description: 频道全体禁言。
+      requestBody:
+        description: 要全体禁言的频道
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChannelMutePayload'
+      responses:
+        '200':
+          description: 禁言成功
+        '500':
+          $ref: '#/components/responses/500'
+
+  /user.channel.create:
+    post:
+      operationId: userChannelCreate
+      tags:
+        - Channel
+      summary: 创建私聊频道
+      description: 创建一个私聊频道。
+      requestBody:
+        description: 要私聊的用户
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPayload'
+      responses:
+        '200':
+          description: 成功获取创建的私聊频道
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Channel'
+        '500':
+          $ref: '#/components/responses/500'
+
+  /unsafe.channel.member.mute:
+    post:
+      operationId: channelMemberMute
+      tags:
+        - ChannelMember
+      summary: 频道用户禁言
+      description: 频道用户禁言。
+      requestBody:
+        description: 要禁言的用户
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChannelMemberMutePayload'
+      responses:
+        '200':
+          description: 禁言成功
+        '500':
+          $ref: '#/components/responses/500'
+
+  /guild.list:
+    post:
+      operationId: guildList
+      tags:
+        - Guild
+      summary: 获取群组列表
+      description: 获取当前用户加入的全部群组。
+      requestBody:
+        description: 分页
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Next'
+      responses:
+        '200':
+          description: 全部群组的分页列表
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GuildListResponse'
+        '500':
+          $ref: '#/components/responses/500'
+
+  /guild.approve:
+    post:
+      operationId: guildApprove
+      tags:
+        - Guild
+      summary: 处理群组邀请
+      description: 处理来自群组的邀请。
+      requestBody:
+        description: 处理邀请
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApprovePayload'
+      responses:
+        '200':
+          description: 成功处理邀请
+        '500':
+          $ref: '#/components/responses/500'
+
+  /unsafe.guild.remove:
+    post:
+      operationId: guildRemove
+      tags:
+        - Guild
+      summary: 删除群组
+      description: 删除群组。
+      requestBody:
+        description: 群组
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GuildRemovePayload'
+      responses:
+        '200':
+          description: 成功删除群组
+        '500':
+          $ref: '#/components/responses/500'
+
+  /guild.member.list:
+    post:
+      operationId: guildMemberList
+      tags:
+        - GuildMember
+      summary: 获取群组成员列表
+      description: 获取群组成员列表。
+      requestBody:
+        description: 群组
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GuildMemberListPayload'
+      responses:
+        '200':
+          description: 成功获取群组成员列表
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuildMemberListResponse'
+        '500':
+          $ref: '#/components/responses/500'
+
+  /login.get:
+    post:
+      operationId: loginGet
+      tags:
+        - Login
+      summary: 获取登录信息
+      description: 获取登录信息。
+      responses:
+        '200':
+          description: 成功获取登录信息
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Login'
+        '500':
+          $ref: '#/components/responses/500'
+
+  /message.create:
+    post:
+      operationId: messageCreate
+      tags:
+        - Message
+      summary: 发送消息
+      description: 发送一条消息。
+      requestBody:
+        description: 发送的目标和消息内容
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageCreatePayload'
+      responses:
+        '200':
+          description: 成功发送消息
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Message'
+        '500':
+          $ref: '#/components/responses/500'
+
+  /friend.list:
+    post:
+      operationId: friendList
+      tags:
+        - User
+      summary: 获取好友列表
+      description: 获取好友列表。
+      requestBody:
+        description: 分页
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Next'
+      responses:
+        '200':
+          description: 全部好友的分页列表
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FriendListResponse'
+        '500':
+          $ref: '#/components/responses/500'
+
+  /friend.approve:
+    post:
+      operationId: friendApprove
+      tags:
+        - User
+      summary: 处理好友申请
+      description: 处理好友申请。
+      requestBody:
+        description: 处理邀请
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApprovePayload'
+      responses:
+        '200':
+          description: 成功处理邀请
+        '500':
+          $ref: '#/components/responses/500'
+
+  /unsafe.friend.remove:
+    post:
+      operationId: friendRemove
+      tags:
+        - User
+      summary: 删除好友
+      description: 删除好友。
+      requestBody:
+        description: 用户
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPayload'
+      responses:
+        '200':
+          description: 成功删除好友
+        '500':
+          $ref: '#/components/responses/500'
+
+components:
+  securitySchemes:
+    satori:
+      description: Satori 服务密码
+      type: http
+      scheme: bearer
+      in: header
+      bearerFormat: string
+
+  responses:
+    '500':
+      description: Chronocat 内部错误 (500)
+      content:
+        text/plain:
+          schema:
+            type: string
+            const: 500 internal error
