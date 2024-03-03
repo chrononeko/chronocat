@@ -13,6 +13,7 @@
     "packages/*"
   ],
   "scripts": {
+    "clean": "ts-node -T scripts/clean.cts",
     "build": "concurrently -n shell \"yarn workspace @chronocat/shell build\""
   },
   "resolutions": {
