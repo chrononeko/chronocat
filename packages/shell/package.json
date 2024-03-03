@@ -13,7 +13,11 @@
   "files": [
     "lib"
   ],
-  "scripts": {},
+  "scripts": {
+    "build": "concurrently -n cjs,dts yarn:build:cjs yarn:build:dts",
+    "build:cjs": "ts-node -T ../../scripts/build.cts",
+    "build:dts": "tsc -p tsconfig.json"
+  },
   "devDependencies": {
     "@satorijs/element": "^2.5.1",
     "@types/busboy": "^1.5.0",

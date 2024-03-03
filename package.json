@@ -12,7 +12,9 @@
     "external/*/packages/*",
     "packages/*"
   ],
-  "scripts": {},
+  "scripts": {
+    "build": "concurrently -n shell \"yarn workspace @chronocat/shell build\""
+  },
   "resolutions": {
     "ts-node": "11.0.0-beta.1"
   },
