@@ -23,21 +23,41 @@ void (async () => {
     settings,
   )!
 
+  console.log('Generating config schema...')
+
+  const configSchema = generator.getSchemaForSymbol('ChronocatConfig')
+
+  console.log('Modifying config schema...')
+
+  configSchema.$id = 'https://chronocat.vercel.app/config-v0.schema.json'
+  configSchema.title = 'Chronocat 配置'
+  configSchema.description = 'Chronocat 配置（chronocat.yml）'
+
+  const schemaString = JSON.stringify(configSchema).replaceAll(
+    '"anyOf"',
+    '"type":"object","discriminator":{"propertyName":"type"},"oneOf"',
+  )
+
+  console.log('Writing config schema...')
+
+  void writeFile(
+    resolve(__dirname, '../../docs/static/config-v0.schema.json'),
+    schemaString,
+  )
+
+  console.log('Generating schemas for codegen...')
+
   const schemas = generator.getUserSymbols().map((x) => ({
     $id: x,
     ...generator.getSchemaForSymbol(x),
   }))
 
+  console.log('Writing schemas for codegen...')
+
   await writeFile(
     resolve(__dirname, '../generated/schemas.json'),
     JSON.stringify(schemas, null, 2),
   )
-
-  console.log('Generating schemas for codegen...')
-
-  console.log('Modifying schemas for codegen...')
-
-  console.log('Writing schemas for codegen...')
 
   console.log('Generating schemas for openapi...')
 
