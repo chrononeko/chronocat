@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "codegen": "ts-node -T scripts/codegen.cts",
-    "build": "concurrently -n cjs,dts yarn:build:cjs yarn:build:dts",
+    "build": "concurrently -n codegen yarn:codegen && concurrently -n cjs,dts yarn:build:cjs yarn:build:dts",
     "build:cjs": "ts-node -T ../../scripts/build.cts",
     "build:dts": "tsc -p tsconfig.json"
   },
