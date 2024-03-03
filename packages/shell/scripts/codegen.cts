@@ -1,5 +1,5 @@
 import { dump, load } from 'js-yaml'
-import { readFile, writeFile } from 'node:fs/promises'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import type { Definition, PartialArgs } from 'typescript-json-schema'
 import { buildGenerator, programFromConfig } from 'typescript-json-schema'
@@ -53,6 +53,10 @@ void (async () => {
   }))
 
   console.log('Writing schemas for codegen...')
+
+  await mkdir(resolve(__dirname, '../generated'), {
+    recursive: true,
+  })
 
   await writeFile(
     resolve(__dirname, '../generated/schemas.json'),
