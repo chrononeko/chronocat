@@ -1,0 +1,38 @@
+{
+  "name": "@chronocat/shell",
+  "description": "模块化的 Satori 框架",
+  "version": "0.2.0",
+  "license": "AGPL-3.0",
+  "author": {
+    "name": "Il Harper",
+    "email": "hi@ilharper.com",
+    "url": "https://ilharper.com"
+  },
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "scripts": {},
+  "devDependencies": {
+    "@satorijs/element": "^2.5.1",
+    "@types/busboy": "^1.5.0",
+    "@types/js-yaml": "^4.0.6",
+    "@types/mime": "^3.0.1",
+    "@types/ws": "^8.5.5",
+    "ajv": "^8.12.0",
+    "ajv-cli": "^5.0.0",
+    "ajv-i18n": "^4.2.0",
+    "ansi-styles": "^6.2.1",
+    "busboy": "^1.6.0",
+    "js-yaml": "^4.1.0",
+    "logiri": "^0.1.2",
+    "mime": "^3.0.0",
+    "node-fetch": "^3.3.2",
+    "protobufjs": "^7.2.5",
+    "tosource": "^2.0.0-alpha.3",
+    "ts-toolbelt": "^9.6.0",
+    "typescript-json-schema": "^0.61.0",
+    "ws": "^8.13.0"
+  }
+}
