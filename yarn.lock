@@ -428,6 +428,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@chronocat/engine-chronocat-api@workspace:packages/engine-chronocat-api"
   dependencies:
+    "@chronocat/shell": "workspace:packages/shell"
     "@satorijs/element": "npm:^2.5.1"
     concurrently: "npm:^8.2.1"
     ipcman: "npm:^0.1.3"
@@ -443,9 +444,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@chronocat/engine-chronocat-event@workspace:packages/engine-chronocat-event"
   dependencies:
+    "@chronocat/shell": "workspace:packages/shell"
     "@satorijs/element": "npm:^2.5.1"
     concurrently: "npm:^8.2.1"
     ipcman: "npm:^0.1.3"
+    node-fetch: "npm:^3.3.2"
     tosource: "npm:^2.0.0-alpha.3"
     ts-node: "npm:^10.9.1"
     ts-toolbelt: "npm:^9.6.0"

@@ -19,7 +19,7 @@
     "build:dts": "tsc -p tsconfig.json"
   },
   "devDependencies": {
-    "@chronocat/shell": "*",
+    "@chronocat/shell": "workspace:packages/shell",
     "@satorijs/element": "^2.5.1",
     "concurrently": "^8.2.1",
     "ipcman": "^0.1.3",
