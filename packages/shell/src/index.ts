@@ -8,6 +8,7 @@ import { baseDir } from './services/baseDir'
 import { getConfig } from './services/config'
 import { emitter } from './services/emitter'
 import { l } from './services/logger'
+import { getSelfProfile, setSelfProfile } from './services/selfProfile'
 import { validate } from './services/validate'
 import type { ChronocatContext, Engine } from './types'
 import { PLATFORM } from './utils/consts'
@@ -29,6 +30,7 @@ export const chronocat = async () => {
       emit: emitter.emit,
       getAuthData,
       getConfig,
+      getSelfProfile,
       l,
       platform: PLATFORM,
       validate,
@@ -86,6 +88,8 @@ export const chronocat = async () => {
       )
     }
   }
+
+  emitter.register(setSelfProfile)
 
   // getConfig() 包含用户配置，因此会先等待登录
   // 这是首个等待登录的位置
