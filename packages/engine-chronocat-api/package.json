@@ -1,0 +1,32 @@
+{
+  "name": "@chronocat/engine-chronocat-api",
+  "description": "Chronocat API 引擎",
+  "version": "0.2.0",
+  "license": "AGPL-3.0",
+  "author": {
+    "name": "Il Harper",
+    "email": "hi@ilharper.com",
+    "url": "https://ilharper.com"
+  },
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "concurrently -n cjs,dts yarn:build:cjs yarn:build:dts",
+    "build:cjs": "ts-node -T ../../scripts/build.cts",
+    "build:dts": "tsc -p tsconfig.json"
+  },
+  "devDependencies": {
+    "@chronocat/shell": "*",
+    "@satorijs/element": "^2.5.1",
+    "concurrently": "^8.2.1",
+    "ipcman": "^0.1.3",
+    "node-fetch": "^3.3.2",
+    "tosource": "^2.0.0-alpha.3",
+    "ts-node": "^10.9.1",
+    "ts-toolbelt": "^9.6.0",
+    "typescript": "~5.1.0"
+  }
+}

@@ -424,6 +424,35 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@chronocat/engine-chronocat-api@workspace:packages/engine-chronocat-api":
+  version: 0.0.0-use.local
+  resolution: "@chronocat/engine-chronocat-api@workspace:packages/engine-chronocat-api"
+  dependencies:
+    "@satorijs/element": "npm:^2.5.1"
+    concurrently: "npm:^8.2.1"
+    ipcman: "npm:^0.1.3"
+    node-fetch: "npm:^3.3.2"
+    tosource: "npm:^2.0.0-alpha.3"
+    ts-node: "npm:^10.9.1"
+    ts-toolbelt: "npm:^9.6.0"
+    typescript: "npm:~5.1.0"
+  languageName: unknown
+  linkType: soft
+
+"@chronocat/engine-chronocat-event@workspace:packages/engine-chronocat-event":
+  version: 0.0.0-use.local
+  resolution: "@chronocat/engine-chronocat-event@workspace:packages/engine-chronocat-event"
+  dependencies:
+    "@satorijs/element": "npm:^2.5.1"
+    concurrently: "npm:^8.2.1"
+    ipcman: "npm:^0.1.3"
+    tosource: "npm:^2.0.0-alpha.3"
+    ts-node: "npm:^10.9.1"
+    ts-toolbelt: "npm:^9.6.0"
+    typescript: "npm:~5.1.0"
+  languageName: unknown
+  linkType: soft
+
 "@chronocat/shell@workspace:packages/shell":
   version: 0.0.0-use.local
   resolution: "@chronocat/shell@workspace:packages/shell"
@@ -3543,6 +3572,13 @@ __metadata:
     jsbn: "npm:1.1.0"
     sprintf-js: "npm:^1.1.3"
   checksum: 10c0/331cd07fafcb3b24100613e4b53e1a2b4feab11e671e655d46dc09ee233da5011284d09ca40c4ecbdfe1d0004f462958675c224a804259f2f78d2465a87824bc
+  languageName: node
+  linkType: hard
+
+"ipcman@npm:^0.1.3":
+  version: 0.1.3
+  resolution: "ipcman@npm:0.1.3"
+  checksum: 10c0/62fa6c0cb925836640dcc8a681fb329ac519d12315de7527241409a7aa150db4da51ae13e48cd35ea15d81f6b82bbc1384151e1403f4c543cb99c72f21ace90d
   languageName: node
   linkType: hard
 
