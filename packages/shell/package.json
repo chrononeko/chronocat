@@ -30,6 +30,7 @@
     "ajv-i18n": "^4.2.0",
     "ansi-styles": "^6.2.1",
     "busboy": "^1.6.0",
+    "bytenode": "^1.5.3",
     "concurrently": "^8.2.1",
     "js-yaml": "^4.1.0",
     "logiri": "^0.1.2",

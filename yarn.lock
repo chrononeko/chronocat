@@ -438,6 +438,7 @@ __metadata:
     ajv-i18n: "npm:^4.2.0"
     ansi-styles: "npm:^6.2.1"
     busboy: "npm:^1.6.0"
+    bytenode: "npm:^1.5.3"
     concurrently: "npm:^8.2.1"
     js-yaml: "npm:^4.1.0"
     logiri: "npm:^0.1.2"
@@ -1982,6 +1983,15 @@ __metadata:
   dependencies:
     streamsearch: "npm:^1.1.0"
   checksum: 10c0/fa7e836a2b82699b6e074393428b91ae579d4f9e21f5ac468e1b459a244341d722d2d22d10920cdd849743dbece6dca11d72de939fb75a7448825cf2babfba1f
+  languageName: node
+  linkType: hard
+
+"bytenode@npm:^1.5.3":
+  version: 1.5.3
+  resolution: "bytenode@npm:1.5.3"
+  bin:
+    bytenode: lib/cli.js
+  checksum: 10c0/3ae08ac4619763322cabdf70a60e8aa8045c571a4594ba31d653d956389f124a53364237a96684e7b33a0bd6ac5317d6bba83e679399bcbbe5b5c8d301ef368c
   languageName: node
   linkType: hard
 

@@ -39,11 +39,16 @@ export const chronocat = async () => {
 
   const engines = readdirSync(enginesPath).map((filename) => {
     let name = filename
-    if (name.endsWith('.jsc')) name = name.slice(0, name.length - 4)
+    let type = 'js'
+    if (name.endsWith('.jsc')) {
+      name = name.slice(0, name.length - 4)
+      type = 'jsc'
+    }
     if (name.endsWith('.js')) name = name.slice(0, name.length - 3)
 
     return {
       name,
+      type,
       path: join(enginesPath, filename),
     }
   })
@@ -54,7 +59,10 @@ export const chronocat = async () => {
         `加载引擎：${styles.green.open}${engine.name}${styles.green.close}`,
       )
 
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      if (engine.type === 'jsc')
+        require('bytenode')
+
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
       ;(require(engine.path) as Engine).apply(ctx)
     } catch (e) {
       setTimeout(() => process.exit(1), 2000)
