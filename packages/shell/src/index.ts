@@ -48,26 +48,30 @@ export const chronocat = async () => {
 
     return {
       name,
+      filename,
       type,
       path: join(enginesPath, filename),
     }
   })
 
-  for (const engine of engines) {
+  for (const engineInfo of engines) {
     try {
-      l.info(
-        `加载引擎：${styles.green.open}${engine.name}${styles.green.close}`,
+      l.debug(
+        `加载引擎：${styles.green.open}${engineInfo.filename}${styles.green.close}`,
       )
 
-      if (engine.type === 'jsc')
-        require('bytenode')
+      if (engineInfo.type === 'jsc') require('bytenode')
 
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-      ;(require(engine.path) as Engine).apply(ctx)
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const engine = require(engineInfo.path) as unknown as Engine
+      l.info(
+        `使用引擎 ${engine.name} v${engine.version}${styles.grey.open}，来自 ${engineInfo.filename}${styles.grey.close}`,
+      )
+      engine.apply(ctx)
     } catch (e) {
       setTimeout(() => process.exit(1), 2000)
       l.error(
-        new Error(`加载引擎 ${engine.name} 失败`, {
+        new Error(`加载引擎 ${engineInfo.filename} 失败`, {
           cause: e,
         }),
         {

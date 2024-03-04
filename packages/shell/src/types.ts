@@ -25,6 +25,8 @@ export interface ChronocatContext {
 }
 
 export interface Engine {
+  name: string
+  version: string
   apply: (ctx: ChronocatContext) => unknown
 }
 
