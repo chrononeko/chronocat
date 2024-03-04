@@ -40,5 +40,11 @@ export interface DispatchMessage {
 }
 
 export interface Methods {
+  // Satori
+
   'message.create': [[MessageCreatePayload], Message[]]
+
+  // Internal
+
+  'chronocat.internal.assets.get': [[string], string]
 }
