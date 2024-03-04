@@ -97,7 +97,7 @@ export const chronocat = async () => {
     return
   }
 
-  emitter.register((await initServers()).emit)
+  emitter.register((await initServers(ctx)).emit)
 
   l.info('中身はあんまりないよ～ (v0.x)', { code: 560 })
 

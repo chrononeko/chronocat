@@ -4,9 +4,9 @@ import { getAuthData } from './services/authData'
 import { getConfig } from './services/config'
 import type { ChronocatLogCurrentConfig } from './services/config/configEntity'
 import { l } from './services/logger'
-import type { DispatchMessage } from './types'
+import type { ChronocatContext, DispatchMessage } from './types'
 
-export const initServers = async () => {
+export const initServers = async (ctx: ChronocatContext) => {
   l.debug('初始化服务')
 
   const config = await getConfig()
@@ -19,7 +19,7 @@ export const initServers = async () => {
   if (log.self_url.endsWith('/'))
     log.self_url = log.self_url.slice(0, log.self_url.length - 1)
 
-  const dispatchers: ((message: DispatchMessage) => void)[] = [
+  const dispatchers: ((message: DispatchMessage) => unknown)[] = [
     // Logger
     (message) =>
       message
@@ -40,7 +40,7 @@ export const initServers = async () => {
 
     switch (server.type) {
       case 'satori': {
-        const { dispatcher } = await initSatoriServer(server)
+        const { dispatcher } = await initSatoriServer(ctx, server)
         dispatchers.push(dispatcher)
         l.info(
           `satori: 启动 Satori 服务于 http://${server.listen}:${server.port}`,
@@ -49,7 +49,7 @@ export const initServers = async () => {
       }
 
       case 'satori_webhook': {
-        const { dispatcher } = await initSatoriWebHook(server)
+        const { dispatcher } = await initSatoriWebHook(ctx, server)
         dispatchers.push(dispatcher)
         l.info(`satori: 启动 Satori WebHook 服务，目标 ${server.self_url}`)
         break
@@ -57,10 +57,10 @@ export const initServers = async () => {
     }
   }
 
-  const dispatchMessage = (message: DispatchMessage) =>
+  const emit = (message: DispatchMessage) =>
     dispatchers.forEach((x) => x(message))
 
   return {
-    dispatchMessage,
+    emit,
   }
 }
