@@ -10,6 +10,7 @@ import { emitter } from './services/emitter'
 import { l } from './services/logger'
 import { validate } from './services/validate'
 import type { ChronocatContext, Engine } from './types'
+import { PLATFORM } from './utils/consts'
 
 declare const __DEFINE_CHRONO_VERSION__: string
 
@@ -29,6 +30,7 @@ export const chronocat = async () => {
       getAuthData,
       getConfig,
       l,
+      platform: PLATFORM,
       validate,
       whenReady: () => readyPromise,
     },

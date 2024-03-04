@@ -10,6 +10,7 @@ import type {
 } from './services/config/configEntity'
 import type { l } from './services/logger'
 import type { validate } from './services/validate'
+import type { PLATFORM } from './utils/consts'
 
 export interface ChronocatContext {
   chronocat: {
@@ -19,6 +20,7 @@ export interface ChronocatContext {
     getAuthData: typeof getAuthData
     getConfig: typeof getConfig
     l: typeof l
+    platform: typeof PLATFORM
     validate: typeof validate
     whenReady: () => Promise<void>
   }
