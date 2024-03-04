@@ -32,11 +32,23 @@ export interface Engine {
   apply: (ctx: ChronocatContext) => unknown
 }
 
-export interface DispatchMessage {
+export type DispatchMessage = SatoriDispatchMessage | SelfProfileDispatchMessage
+
+export interface SatoriDispatchMessage {
+  type: 'satori'
+
   toSatori: (
     selfId: string,
     config: O.Intersect<ChronocatLogCurrentConfig, ChronocatSatoriEventsConfig>,
   ) => Promise<Event[]>
+}
+
+export interface SelfProfileDispatchMessage {
+  type: 'unsafe-selfprofile'
+
+  getSelfProfile: () => Promise<{
+    nick: string
+  }>
 }
 
 export interface Methods {
