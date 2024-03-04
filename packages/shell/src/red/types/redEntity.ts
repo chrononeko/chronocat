@@ -206,7 +206,7 @@ export enum SendType {
   System = 3,
 }
 
-export interface Message {
+export interface RedMessage {
   msgId: string
   msgRandom: string
   msgSeq: string
@@ -230,7 +230,7 @@ export interface Message {
   guildName: string
   channelName: string
   elements: Element[]
-  records: Message[]
+  records: RedMessage[]
   emojiLikesList: unknown[]
   commentCnt: string
   directMsgFlag: number
