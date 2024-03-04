@@ -10,7 +10,11 @@ import { l } from './services/logger'
 import { validate } from './services/validate'
 import type { ChronocatContext, DispatchMessage, Engine } from './types'
 
+declare const __DEFINE_CHRONO_VERSION__: string
+
 export const chronocat = async () => {
+  l.info(`Chronocat v${__DEFINE_CHRONO_VERSION__}`)
+
   let emitImpl = (_: DispatchMessage) => {}
 
   let ready: () => void
