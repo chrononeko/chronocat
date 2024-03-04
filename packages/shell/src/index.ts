@@ -6,16 +6,15 @@ import { api } from './services/api'
 import { getAuthData } from './services/authData'
 import { baseDir } from './services/baseDir'
 import { getConfig } from './services/config'
+import { emitter } from './services/emitter'
 import { l } from './services/logger'
 import { validate } from './services/validate'
-import type { ChronocatContext, DispatchMessage, Engine } from './types'
+import type { ChronocatContext, Engine } from './types'
 
 declare const __DEFINE_CHRONO_VERSION__: string
 
 export const chronocat = async () => {
   l.info(`Chronocat v${__DEFINE_CHRONO_VERSION__}`)
-
-  let emitImpl = (_: DispatchMessage) => {}
 
   let ready: () => void
   const readyPromise = new Promise<void>((res) => {
@@ -26,7 +25,7 @@ export const chronocat = async () => {
     chronocat: {
       api,
       baseDir,
-      emit: (message: DispatchMessage) => emitImpl(message),
+      emit: emitter.emit,
       getAuthData,
       getConfig,
       l,
@@ -96,7 +95,7 @@ export const chronocat = async () => {
     return
   }
 
-  emitImpl = (await initServers()).emit
+  emitter.register((await initServers()).emit)
 
   l.info('中身はあんまりないよ～ (v0.x)', { code: 560 })
 
