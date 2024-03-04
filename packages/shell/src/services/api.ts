@@ -20,6 +20,7 @@ api.register =
     method: M,
     impl: (...args: Methods[M][0]) => Promise<Methods[M][1]>,
   ) => {
-    api[method] = impl as ApiImpl<M>
+    // FIXME: Do not use type assertion
+    api[method] = impl /* ApiImpl<M> */ as Api[M]
     api[method].engine = engine
   }
