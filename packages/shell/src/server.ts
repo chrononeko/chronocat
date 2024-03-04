@@ -4,7 +4,11 @@ import { getAuthData } from './services/authData'
 import { getConfig } from './services/config'
 import type { ChronocatLogCurrentConfig } from './services/config/configEntity'
 import { l } from './services/logger'
-import type { ChronocatContext, DispatchMessage } from './types'
+import type {
+  ChronocatContext,
+  DispatchMessage,
+  SatoriDispatchMessage,
+} from './types'
 
 export const initServers = async (ctx: ChronocatContext) => {
   l.debug('初始化服务')
@@ -19,7 +23,7 @@ export const initServers = async (ctx: ChronocatContext) => {
   if (log.self_url.endsWith('/'))
     log.self_url = log.self_url.slice(0, log.self_url.length - 1)
 
-  const dispatchers: ((message: DispatchMessage) => unknown)[] = [
+  const dispatchers: ((message: SatoriDispatchMessage) => unknown)[] = [
     // Logger
     (message) =>
       message
@@ -57,8 +61,10 @@ export const initServers = async (ctx: ChronocatContext) => {
     }
   }
 
-  const emit = (message: DispatchMessage) =>
+  const emit = (message: DispatchMessage) => {
+    if (message.type !== 'satori') return
     dispatchers.forEach((x) => x(message))
+  }
 
   return {
     emit,

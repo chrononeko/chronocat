@@ -5,7 +5,7 @@ import type { WebSocket } from 'ws'
 import { WebSocketServer } from 'ws'
 import satoriHtml from '../../static/satori.html'
 import type { ChronocatSatoriServerConfig } from '../services/config/configEntity'
-import type { ChronocatContext, DispatchMessage } from '../types'
+import type { ChronocatContext, SatoriDispatchMessage } from '../types'
 import { PLATFORM } from '../utils/consts'
 import { timeout } from '../utils/time'
 import { buildEventIdCounter } from '../utils/token'
@@ -285,9 +285,7 @@ export const initSatoriServer = async (
     else addToAuthorizedClients()
   })
 
-  const dispatcher = async (message: DispatchMessage) => {
-    if (message.type !== 'satori') return
-
+  const dispatcher = async (message: SatoriDispatchMessage) => {
     const uin = (await cctx.chronocat.getAuthData()).uin
 
     // eslint-disable-next-line @typescript-eslint/no-misused-promises

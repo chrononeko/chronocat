@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 import type { ChronocatSatoriWebHookConfig } from '../services/config/configEntity'
-import type { ChronocatContext, DispatchMessage } from '../types'
+import type { ChronocatContext, SatoriDispatchMessage } from '../types'
 import { buildEventIdCounter } from '../utils/token'
 
 export const initSatoriWebHook = async (
@@ -15,7 +15,7 @@ export const initSatoriWebHook = async (
 
   const getId = buildEventIdCounter()
 
-  const dispatcher = (message: DispatchMessage) => {
+  const dispatcher = (message: SatoriDispatchMessage) => {
     void (async () => {
       const uin = (await cctx.chronocat.getAuthData()).uin
 
