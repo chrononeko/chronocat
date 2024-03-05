@@ -72,7 +72,7 @@ export class LogiriMessager {
             id
               ? `${link(
                   `[回复${id}]`,
-                  `http://q.qlogo.cn/headimg_dl?dst_uin=${id}&spec=640`,
+                  `http://thirdqq.qlogo.cn/headimg_dl?dst_uin=${id}&spec=640`,
                 )} `
               : `[回复] `
           }${styles.grey.close}`,
