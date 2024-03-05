@@ -203,7 +203,7 @@ export const apply = async (ctx: ChronocatContext) => {
 
   ipcMan<RedIpcArgs>({
     handler,
-    getId: (p) => p[0].callbackId,
+    getId: (p) => p?.[0]?.callbackId,
   })
 
   const register = ctx.chronocat.api.register(name)
