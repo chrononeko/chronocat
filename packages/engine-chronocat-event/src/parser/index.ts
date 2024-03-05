@@ -12,7 +12,6 @@ import type {
 import h from '@satorijs/element'
 import { Buffer } from 'node:buffer'
 import type { O } from 'ts-toolbelt'
-import { PLATFORM } from '../consts'
 import { parseMsgTypes } from './msgt'
 
 export const buildParser =
@@ -480,7 +479,7 @@ async function parseElements(
         switch (m.faceElement!.faceType) {
           case FaceType.PCPoke: {
             elements.push(
-              h(`${PLATFORM}:pcpoke`, {
+              h(`${ctx.chronocat.platform}:pcpoke`, {
                 id: m.faceElement!.pokeType,
               }),
             )
@@ -490,10 +489,10 @@ async function parseElements(
           case FaceType.Normal:
           case FaceType.Super: {
             elements.push(
-              h(`${PLATFORM}:face`, {
+              h(`${ctx.chronocat.platform}:face`, {
                 id: m.faceElement!.faceIndex,
                 name: `[${(await ctx.chronocat.api['chronocat.internal.qface.get'](`${m.faceElement!.faceIndex}`))!.QDes.slice(1)}]`,
-                platform: PLATFORM,
+                platform: ctx.chronocat.platform,
                 'unsafe-super': m.faceElement!.faceType === FaceType.Super,
                 'unsafe-result-id': m.faceElement!.resultId,
                 'unsafe-chain-count': m.faceElement!.chainCount,

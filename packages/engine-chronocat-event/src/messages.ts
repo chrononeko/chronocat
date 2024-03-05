@@ -7,7 +7,6 @@ import type {
   SatoriDispatchMessage,
 } from '@chronocat/shell'
 import type { O } from 'ts-toolbelt'
-import { PLATFORM } from './consts'
 import { buildParser } from './parser'
 
 export class MessageCreatedDispatchMessage implements SatoriDispatchMessage {
@@ -48,7 +47,7 @@ export class FriendRequestDispatchMessage implements SatoriDispatchMessage {
   type = 'satori' as const
 
   toSatori = async (
-    _ctx: ChronocatContext,
+    ctx: ChronocatContext,
     _config: O.Intersect<
       ChronocatLogCurrentConfig,
       ChronocatSatoriEventsConfig
@@ -58,7 +57,7 @@ export class FriendRequestDispatchMessage implements SatoriDispatchMessage {
       id: undefined as unknown as number,
       type: 'friend-request',
 
-      platform: PLATFORM,
+      platform: ctx.chronocat.platform,
       self_id: undefined as unknown as string,
       timestamp: Number(this.buddyReq.reqTime) * 1000,
     }
