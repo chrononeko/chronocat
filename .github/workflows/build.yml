@@ -1,0 +1,68 @@
+name: build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: build
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: 'false'
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.3.1'
+
+      - name: Build Packages
+        run: |
+          corepack enable
+          yarn install --immutable
+          yarn build
+        shell: bash
+
+      - name: Upload LiteLoaderQQNT Plugin v0
+        uses: actions/upload-artifact@v3
+        with:
+          name: chronocat-llqqntv0-${{ github.sha }}
+          path: build/dist/llqqntv0
+
+      - name: Upload LiteLoaderQQNT Plugin v1
+        uses: actions/upload-artifact@v3
+        with:
+          name: chronocat-llqqntv1-${{ github.sha }}
+          path: build/dist/llqqntv1
+
+      - name: Upload engine-chronocat-api
+        uses: actions/upload-artifact@v3
+        with:
+          name: engine-chronocat-api-${{ github.sha }}
+          path: build/dist/engine-chronocat-api
+
+      - name: Upload engine-chronocat-event
+        uses: actions/upload-artifact@v3
+        with:
+          name: engine-chronocat-event-${{ github.sha }}
+          path: build/dist/engine-chronocat-event
+
+      - name: Publish LiteLoaderQQNT-Plugin-Chronocat
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.DEPLOY_TOKEN }}
+          user_name: 'Il Harper'
+          user_email: 'hi@ilharper.com'
+          external_repository: chrononeko/LiteLoaderQQNT-Plugin-Chronocat
+          publish_branch: master
+          publish_dir: build/dist/llqqntv1/LiteLoaderQQNT-Plugin-Chronocat
+          enable_jekyll: true # Not to create .nojekyll since this is not a gh page
+          commit_message: 'chore: publish ${{ github.sha }}'
