@@ -43,6 +43,16 @@ const task = (async () => {
 
   const validateResult = await validate('ChronocatConfig')(parsedConfig)
   if (validateResult) {
+    if (
+      validateResult.includes(
+        '#/properties/servers/items/discriminator：标签 "type"',
+      )
+    )
+      l.warn(
+        '可能存在不支持的服务器类型。是否未进行从 Chronocat v0.1.x 的迁移？',
+        { code: 2157 },
+      )
+
     l.error(new Error(`解析配置时出现问题。${validateResult}`), {
       code: 2154,
       throw: true,
