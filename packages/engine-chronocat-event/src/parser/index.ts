@@ -13,10 +13,9 @@ import {
   ChatType,
   FaceType,
   MsgType,
+  PLATFORM,
   SendType,
 } from '@chronocat/shell'
-import { l } from '@chronocat/shell/lib/services/logger'
-import { PLATFORM } from '@chronocat/shell/lib/utils/consts'
 import h from '@satorijs/element'
 import { Buffer } from 'node:buffer'
 import type { O } from 'ts-toolbelt'
@@ -35,6 +34,8 @@ export const parseMessageRecv = async (
   config: O.Intersect<ChronocatLogCurrentConfig, ChronocatSatoriEventsConfig>,
   message: RedMessage,
 ) => {
+  const l = ctx.chronocat.l
+
   const parsed = await parseMessage(ctx, config, message)
 
   if (!parsed) return undefined
@@ -369,6 +370,8 @@ async function parseElements(
   config: O.Intersect<ChronocatLogCurrentConfig, ChronocatSatoriEventsConfig>,
   message: RedMessage,
 ) {
+  const l = ctx.chronocat.l
+
   const elements: h[] = []
   const extraEvents: Event[] = []
 
