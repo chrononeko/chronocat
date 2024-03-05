@@ -13,7 +13,7 @@
 // import { guildMemberList } from './guild/member/list'
 // import { guildRemove } from './guild/remove'
 // import { loginGet } from './login/get'
-// import { messageCreate } from './message/create'
+import { messageCreate } from './message/create'
 // import { messageDelete } from './message/delete'
 // import { messageGet } from './message/get'
 // import { messageList } from './message/list'
@@ -46,7 +46,7 @@ const routesIntl = {
   'guild.role.update': notImplemented,
   'guild.role.delete': notImplemented,
   // 'login.get': loginGet,
-  // 'message.create': messageCreate,
+  'message.create': messageCreate,
   // 'message.get': messageGet,
   // 'message.delete': messageDelete,
   'message.update': notImplemented,
