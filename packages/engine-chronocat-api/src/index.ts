@@ -23,6 +23,7 @@ import {
   chronoEventEmitter,
   friendMap,
   groupMap,
+  requestCallbackMap,
   requestMethodMap,
   richMediaDownloadMap,
   sendCallbackMap,
@@ -192,10 +193,15 @@ export const apply = async (ctx: ChronocatContext) => {
       }
 
       case 'wrapped-response': {
+        const res = requestCallbackMap[data.id]
+        if (res) res(data.args[1] /* RedIpcDataResponse */)
+
         const method = requestMethodMap[data.id]
-        if (!method) return
-        delete requestMethodMap[data.id]
-        void dispatcher(method, data.args[1] /* RedIpcDataResponse */)
+        if (method) {
+          delete requestMethodMap[data.id]
+          void dispatcher(method, data.args[1] /* RedIpcDataResponse */)
+        }
+
         return
       }
     }

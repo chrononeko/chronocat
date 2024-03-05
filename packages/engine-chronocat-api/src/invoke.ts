@@ -18,8 +18,8 @@ export const invoke = async (
         channel,
         {
           sender: {
-            send: (...args: unknown[]) => {
-              resolve(args)
+            send: (..._args: unknown[]) => {
+              // resolve(args)
             },
           },
         },

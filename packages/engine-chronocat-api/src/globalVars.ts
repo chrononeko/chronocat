@@ -1,16 +1,10 @@
-import type {
-  Group,
-  Profile,
-  RedIpcData,
-  RedIpcEvent,
-  RedMessage,
-} from '@chronocat/red'
+import type { Group, Profile, RedIpcData, RedMessage } from '@chronocat/red'
 import { ChronoEventEmitter } from './emitter'
 
 export const requestMethodMap: Record<string, string> = {}
 export const requestCallbackMap: Record<
   string,
-  (this: RedIpcEvent, detail: RedIpcData) => void
+  (/* this: RedIpcEvent, */ detail: RedIpcData) => void
 > = {}
 
 export const groupMap: Record<string, Group> = {}
