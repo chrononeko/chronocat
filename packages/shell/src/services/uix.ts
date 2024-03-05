@@ -1,6 +1,8 @@
 const uinRegex = /\d+/
 
-const isUin = (uin: unknown) => typeof uin === 'string' && uinRegex.test(uin)
+const isUin = (uin: unknown) =>
+  (typeof uin === 'string' && uin !== '0' && uinRegex.test(uin)) ||
+  (typeof uin === 'number' && uin > 9999)
 
 const isUid = (uid: unknown) =>
   typeof uid === 'string' && uid.length === 24 && uid.startsWith('u_')
