@@ -3,7 +3,7 @@ export type RedIpcArgs = [RedIpcEvent, RedIpcData]
 export interface RedIpcEvent {
   type: 'request' | 'response'
   eventName: string
-  callbackId?: string | number
+  callbackId?: string
   promiseStatue?: 'full'
 }
 
