@@ -15,7 +15,7 @@ import { MsgType, SendType } from '@chronocat/red'
 import type { ChronocatContext } from '@chronocat/shell'
 import type { IpcManData } from 'ipcman'
 import { ipcMan } from 'ipcman'
-import { emittedBuddyReqList } from './globalVars'
+import { emittedBuddyReqList, requestMethodMap } from './globalVars'
 import {
   FriendRequestDispatchMessage,
   MessageCreatedDispatchMessage,
@@ -25,8 +25,6 @@ declare const __DEFINE_CHRONO_VERSION__: string
 
 export const name = 'engine-chronocat-event'
 export const version = __DEFINE_CHRONO_VERSION__
-
-const requestMethodMap: Record<string, string> = {}
 
 export const apply = async (ctx: ChronocatContext) => {
   const dispatcher = async (method: string, payload: unknown) => {
