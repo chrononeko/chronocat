@@ -14,8 +14,18 @@ export const assets = async ({
   try {
     path = await cctx.chronocat.api['chronocat.internal.assets.get'](raw)
   } catch (e) {
-    res.writeHead(404)
-    res.end('404 asset not found')
+    cctx.chronocat.l.error(
+      new Error('获取资源失败', {
+        cause: e,
+      }),
+      {
+        code: 2158,
+      },
+    )
+
+    res.writeHead(500)
+    res.end(`500 internal server error\n${e as string}`)
+
     return
   }
 
