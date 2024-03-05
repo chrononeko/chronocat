@@ -1,14 +1,13 @@
+import type { BuddyReq, RedMessage } from '@chronocat/red'
 import type {
   ChronocatContext,
   ChronocatLogCurrentConfig,
   ChronocatSatoriEventsConfig,
   Event,
-  RedMessage,
   SatoriDispatchMessage,
 } from '@chronocat/shell'
-import { PLATFORM } from '@chronocat/shell/lib/utils/consts'
 import type { O } from 'ts-toolbelt'
-import type { BuddyReq } from './ipcEntity'
+import { PLATFORM } from './consts'
 import { buildParser } from './parser'
 
 export class MessageCreatedDispatchMessage implements SatoriDispatchMessage {

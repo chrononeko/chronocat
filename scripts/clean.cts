@@ -4,6 +4,8 @@ import { resolve } from 'node:path'
 void Promise.all(
   [
     '../build',
+    '../packages/red/lib',
+    '../packages/red/tsconfig.tsbuildinfo',
     '../packages/shell/lib',
     '../packages/shell/generated',
     '../packages/shell/tsconfig.tsbuildinfo',

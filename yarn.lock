@@ -428,6 +428,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@chronocat/engine-chronocat-api@workspace:packages/engine-chronocat-api"
   dependencies:
+    "@chronocat/red": "workspace:packages/red"
     "@chronocat/shell": "workspace:packages/shell"
     "@satorijs/element": "npm:^2.5.1"
     concurrently: "npm:^8.2.1"
@@ -444,6 +445,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@chronocat/engine-chronocat-event@workspace:packages/engine-chronocat-event"
   dependencies:
+    "@chronocat/red": "workspace:packages/red"
     "@chronocat/shell": "workspace:packages/shell"
     "@satorijs/element": "npm:^2.5.1"
     concurrently: "npm:^8.2.1"
@@ -480,10 +482,23 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@chronocat/red@workspace:packages/red":
+  version: 0.0.0-use.local
+  resolution: "@chronocat/red@workspace:packages/red"
+  dependencies:
+    concurrently: "npm:^8.2.1"
+    tosource: "npm:^2.0.0-alpha.3"
+    ts-node: "npm:^10.9.1"
+    ts-toolbelt: "npm:^9.6.0"
+    typescript: "npm:~5.1.0"
+  languageName: unknown
+  linkType: soft
+
 "@chronocat/shell@workspace:packages/shell":
   version: 0.0.0-use.local
   resolution: "@chronocat/shell@workspace:packages/shell"
   dependencies:
+    "@chronocat/red": "workspace:packages/red"
     "@satorijs/element": "npm:^2.5.1"
     "@types/busboy": "npm:^1.5.0"
     "@types/js-yaml": "npm:^4.0.6"

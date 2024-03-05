@@ -1,3 +1,5 @@
+import type { RedMessage } from '@chronocat/red'
+import { ChatType, FaceType, MsgType, SendType } from '@chronocat/red'
 import type {
   Channel,
   ChronocatContext,
@@ -6,19 +8,11 @@ import type {
   Event,
   Guild,
   GuildMember,
-  RedMessage,
-} from '@chronocat/shell'
-import {
-  ChannelType,
-  ChatType,
-  FaceType,
-  MsgType,
-  PLATFORM,
-  SendType,
 } from '@chronocat/shell'
 import h from '@satorijs/element'
 import { Buffer } from 'node:buffer'
 import type { O } from 'ts-toolbelt'
+import { PLATFORM } from '../consts'
 import { parseMsgTypes } from './msgt'
 
 export const buildParser =
@@ -98,9 +92,9 @@ export const parseMessage = async (
   // 判断消息来源
   switch (ntMsgTypes.chatType) {
     case ChatType.Private:
-      event.channel.type = ChannelType.DIRECT
+      event.channel.type = 1 // ChannelType.DIRECT
       event.channel.id = `private:${event.user.id}`
-      event.channel.name = event.user.name
+      event.channel.name = event.user.name!
       break
 
     case ChatType.Group:
@@ -110,7 +104,7 @@ export const parseMessage = async (
 
       if (message.sendMemberName) event.member.nick = message.sendMemberName
 
-      event.channel.type = ChannelType.TEXT
+      event.channel.type = 0 // ChannelType.TEXT
       event.channel.id = event.guild.id = message.peerUid
       event.channel.name = event.guild.name = message.peerName
       event.guild.avatar = `https://p.qlogo.cn/gh/${message.peerUid}/${message.peerUid}/640`

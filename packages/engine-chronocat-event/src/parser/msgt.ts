@@ -1,5 +1,5 @@
-import type { ChatType, RedMessage, SendType } from '@chronocat/shell'
-import { MsgType } from '@chronocat/shell'
+import type { ChatType, RedMessage, SendType } from '@chronocat/red'
+import { MsgType } from '@chronocat/red'
 
 /**
  * QQNT 消息类型。

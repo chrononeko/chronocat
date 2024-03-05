@@ -1,5 +1,5 @@
+import type { QFace } from '@chronocat/red'
 import type { O } from 'ts-toolbelt'
-import type { QFace } from './red/types'
 import type { Event, Message, MessageCreatePayload } from './satori/types'
 import type { api } from './services/api'
 import type { getAuthData } from './services/authData'
@@ -43,7 +43,7 @@ export interface SatoriDispatchMessage {
   type: 'satori'
 
   toSatori: (
-    selfId: string,
+    ctx: ChronocatContext,
     config: O.Intersect<ChronocatLogCurrentConfig, ChronocatSatoriEventsConfig>,
   ) => Promise<Event[]>
 }
