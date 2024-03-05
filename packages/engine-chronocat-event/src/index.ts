@@ -3,6 +3,7 @@ import type {
   OnBuddyReqChange,
   OnMemberInfoChange,
   OnMemberListChange,
+  OnMsgInfoListUpdate,
   OnProfileChanged,
   OnRecvMsg,
   Peer,
@@ -19,6 +20,7 @@ import { emittedBuddyReqList, requestMethodMap } from './globalVars'
 import {
   FriendRequestDispatchMessage,
   MessageCreatedDispatchMessage,
+  MessageDeletedDispatchMessage,
 } from './messages'
 
 declare const __DEFINE_CHRONO_VERSION__: string
@@ -125,6 +127,34 @@ export const apply = async (ctx: ChronocatContext) => {
           ctx.chronocat.emit(new FriendRequestDispatchMessage(x, uin))
         })
 
+        return
+      }
+
+      case 'nodeIKernelMsgListener/onMsgInfoListUpdate': {
+        const { msgList } = payload as OnMsgInfoListUpdate
+
+        const filteredPayload = await Promise.all(
+          msgList
+            .filter(
+              (x) =>
+                x.msgType === MsgType.System &&
+                x.subMsgType === 4 &&
+                !x.isOnlineMsg &&
+                Number(x.recallTime) &&
+                x.elements[0]!.elementType === 8 &&
+                x.elements[0]!.grayTipElement?.subElementType === 1,
+            )
+            .filter(filterMessage)
+            .map(async (msg) => {
+              // await prepareRole(msg)
+              // msg = await uixCache.preprocessObject(msg)
+              // setMsgCache(msg)
+              // fillRole(msg)
+              return msg
+            }),
+        )
+        if (filteredPayload.length)
+          ctx.chronocat.emit(new MessageDeletedDispatchMessage(filteredPayload))
         return
       }
     }
