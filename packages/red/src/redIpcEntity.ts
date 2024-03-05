@@ -1,4 +1,10 @@
-import type { Group, Member, Profile, RedMessage } from './redEntity'
+import type {
+  ContactList,
+  Group,
+  Member,
+  Profile,
+  RedMessage,
+} from './redEntity'
 
 export interface Result {
   result: number
@@ -136,4 +142,9 @@ export interface BuddyReq {
 export interface OnBuddyReqChange {
   unreadNums: number
   buddyReqs: BuddyReq[]
+}
+
+export interface OnRecentContactListChangedVer2 {
+  changedRecentContactLists: ContactList[]
+  seq: number
 }

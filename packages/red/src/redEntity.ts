@@ -256,6 +256,7 @@ export interface RedMessage {
   avatarFlag: number
 
   senderUin: string
+  peerUin: string
 }
 
 export interface Element {
@@ -641,3 +642,123 @@ export interface ArkNeteaseMusicShare extends ArkMusicShareBase {}
 export interface ArkContact {}
 
 export interface ArkForum {}
+
+export interface Contact {
+  id: string
+  contactId: string // '7000000000000000000'
+  sortField: string // '1700000000'
+  chatType: ChatType
+  senderUid: string
+  senderUin: string
+  peerUid: string
+  peerUin: string
+  msgSeq: string
+  c2cClientMsgSeq: string // '0'
+  msgUid: string
+  msgRandom: string // '1770000000'
+  msgTime: string // '1700000000'
+  sendRemarkName: ''
+  sendMemberName: ''
+  sendNickName: string
+  peerName: string
+  remark: ''
+  memberName: unknown
+  avatarUrl: ''
+  avatarPath: string
+  abstractContent: AbstractContent[]
+  sendStatus: number // 2
+  topFlag: number // 0
+  topFlagTime: string // '0'
+  draftFlag: number // 0
+  draftTime: string // '0'
+  specialCareFlag: number // 0
+  sessionType: number // 2
+  shieldFlag: string // '1'
+  atType: number // 0
+  draft: unknown[]
+  hiddenFlag: number // 0
+  keepHiddenFlag: number // 2
+  isMsgDisturb: boolean
+  nestedSortedContactList: unknown[]
+  nestedChangedList: unknown[]
+  unreadCnt: string // '1'
+  unreadChatCnt: number
+  unreadFlag: string // '2'
+  isBeat: boolean
+  isOnlineMsg: boolean
+  msgId: string
+  notifiedType: number
+  isBlock: boolean
+  listOfSpecificEventTypeInfosInMsgBox: unknown
+  guildContactInfo: unknown
+  vasPersonalInfo: VasPersonalInfo
+  vasMsgInfo: VasMsgInfo
+  anonymousFlag: number
+  extBuffer: unknown
+  extAttrs: unknown[]
+  liteBusiness: unknown
+}
+
+export interface AbstractContent {
+  elementType: number
+  elementSubType: number
+  content: string // like summary
+  custom_content: string // ''
+  index: number
+  isSetProclamation: unknown
+  isSetEssence: unknown
+  operatorRole: unknown
+  operatorTinyId: unknown
+  fileName: unknown
+  tinyId: unknown
+  msgSeq: unknown
+  msgId: unknown
+  emojiId: unknown
+  emojiType: unknown
+  localGrayTipType: unknown
+  grayTiPElement: unknown
+  textGiftElement: unknown
+  calendarElement: unknown
+  channelStateElement: unknown
+  onlineFileMsgCnt: number
+}
+
+export interface VasPersonalInfo {
+  personalNamePlateInfo: VasPersonalNamePlateInfo
+  colorNickId: unknown
+  loveChatId: unknown
+  loverUin: unknown
+  vipPendantId: unknown
+  fontId: unknown
+  vaDataChangeRand: unknown
+}
+
+export interface VasPersonalNamePlateInfo {
+  isGray: unknown
+  vipType: unknown
+  vipLevel: unknown
+  namePlateId: unknown
+  carouselNamePlateIds: unknown[]
+  diyNamePlateItemId: unknown
+  diyNamePlateContentIds: unknown[]
+  extendNamePlateId: unknown
+  gameNamePlateId: unknown
+  vipStarFlag: unknown
+}
+
+export interface VasMsgInfo {
+  bubbleId: 0
+}
+
+export interface ContactList {
+  listType: number
+  sortedContactList: string[]
+  changedList: Contact[]
+  notificationType: 1
+  unreadCnt: string // '99999'
+  unreadFlag: string // '1'
+  cacheLocation: string // '1'
+  firstContactPos: string // '1'
+  atTheTop: true
+  atTheBottom: true
+}
