@@ -10,6 +10,7 @@ import type { ChronocatLogCurrentConfig } from './services/config/configEntity'
 import { emitter } from './services/emitter'
 import { l } from './services/logger'
 import { getSelfProfile, setSelfProfile } from './services/selfProfile'
+import { uix } from './services/uix'
 import { validate } from './services/validate'
 import type { ChronocatContext, Engine } from './types'
 import { PLATFORM } from './utils/consts'
@@ -39,6 +40,7 @@ export const chronocat = async () => {
       getSelfProfile,
       l,
       platform: PLATFORM,
+      uix,
       validate,
       whenReady: () => readyPromise,
     },

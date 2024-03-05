@@ -10,6 +10,7 @@ import type {
 } from './services/config/configEntity'
 import type { l } from './services/logger'
 import type { getSelfProfile } from './services/selfProfile'
+import type { uix } from './services/uix'
 import type { validate } from './services/validate'
 import type { PLATFORM } from './utils/consts'
 
@@ -23,6 +24,7 @@ export interface ChronocatContext {
     getSelfProfile: typeof getSelfProfile
     l: typeof l
     platform: typeof PLATFORM
+    uix: typeof uix
     validate: typeof validate
     whenReady: () => Promise<void>
   }
