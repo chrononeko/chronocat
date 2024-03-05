@@ -456,6 +456,30 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@chronocat/plugin-llqqntv0@workspace:packages/llqqntv0":
+  version: 0.0.0-use.local
+  resolution: "@chronocat/plugin-llqqntv0@workspace:packages/llqqntv0"
+  dependencies:
+    "@chronocat/shell": "workspace:packages/shell"
+    concurrently: "npm:^8.2.1"
+    tosource: "npm:^2.0.0-alpha.3"
+    ts-node: "npm:^10.9.1"
+    typescript: "npm:~5.1.0"
+  languageName: unknown
+  linkType: soft
+
+"@chronocat/plugin-llqqntv1@workspace:packages/llqqntv1":
+  version: 0.0.0-use.local
+  resolution: "@chronocat/plugin-llqqntv1@workspace:packages/llqqntv1"
+  dependencies:
+    "@chronocat/shell": "workspace:packages/shell"
+    concurrently: "npm:^8.2.1"
+    tosource: "npm:^2.0.0-alpha.3"
+    ts-node: "npm:^10.9.1"
+    typescript: "npm:~5.1.0"
+  languageName: unknown
+  linkType: soft
+
 "@chronocat/shell@workspace:packages/shell":
   version: 0.0.0-use.local
   resolution: "@chronocat/shell@workspace:packages/shell"

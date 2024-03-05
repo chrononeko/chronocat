@@ -1,0 +1,24 @@
+{
+  "manifest_version": 4,
+  "type": "extension",
+  "name": "Chronocat",
+  "slug": "chronocat",
+  "description": "小巧轻便的 Red 实现",
+  "version": "0.2.0",
+  "thumbnail": "./chronocat.png",
+  "authors": [
+    {
+      "name": "Team Chrononeko",
+      "link": "https://github.com/chrononeko"
+    }
+  ],
+  "repository": {
+    "repo": "chrononeko/LiteLoaderQQNT-Plugin-Chronocat",
+    "branch": "master"
+  },
+  "platform": ["win32", "linux", "darwin"],
+  "dependencies": [],
+  "injects": {
+    "main": "./src/main.js"
+  }
+}
