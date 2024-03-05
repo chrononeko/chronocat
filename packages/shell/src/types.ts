@@ -1,4 +1,5 @@
 import type { O } from 'ts-toolbelt'
+import type { QFace } from './red/types'
 import type { Event, Message, MessageCreatePayload } from './satori/types'
 import type { api } from './services/api'
 import type { getAuthData } from './services/authData'
@@ -63,4 +64,6 @@ export interface Methods {
   // Internal
 
   'chronocat.internal.assets.get': [[string], string]
+  'chronocat.internal.qface.get': [[string], QFace | undefined]
+  'chronocat.internal.qface.list': [[], QFace[] | undefined]
 }
