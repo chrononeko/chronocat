@@ -19,6 +19,7 @@ export * from './red/types'
 export * from './satori/types'
 export * from './services/config/configEntity'
 export * from './types'
+export * from './utils/consts'
 
 declare const __DEFINE_CHRONO_VERSION__: string
 
