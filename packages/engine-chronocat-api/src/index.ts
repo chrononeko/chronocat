@@ -2,12 +2,18 @@ import type {
   OnAddSendMsg,
   OnBuddyListChange,
   OnGroupListUpdate,
+  OnMemberInfoChange,
+  OnMemberListChange,
   OnMsgInfoListUpdate,
+  OnProfileChanged,
+  OnRecentContactListChangedVer2,
+  OnRecvMsg,
   OnRichMediaDownloadComplete,
   RedIpcArgs,
   RedIpcDataEvent,
   RedIpcDataRequest,
 } from '@chronocat/red'
+import { ChatType } from '@chronocat/red'
 import type { ChronocatContext } from '@chronocat/shell'
 import type { IpcManData } from 'ipcman'
 import { ipcMan } from 'ipcman'
@@ -30,6 +36,18 @@ export const version = __DEFINE_CHRONO_VERSION__
 export const apply = async (ctx: ChronocatContext) => {
   const dispatcher = async (method: string, payload: unknown) => {
     switch (method) {
+      case 'nodeIKernelMsgListener/onRecvMsg': {
+        const { msgList } = payload as OnRecvMsg
+
+        for (const msg of msgList) {
+          ctx.chronocat.uix.add(msg.senderUid, msg.senderUin)
+          if (msg.chatType === ChatType.Private)
+            ctx.chronocat.uix.add(msg.peerUid, msg.peerUin)
+        }
+
+        return
+      }
+
       case 'nodeIKernelMsgListener/onRichMediaDownloadComplete': {
         const { notifyInfo } = payload as OnRichMediaDownloadComplete
 
@@ -38,6 +56,45 @@ export const apply = async (ctx: ChronocatContext) => {
         if (notifyInfo.fileDownType === 1 && richMediaDownloadMap[downloadId]) {
           richMediaDownloadMap[downloadId]!(notifyInfo.filePath)
           delete richMediaDownloadMap[downloadId]
+        }
+
+        return
+      }
+
+      case 'nodeIKernelProfileListener/onProfileSimpleChanged':
+      case 'nodeIKernelProfileListener/onProfileDetailInfoChanged':
+      case 'nodeIKernelGroupListener/onSearchMemberChange':
+      case 'nodeIKernelGroupService/getNextMemberList': {
+        // const authData = await ctx.chronocat.getAuthData()
+
+        const { profiles, infos } = payload as OnProfileChanged
+
+        // if (profiles.get(authData.uid))
+        //   selfProfile.value = profiles.get(authData.uid)
+
+        const profile = profiles ?? infos
+        for (const [uid, { uin }] of profile) ctx.chronocat.uix.add(uid, uin)
+
+        return
+      }
+
+      case 'nodeIKernelGroupListener/onMemberInfoChange': {
+        const { members } = payload as OnMemberInfoChange
+
+        for (const [uid, { uin }] of members) {
+          ctx.chronocat.uix.add(uid, uin)
+        }
+        return
+      }
+
+      case 'nodeIKernelGroupListener/onMemberListChange': {
+        const { info } = payload as OnMemberListChange
+
+        const groupCode = info.sceneId.split('_')[0]
+        if (!groupCode) return
+
+        for (const [uid, { uin }] of info.infos) {
+          ctx.chronocat.uix.add(uid, uin)
         }
 
         return
@@ -60,10 +117,26 @@ export const apply = async (ctx: ChronocatContext) => {
 
         for (const category of data) {
           for (const buddy of category.buddyList) {
+            ctx.chronocat.uix.add(buddy.uid, buddy.uin)
+
             // buddy.category = category.categoryName
             friendMap[buddy.uin] = buddy
           }
         }
+
+        return
+      }
+
+      case 'nodeIKernelRecentContactListener/onRecentContactListChangedVer2': {
+        const { changedRecentContactLists } =
+          payload as OnRecentContactListChangedVer2
+
+        for (const changedRecentContactList of changedRecentContactLists)
+          for (const contact of changedRecentContactList.changedList) {
+            ctx.chronocat.uix.add(contact.senderUid, contact.senderUin)
+            if (contact.chatType === ChatType.Private)
+              ctx.chronocat.uix.add(contact.peerUid, contact.peerUin)
+          }
 
         return
       }

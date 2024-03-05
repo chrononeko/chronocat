@@ -1,10 +1,12 @@
 import type {
   Element,
+  OnBuddyListChange,
   OnBuddyReqChange,
   OnMemberInfoChange,
   OnMemberListChange,
   OnMsgInfoListUpdate,
   OnProfileChanged,
+  OnRecentContactListChangedVer2,
   OnRecvMsg,
   Peer,
   RedIpcArgs,
@@ -12,7 +14,7 @@ import type {
   RedIpcDataRequest,
   RedMessage,
 } from '@chronocat/red'
-import { MsgType, SendType } from '@chronocat/red'
+import { ChatType, MsgType, SendType } from '@chronocat/red'
 import type { ChronocatContext } from '@chronocat/shell'
 import type { IpcManData } from 'ipcman'
 import { ipcMan } from 'ipcman'
@@ -33,6 +35,12 @@ export const apply = async (ctx: ChronocatContext) => {
     switch (method) {
       case 'nodeIKernelMsgListener/onRecvMsg': {
         const { msgList } = payload as OnRecvMsg
+
+        for (const msg of msgList) {
+          ctx.chronocat.uix.add(msg.senderUid, msg.senderUin)
+          if (msg.chatType === ChatType.Private)
+            ctx.chronocat.uix.add(msg.peerUid, msg.peerUin)
+        }
 
         // const prepareRole = async (msg: Message) => {
         //   if (msg.chatType === ChatType.Group) {
@@ -62,6 +70,7 @@ export const apply = async (ctx: ChronocatContext) => {
 
         if (filteredPayload.length)
           ctx.chronocat.emit(new MessageCreatedDispatchMessage(filteredPayload))
+
         return
       }
 
@@ -105,6 +114,33 @@ export const apply = async (ctx: ChronocatContext) => {
 
           // if (!(groupCode in roleMap)) roleMap[groupCode] = {}
           // roleMap[groupCode][uin] = role
+        }
+
+        return
+      }
+
+      case 'nodeIKernelRecentContactListener/onRecentContactListChangedVer2': {
+        const { changedRecentContactLists } =
+          payload as OnRecentContactListChangedVer2
+
+        for (const changedRecentContactList of changedRecentContactLists)
+          for (const contact of changedRecentContactList.changedList) {
+            ctx.chronocat.uix.add(contact.senderUid, contact.senderUin)
+            if (contact.chatType === ChatType.Private)
+              ctx.chronocat.uix.add(contact.peerUid, contact.peerUin)
+          }
+
+        return
+      }
+
+      case 'onBuddyListChange':
+      case 'nodeIKernelBuddyListener/onBuddyListChange': {
+        const { data } = payload as OnBuddyListChange
+
+        for (const category of data) {
+          for (const buddy of category.buddyList) {
+            ctx.chronocat.uix.add(buddy.uid, buddy.uin)
+          }
         }
 
         return
