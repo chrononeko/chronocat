@@ -16,7 +16,7 @@ import type { ChronocatConfig, ChronocatCurrentConfig } from './configEntity'
 
 let config: ChronocatCurrentConfig | undefined = undefined
 
-const loadConfig = async () => {
+const task = (async () => {
   const configDir = join(baseDir, 'config')
   const configPath = join(configDir, 'chronocat.yml')
 
@@ -52,10 +52,10 @@ const loadConfig = async () => {
   const result = Object.assign({}, parsedConfig, parsedConfig.overrides?.[uin])
   if ('overrides' in result) delete result.overrides
 
-  return result
-}
+  config = result
+})()
 
 export const getConfig = async () => {
-  if (!config) config = await loadConfig()
-  return config
+  await task
+  return config!
 }
