@@ -1,4 +1,8 @@
 import type {
+  OnAddSendMsg,
+  OnBuddyListChange,
+  OnGroupListUpdate,
+  OnMsgInfoListUpdate,
   OnRichMediaDownloadComplete,
   RedIpcArgs,
   RedIpcDataEvent,
@@ -8,7 +12,15 @@ import type { ChronocatContext } from '@chronocat/shell'
 import type { IpcManData } from 'ipcman'
 import { ipcMan } from 'ipcman'
 import { buildAssetsGet } from './api/internal/assets/get'
-import { requestMethodMap, richMediaDownloadMap } from './globalVars'
+import {
+  chronoEventEmitter,
+  friendMap,
+  groupMap,
+  requestMethodMap,
+  richMediaDownloadMap,
+  sendCallbackMap,
+  sendQueue,
+} from './globalVars'
 
 declare const __DEFINE_CHRONO_VERSION__: string
 
@@ -27,6 +39,50 @@ export const apply = async (ctx: ChronocatContext) => {
           richMediaDownloadMap[downloadId]!(notifyInfo.filePath)
           delete richMediaDownloadMap[downloadId]
         }
+
+        return
+      }
+
+      case 'onGroupListUpdate':
+      case 'nodeIKernelGroupListener/onGroupListUpdate': {
+        const { groupList } = payload as OnGroupListUpdate
+
+        for (const group of groupList) groupMap[group.groupCode] = group
+
+        chronoEventEmitter.emitGroupListUpdate()
+
+        return
+      }
+
+      case 'onBuddyListChange':
+      case 'nodeIKernelBuddyListener/onBuddyListChange': {
+        const { data } = payload as OnBuddyListChange
+
+        for (const category of data) {
+          for (const buddy of category.buddyList) {
+            // buddy.category = category.categoryName
+            friendMap[buddy.uin] = buddy
+          }
+        }
+
+        return
+      }
+
+      case 'nodeIKernelMsgListener/onAddSendMsg': {
+        const { msgRecord } = payload as OnAddSendMsg
+        sendCallbackMap[msgRecord.msgId] = sendQueue.shift()!
+        return
+      }
+
+      case 'nodeIKernelMsgListener/onMsgInfoListUpdate': {
+        const { msgList } = payload as OnMsgInfoListUpdate
+        for (const msg of msgList) {
+          if (msg.sendStatus > 1) {
+            // sendCallbackMap[msg.msgId]?.(await uixCache.preprocessObject(msg))
+            delete sendCallbackMap[msg.msgId]
+          }
+        }
+
         return
       }
     }
