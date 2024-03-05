@@ -148,3 +148,9 @@ export interface OnRecentContactListChangedVer2 {
   changedRecentContactLists: ContactList[]
   seq: number
 }
+
+export interface MsgsIncludeSelf {
+  result: 0
+  errMsg: ''
+  msgList: RedMessage[]
+}
