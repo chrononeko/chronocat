@@ -135,8 +135,12 @@ export const apply = async (ctx: ChronocatContext) => {
   const handler = (data: IpcManData) => {
     switch (data.type) {
       case 'event': {
-        const d = data.args[1] as RedIpcDataEvent
-        void dispatcher(d.cmdName, d.payload)
+        if (!data.args[1] || !Array.isArray(data.args[1])) return
+        const d = data.args[1] as [RedIpcDataEvent]
+        if (!d.length) return
+        const e = d[0]
+        if (!e || !('cmdName' in e)) return
+        void dispatcher(e.cmdName, e.payload)
         return
       }
 
