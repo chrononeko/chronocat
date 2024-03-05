@@ -605,7 +605,7 @@ export interface RoleInfo {
 
 export interface Media {
   msgId: string
-  chatType: number
+  chatType: ChatType
   peerUid: string
   elementId: string
   thumbSize: number
