@@ -1,4 +1,5 @@
 import type {
+  MsgsIncludeSelf,
   OnAddSendMsg,
   OnBuddyListChange,
   OnGroupListUpdate,
@@ -122,6 +123,18 @@ export const apply = async (ctx: ChronocatContext) => {
             // buddy.category = category.categoryName
             friendMap[buddy.uin] = buddy
           }
+        }
+
+        return
+      }
+
+      case 'nodeIKernelMsgService/getMsgsIncludeSelf': {
+        const { msgList } = payload as MsgsIncludeSelf
+
+        for (const msg of msgList) {
+          ctx.chronocat.uix.add(msg.senderUid, msg.senderUin)
+          if (msg.chatType === ChatType.Private)
+            ctx.chronocat.uix.add(msg.peerUid, msg.peerUin)
         }
 
         return

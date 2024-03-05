@@ -1,5 +1,6 @@
 import type {
   Element,
+  MsgsIncludeSelf,
   OnBuddyListChange,
   OnBuddyReqChange,
   OnMemberInfoChange,
@@ -129,6 +130,18 @@ export const apply = async (ctx: ChronocatContext) => {
             if (contact.chatType === ChatType.Private)
               ctx.chronocat.uix.add(contact.peerUid, contact.peerUin)
           }
+
+        return
+      }
+
+      case 'nodeIKernelMsgService/getMsgsIncludeSelf': {
+        const { msgList } = payload as MsgsIncludeSelf
+
+        for (const msg of msgList) {
+          ctx.chronocat.uix.add(msg.senderUid, msg.senderUin)
+          if (msg.chatType === ChatType.Private)
+            ctx.chronocat.uix.add(msg.peerUid, msg.peerUin)
+        }
 
         return
       }
