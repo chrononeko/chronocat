@@ -19,7 +19,7 @@ export const initSatoriWebHook = async (
     void (async () => {
       const uin = (await cctx.chronocat.getAuthData()).uin
 
-      await message.toSatori(uin, config).then((events) =>
+      await message.toSatori(cctx, config).then((events) =>
         events.forEach((data) => {
           const body = {
             ...data,

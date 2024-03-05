@@ -290,7 +290,7 @@ export const initSatoriServer = async (
 
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
     authorizedClients.forEach(async (ws) => {
-      await message.toSatori(uin, config).then((events) =>
+      await message.toSatori(cctx, config).then((events) =>
         events.forEach((body) =>
           ws.send(
             JSON.stringify({

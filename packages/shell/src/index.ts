@@ -112,8 +112,6 @@ export const chronocat = async () => {
     return
   }
 
-  const authData = await getAuthData()
-
   const log: ChronocatLogCurrentConfig = config.log!
   // 预处理 self_url
   if (!log.self_url || log.self_url === 'https://chronocat.vercel.app')
@@ -124,7 +122,7 @@ export const chronocat = async () => {
   // Log satori message
   emitter.register(async (m) => {
     if (m.type !== 'satori') return
-    ;(await m.toSatori(authData.uin, log)).forEach((e) => l.parse(e))
+    ;(await m.toSatori(ctx, log)).forEach((e) => l.parse(e))
   })
 
   emitter.register((await initServers(ctx)).emit)
