@@ -14,6 +14,8 @@ import { uix } from './services/uix'
 import { validate } from './services/validate'
 import type { ChronocatContext, Engine } from './types'
 import { PLATFORM } from './utils/consts'
+import { exists } from './utils/fs'
+import { sleep, timeout } from './utils/time'
 
 export * from './satori/types'
 export * from './services/config/configEntity'
@@ -34,11 +36,14 @@ export const chronocat = async () => {
       api,
       baseDir,
       emit: emitter.emit,
+      exists,
       getAuthData,
       getConfig,
       getSelfProfile,
       l,
       platform: PLATFORM,
+      sleep,
+      timeout,
       uix,
       validate,
       whenReady: () => readyPromise,

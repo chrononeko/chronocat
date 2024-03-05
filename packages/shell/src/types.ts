@@ -14,17 +14,22 @@ import type { getSelfProfile } from './services/selfProfile'
 import type { uix } from './services/uix'
 import type { validate } from './services/validate'
 import type { PLATFORM } from './utils/consts'
+import type { exists } from './utils/fs'
+import type { sleep, timeout } from './utils/time'
 
 export interface ChronocatContext {
   chronocat: {
     api: typeof api
     baseDir: typeof baseDir
     emit: (message: DispatchMessage) => void
+    exists: typeof exists
     getAuthData: typeof getAuthData
     getConfig: typeof getConfig
     getSelfProfile: typeof getSelfProfile
     l: typeof l
     platform: typeof PLATFORM
+    sleep: typeof sleep
+    timeout: typeof timeout
     uix: typeof uix
     validate: typeof validate
     whenReady: () => Promise<void>
