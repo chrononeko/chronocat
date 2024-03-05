@@ -9,7 +9,12 @@ export type ApiImpl<M extends keyof Methods> = ((
 export type Api = {
   [M in keyof Methods]: ApiImpl<M>
 } & {
-  register: (engine: string) => void
+  register: (
+    engine: string,
+  ) => <M extends keyof Methods>(
+    method: M,
+    impl: (...args: Methods[M][0]) => Promise<Methods[M][1]>,
+  ) => void
 }
 
 export const api = {} as Api
