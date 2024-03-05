@@ -1,9 +1,5 @@
 import { initSatoriServer } from './satori/server'
 import { initSatoriWebHook } from './satori/webhook'
-import { getAuthData } from './services/authData'
-import { getConfig } from './services/config'
-import type { ChronocatLogCurrentConfig } from './services/config/configEntity'
-import { l } from './services/logger'
 import type {
   ChronocatContext,
   DispatchMessage,
@@ -11,25 +7,13 @@ import type {
 } from './types'
 
 export const initServers = async (ctx: ChronocatContext) => {
+  const l = ctx.chronocat.l
+
   l.debug('初始化服务')
 
-  const config = await getConfig()
-  const authData = await getAuthData()
+  const config = await ctx.chronocat.getConfig()
 
-  const log: ChronocatLogCurrentConfig = config.log!
-  // 预处理 self_url
-  if (!log.self_url || log.self_url === 'https://chronocat.vercel.app')
-    log.self_url = `http://127.0.0.1:5500`
-  if (log.self_url.endsWith('/'))
-    log.self_url = log.self_url.slice(0, log.self_url.length - 1)
-
-  const dispatchers: ((message: SatoriDispatchMessage) => unknown)[] = [
-    // Logger
-    (message) =>
-      message
-        .toSatori(authData.uin, log)
-        .then((es) => es.forEach((e) => l.parse(e))),
-  ]
+  const dispatchers: ((message: SatoriDispatchMessage) => unknown)[] = []
 
   // 使用独立循环可避免已启动的服务继续运行
   for (const server of config.servers!)

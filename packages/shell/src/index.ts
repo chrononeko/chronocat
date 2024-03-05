@@ -6,6 +6,7 @@ import { api } from './services/api'
 import { getAuthData } from './services/authData'
 import { baseDir } from './services/baseDir'
 import { getConfig } from './services/config'
+import type { ChronocatLogCurrentConfig } from './services/config/configEntity'
 import { emitter } from './services/emitter'
 import { l } from './services/logger'
 import { getSelfProfile, setSelfProfile } from './services/selfProfile'
@@ -105,6 +106,21 @@ export const chronocat = async () => {
     l.info('根据配置文件要求，退出 Chronocat')
     return
   }
+
+  const authData = await getAuthData()
+
+  const log: ChronocatLogCurrentConfig = config.log!
+  // 预处理 self_url
+  if (!log.self_url || log.self_url === 'https://chronocat.vercel.app')
+    log.self_url = `http://127.0.0.1:5500`
+  if (log.self_url.endsWith('/'))
+    log.self_url = log.self_url.slice(0, log.self_url.length - 1)
+
+  // Log satori message
+  emitter.register(async (m) => {
+    if (m.type !== 'satori') return
+    ;(await m.toSatori(authData.uin, log)).forEach((e) => l.parse(e))
+  })
 
   emitter.register((await initServers(ctx)).emit)
 
