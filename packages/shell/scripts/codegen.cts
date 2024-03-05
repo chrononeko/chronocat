@@ -60,7 +60,10 @@ void (async () => {
 
   await writeFile(
     resolve(__dirname, '../generated/schemas.json'),
-    JSON.stringify(schemas, null, 2),
+    JSON.stringify(schemas, null, 2).replaceAll(
+      '"anyOf"',
+      '"type":"object","discriminator":{"propertyName":"type"},"oneOf"',
+    ),
   )
 
   console.log('Generating schemas for openapi...')
