@@ -31,7 +31,11 @@ const buildNotimpl = (name: string) => {
       throw: true,
     })
 
-  fn[notimplSym] = true
+  ;(
+    fn as unknown as {
+      [notimplSym]: boolean
+    }
+  )[notimplSym] = true
 }
 
 const handler: ProxyHandler<Api> = {
