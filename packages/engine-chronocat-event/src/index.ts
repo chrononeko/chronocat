@@ -25,6 +25,7 @@ import {
   MessageCreatedDispatchMessage,
   MessageDeletedDispatchMessage,
 } from './messages'
+import { buildParser } from './parser'
 
 declare const __DEFINE_CHRONO_VERSION__: string
 
@@ -240,6 +241,11 @@ export const apply = async (ctx: ChronocatContext) => {
     handler,
     getId: (p) => p?.[0]?.callbackId,
   })
+
+  const register = ctx.chronocat.api.register(name)
+  register('chronocat.internal.red.message.parse', (m, c) =>
+    buildParser(ctx, c)(m),
+  )
 
   await ctx.chronocat.whenReady()
 }
