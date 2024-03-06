@@ -76,6 +76,10 @@ export interface Methods {
     [MessageCreatePayload],
     Message[],
   ]
+  'chronocat.internal.message.create.forward.fake': [
+    [MessageCreatePayload],
+    Message[],
+  ]
 
   'chronocat.internal.assets.get': [[string], string]
 

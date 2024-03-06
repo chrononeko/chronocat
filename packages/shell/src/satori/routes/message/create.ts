@@ -1,4 +1,5 @@
-import type { MessageCreatePayload } from '../../types'
+import type { MessageCreatePayload as MessageCreatePayloadRich } from '../../types'
+import type { MessageCreatePayload as MessageCreatePayloadEntity } from '../../types/satoriPayloadEntity'
 import type { RouteContext } from '../types'
 
 export const messageCreate = async (rctx: RouteContext) => {
@@ -35,7 +36,7 @@ async function messageCreateUsingJson({
   res,
   json,
 }: RouteContext) {
-  const payload = (await json()) as MessageCreatePayload
+  const payload = (await json()) as MessageCreatePayloadEntity
 
   const validateResult = await cctx.chronocat.validate('MessageCreatePayload')(
     payload,
@@ -53,8 +54,58 @@ async function messageCreateUsingJson({
     return
   }
 
+  const payloadRich: MessageCreatePayloadRich = {
+    channel_id: payload.channel_id,
+    content: cctx.chronocat.h.normalize(payload.content),
+  }
+
+  let method:
+    | 'message.create'
+    | 'chronocat.internal.message.create.forward'
+    | 'chronocat.internal.message.create.forward.fake' = 'message.create'
+
+  const forwards = cctx.chronocat.h
+    .select(payloadRich.content, 'message')
+    .filter((x) => x.attrs['forward'])
+
+  if (forwards.length) {
+    if (forwards.length > 1) {
+      const err = `尚未支持单次请求发送多条「逐条转发」消息。来自 ${req.socket.remoteAddress}`
+
+      cctx.chronocat.l.error(err, {
+        code: 501,
+      })
+
+      res.writeHead(501)
+      res.end(`501 not implemented\n${err}`)
+      return
+    }
+
+    const [forward] = forwards
+
+    if (forward!.attrs['id']) {
+      const err = `尚未支持使用 ID 发送「逐条转发」消息。来自 ${req.socket.remoteAddress}`
+
+      cctx.chronocat.l.error(err, {
+        code: 501,
+      })
+
+      res.writeHead(501)
+      res.end(`501 not implemented\n${err}`)
+      return
+    }
+
+    if (!forward!.children)
+      // 空转发消息
+      return
+
+    if (forward!.children.every((x) => x.attrs['id']))
+      method = 'chronocat.internal.message.create.forward'
+    else method = 'chronocat.internal.message.create.forward.fake'
+  }
+
   try {
-    return await cctx.chronocat.api['message.create'](payload)
+    return await cctx.chronocat.api[method](payloadRich)
   } catch (e) {
     cctx.chronocat.l.error(
       new Error(`${path} 失败，来自 ${req.socket.remoteAddress}`, {
