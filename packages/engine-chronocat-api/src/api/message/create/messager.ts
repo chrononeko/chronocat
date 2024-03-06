@@ -48,10 +48,9 @@ export class Messager {
     if (flush) await this.flush()
   }
 
-  async send(content: h.Fragment) {
+  async send(content: h[]) {
     await this.prepare()
-    const elements = this.ctx.chronocat.h.normalize(content)
-    await this.render(elements)
+    await this.render(content)
     await this.flush()
 
     if (this.errors.length) throw this.errors
