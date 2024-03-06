@@ -29,6 +29,7 @@ import {
   sendCallbackMap,
   sendQueue,
 } from './globalVars'
+import { buildMessageCreate } from './api/message/create'
 
 declare const __DEFINE_CHRONO_VERSION__: string
 
@@ -214,6 +215,8 @@ export const apply = async (ctx: ChronocatContext) => {
 
   const register = ctx.chronocat.api.register(name)
   register('chronocat.internal.assets.get', buildAssetsGet(ctx))
+  register('message.create', buildMessageCreate(ctx))
+  register('chronocat.internal.message.create.forward', buildMessageCreate(ctx))
 
   await ctx.chronocat.whenReady()
 }
