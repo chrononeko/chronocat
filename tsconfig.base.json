@@ -11,5 +11,6 @@
     "esModuleInterop": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
+    "exactOptionalPropertyTypes": false,
   }
 }
