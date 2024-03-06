@@ -72,6 +72,8 @@ export interface Methods {
 
   // Internal
 
+  'chronocat.internal.notimpl': [[], never]
+
   'chronocat.internal.message.create.forward': [
     [MessageCreatePayload],
     Message[],

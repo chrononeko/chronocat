@@ -1,14 +1,21 @@
 import type { Methods } from '../types'
+import { l } from './logger'
+
+const notimplSym = Symbol('chronocat.internal.notimpl')
 
 export type ApiImpl<M extends keyof Methods> = ((
   ...args: Methods[M][0]
 ) => Promise<Methods[M][1]>) & {
+  [notimplSym]: boolean
+
   engine: string
 }
 
 export type Api = {
   [M in keyof Methods]: ApiImpl<M>
 } & {
+  notimpl: typeof notimplSym
+
   register: (
     engine: string,
   ) => <M extends keyof Methods>(
@@ -17,7 +24,26 @@ export type Api = {
   ) => void
 }
 
-export const api = {} as Api
+const buildNotimpl = (name: string) => {
+  const fn = () =>
+    l.error(new Error(`没有引擎提供 ${name}。可能没有加载所需的引擎？`), {
+      code: 2159,
+      throw: true,
+    })
+
+  fn[notimplSym] = true
+}
+
+const handler: ProxyHandler<Api> = {
+  get: function (target, name) {
+    return typeof name === 'symbol' ||
+      Object.prototype.hasOwnProperty.call(target, name)
+      ? target[name as keyof Methods]
+      : buildNotimpl(name)
+  },
+}
+
+export const api = new Proxy({} as Api, handler)
 
 api.register =
   (engine: string) =>
