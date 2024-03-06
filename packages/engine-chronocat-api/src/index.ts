@@ -158,6 +158,7 @@ export const apply = async (ctx: ChronocatContext) => {
 
       case 'nodeIKernelMsgListener/onAddSendMsg': {
         const { msgRecord } = payload as OnAddSendMsg
+        // msgRecord.sendStatus === 1, sending
         sendCallbackMap[msgRecord.msgId] = sendQueue.shift()!
         return
       }
@@ -166,7 +167,7 @@ export const apply = async (ctx: ChronocatContext) => {
         const { msgList } = payload as OnMsgInfoListUpdate
         for (const msg of msgList) {
           if (msg.sendStatus > 1) {
-            // sendCallbackMap[msg.msgId]?.(await uixCache.preprocessObject(msg))
+            sendCallbackMap[msg.msgId]?.(msg)
             delete sendCallbackMap[msg.msgId]
           }
         }
