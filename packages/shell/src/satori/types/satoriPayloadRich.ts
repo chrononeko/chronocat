@@ -32,5 +32,5 @@ export interface WebSocketIncomingVerifyMessage {
 
 export interface MessageCreatePayload {
   channel_id: string
-  content: h.Fragment
+  content: h[]
 }
