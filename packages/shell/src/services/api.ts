@@ -36,15 +36,16 @@ const buildNotimpl = (name: string) => {
       [notimplSym]: boolean
     }
   )[notimplSym] = true
+
+  return fn
 }
 
 const handler: ProxyHandler<Api> = {
-  get: function (target, name) {
-    return typeof name === 'symbol' ||
-      Object.prototype.hasOwnProperty.call(target, name)
+  get: (target, name) =>
+    typeof name === 'symbol' ||
+    Object.prototype.hasOwnProperty.call(target, name)
       ? target[name as keyof Methods]
-      : buildNotimpl(name)
-  },
+      : buildNotimpl(name),
 }
 
 export const api = new Proxy({} as Api, handler)
