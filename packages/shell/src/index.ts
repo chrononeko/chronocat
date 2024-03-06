@@ -24,6 +24,13 @@ export * from './types'
 
 declare const __DEFINE_CHRONO_VERSION__: string
 
+interface EngineInfo {
+  name: string
+  filename: string
+  type: string
+  path: string
+}
+
 export const chronocat = async () => {
   l.info(`Chronocat v${__DEFINE_CHRONO_VERSION__}`)
 
@@ -59,22 +66,35 @@ export const chronocat = async () => {
     recursive: true,
   })
 
-  const engines = readdirSync(enginesPath).map((filename) => {
-    let name = filename
-    let type = 'js'
-    if (name.endsWith('.jsc')) {
-      name = name.slice(0, name.length - 4)
-      type = 'jsc'
-    }
-    if (name.endsWith('.js')) name = name.slice(0, name.length - 3)
+  const engines = readdirSync(enginesPath)
+    .map((filename) => {
+      let valid = false
+      let name = filename
+      let type = 'js'
 
-    return {
-      name,
-      filename,
-      type,
-      path: join(enginesPath, filename),
-    }
-  })
+      if (name.endsWith('.jsc')) {
+        valid = true
+        name = name.slice(0, name.length - 4)
+        type = 'jsc'
+      }
+
+      if (name.endsWith('.js')) {
+        valid = true
+        name = name.slice(0, name.length - 3)
+      }
+
+      if (!valid) return undefined
+
+      return {
+        name,
+        filename,
+        type,
+        path: join(enginesPath, filename),
+      }
+    })
+    .filter(
+      Boolean as unknown as (x: EngineInfo | undefined) => x is EngineInfo,
+    )
 
   if (!engines.length)
     l.warn('没有找到任何引擎。Chronocat 服务仍将启动。', { code: 2156 })
