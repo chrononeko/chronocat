@@ -1,5 +1,5 @@
 import type { RedMessage } from '@chronocat/red'
-import { ChatType, FaceType, MsgType, SendType } from '@chronocat/red'
+import { AtType, ChatType, FaceType, MsgType, SendType } from '@chronocat/red'
 import type {
   Channel,
   ChronocatContext,
@@ -373,16 +373,21 @@ async function parseElements(
       case 1: {
         // 文本消息
         switch (m.textElement!.atType) {
-          case 0: {
+          case AtType.None: {
             // 纯文本消息
             elements.push(ctx.chronocat.h.text(m.textElement?.content))
             break
           }
 
-          case 2: {
+          case AtType.Normal: {
             // at 消息
-            const id = m.textElement!.atNtUin
+            ctx.chronocat.uix.add(m.textElement!.atNtUid, m.textElement!.atUid)
+
+            let id: string | undefined = m.textElement!.atUid
+            id ||= ctx.chronocat.uix.getUin(m.textElement!.atNtUid)
+
             const name = m.textElement!.content.slice(1)
+
             if (!id) {
               l.warn(
                 `satori: parser: at 目标 ${name} 不带有 id，将跳过该元素。`,
@@ -390,12 +395,14 @@ async function parseElements(
               )
               break
             }
+
             elements.push(
               ctx.chronocat.h('at', {
                 id,
                 name,
               }),
             )
+
             break
           }
         }

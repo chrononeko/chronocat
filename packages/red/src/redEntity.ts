@@ -242,7 +242,7 @@ export interface RedMessage {
   roleId: string
   timeStamp: string
   isImportMsg: boolean
-  atType: number
+  atType: AtType
   roleType: number
   fromChannelRoleInfo: RoleInfo
   fromGuildRoleInfo: RoleInfo
@@ -584,17 +584,33 @@ export interface ThumbPath {}
 
 export interface TextElement {
   content: string
-  atType: number
+  atType: AtType
+
+  /**
+   * Uin
+   */
   atUid: string
+
   atTinyId: string
+
+  /**
+   * Uid
+   */
   atNtUid: string
-  atNtUin: string
+  // atNtUin: string
+
   subElementType: number
   atChannelId: string
   atRoleId: string
   atRoleColor: number
   atRoleName: string
   needNotify: number
+}
+
+export enum AtType {
+  None = 0,
+  All = 1,
+  Normal = 2,
 }
 
 export interface RoleInfo {

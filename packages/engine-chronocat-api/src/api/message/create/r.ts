@@ -1,5 +1,5 @@
 import type { Element, Peer, QFace } from '@chronocat/red'
-import { FaceType } from '@chronocat/red'
+import { AtType, FaceType } from '@chronocat/red'
 import type { ChronocatContext } from '@chronocat/shell'
 import type { O } from 'ts-toolbelt'
 import type { CommonSaveResult } from '../../../common/types'
@@ -49,7 +49,7 @@ const b = () => {
         atUid: '',
         atNtUid: '',
         atTinyId: '',
-        atType: 0,
+        atType: AtType.None,
       },
     }),
 
@@ -62,13 +62,13 @@ const b = () => {
       elementType: 1,
       textElement: {
         content: `@${name}`,
-        atUid: id === 'all' ? 'all' : '',
+        atUid: id === 'all' ? 'all' : id,
         // atNtUin: (id === 'all' ? undefined : id) as string,
         atNtUid: (id === 'all'
           ? 'all'
           : ctx.chronocat.uix.getUid(id)) as string,
         atTinyId: '',
-        atType: id === 'all' ? 1 : 2,
+        atType: id === 'all' ? AtType.All : AtType.Normal,
       },
     }),
 
@@ -82,7 +82,7 @@ const b = () => {
               atUid: '',
               atNtUid: '',
               atTinyId: '',
-              atType: 0,
+              atType: AtType.None,
             },
           }
         : {
