@@ -9,9 +9,14 @@ const processRelease = (s: string) =>
 
 const componentMap = {
   core: 'https://github.com/chrononeko/chronocat/tree/master/packages/core',
+  shell: 'https://github.com/chrononeko/chronocat/tree/master/packages/shell',
   docs: 'https://github.com/chrononeko/chronocat/tree/master/packages/docs',
   iife: 'https://github.com/chrononeko/chronocat/tree/master/packages/iife',
   llqqnt: 'https://github.com/chrononeko/chronocat/tree/master/packages/llqqnt',
+  llqqntv0:
+    'https://github.com/chrononeko/chronocat/tree/master/packages/llqqntv0',
+  llqqntv1:
+    'https://github.com/chrononeko/chronocat/tree/master/packages/llqqntv1',
   qqntim: 'https://github.com/chrononeko/chronocat/tree/master/packages/qqntim',
   red: 'https://github.com/chrononeko/chronocat/tree/master/packages/red',
   'koishi-plugin-adapter':
@@ -22,6 +27,10 @@ const componentMap = {
   miraigo: 'https://github.com/chrononeko/miraigo/tree/master',
   docker: 'https://github.com/chrononeko/docker/tree/master',
   cli: 'https://github.com/chrononeko/cli/tree/master',
+  'engine-chronocat-api':
+    'https://github.com/chrononeko/chronocat/tree/master/packages/engine-chronocat-api',
+  'engine-chronocat-event':
+    'https://github.com/chrononeko/chronocat/tree/master/packages/engine-chronocat-event',
 } as const
 
 type Component = keyof typeof componentMap
