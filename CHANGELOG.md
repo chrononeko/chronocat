@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## v0.2.0 (2024-03-06)
+
+这是一个主要（Major）版本，并包含破坏性更改。请阅读 Team Chrononeko 的最新博客以了解详情。Chronocat v0.1.x 将会继续维护。
+
+### shell
+
+- 重构 core 到 Chronocat Shell
+
+### engine-chronocat-api
+
+- 首个版本
+
+### engine-chronocat-event
+
+- 首个版本
+
 ## v0.1.1 (2024-02-25)
 
 ### core
