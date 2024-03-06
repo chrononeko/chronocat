@@ -10,6 +10,7 @@ import type { getConfig } from './services/config'
 import type {
   ChronocatLogCurrentConfig,
   ChronocatSatoriEventsConfig,
+  ChronocatSatoriServerConfig,
 } from './services/config/configEntity'
 import type { l } from './services/logger'
 import type { getSelfProfile } from './services/selfProfile'
@@ -68,18 +69,21 @@ export interface SelfProfileDispatchMessage {
 export interface Methods {
   // Satori
 
-  'message.create': [[MessageCreatePayload], Message[]]
+  'message.create': [
+    [MessageCreatePayload, ChronocatSatoriServerConfig],
+    Message[],
+  ]
 
   // Internal
 
   'chronocat.internal.notimpl': [[], never]
 
   'chronocat.internal.message.create.forward': [
-    [MessageCreatePayload],
+    [MessageCreatePayload, ChronocatSatoriServerConfig],
     Message[],
   ]
   'chronocat.internal.message.create.forward.fake': [
-    [MessageCreatePayload],
+    [MessageCreatePayload, ChronocatSatoriServerConfig],
     Message[],
   ]
 

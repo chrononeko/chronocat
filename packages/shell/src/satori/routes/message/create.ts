@@ -31,6 +31,7 @@ async function messageCreateUsingForm({ cctx, path, req, res }: RouteContext) {
 
 async function messageCreateUsingJson({
   cctx,
+  config,
   path,
   req,
   res,
@@ -105,7 +106,7 @@ async function messageCreateUsingJson({
   }
 
   try {
-    return await cctx.chronocat.api[method](payloadRich)
+    return await cctx.chronocat.api[method](payloadRich, config)
   } catch (e) {
     cctx.chronocat.l.error(
       new Error(`${path} 失败，来自 ${req.socket.remoteAddress}`, {
