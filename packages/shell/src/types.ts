@@ -1,4 +1,4 @@
-import type { QFace } from '@chronocat/red'
+import type { QFace, RedMessage } from '@chronocat/red'
 import type h from '@satorijs/element'
 import type styles from 'ansi-styles'
 import type { O } from 'ts-toolbelt'
@@ -85,6 +85,11 @@ export interface Methods {
   'chronocat.internal.message.create.forward.fake': [
     [MessageCreatePayload, ChronocatSatoriServerConfig],
     Message[],
+  ]
+
+  'chronocat.internal.red.message.parse': [
+    [RedMessage, ChronocatSatoriServerConfig],
+    Event[] | undefined,
   ]
 
   'chronocat.internal.assets.get': [[string], string]
