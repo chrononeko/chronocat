@@ -1,4 +1,6 @@
 import type { QFace } from '@chronocat/red'
+import type h from '@satorijs/element'
+import type styles from 'ansi-styles'
 import type { O } from 'ts-toolbelt'
 import type { Event, Message, MessageCreatePayload } from './satori/types'
 import type { api } from './services/api'
@@ -26,9 +28,11 @@ export interface ChronocatContext {
     getAuthData: typeof getAuthData
     getConfig: typeof getConfig
     getSelfProfile: typeof getSelfProfile
+    h: typeof h
     l: typeof l
     platform: typeof PLATFORM
     sleep: typeof sleep
+    styles: typeof styles
     timeout: typeof timeout
     uix: typeof uix
     validate: typeof validate
@@ -68,7 +72,13 @@ export interface Methods {
 
   // Internal
 
+  'chronocat.internal.message.create.forward': [
+    [MessageCreatePayload],
+    Message[],
+  ]
+
   'chronocat.internal.assets.get': [[string], string]
+
   'chronocat.internal.qface.get': [[string], QFace | undefined]
   'chronocat.internal.qface.list': [[], QFace[] | undefined]
 }

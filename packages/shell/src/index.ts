@@ -1,3 +1,4 @@
+import h from '@satorijs/element'
 import styles from 'ansi-styles'
 import { mkdirSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
@@ -40,9 +41,11 @@ export const chronocat = async () => {
       getAuthData,
       getConfig,
       getSelfProfile,
+      h,
       l,
       platform: PLATFORM,
       sleep,
+      styles,
       timeout,
       uix,
       validate,
