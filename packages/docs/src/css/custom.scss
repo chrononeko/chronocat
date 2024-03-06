@@ -1,0 +1,157 @@
+:root {
+  --ifm-font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Microsoft YaHei UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans',
+    'Noto Sans', 'Helvetica Neue', Helvetica, sans-serif;
+
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  --ifm-color-primary: var(--ifm-color-primary-normal);
+  --ifm-color-primary-dark: var(--ifm-color-primary-dark-normal);
+  --ifm-color-primary-darker: var(--ifm-color-primary-darker-normal);
+  --ifm-color-primary-darkest: var(--ifm-color-primary-darkest-normal);
+  --ifm-color-primary-light: var(--ifm-color-primary-light-normal);
+  --ifm-color-primary-lighter: var(--ifm-color-primary-lighter-normal);
+  --ifm-color-primary-lightest: var(--ifm-color-primary-lightest-normal);
+
+  --ifm-color-primary-normal: #0077b3;
+  --ifm-color-primary-dark-normal: #006ba1;
+  --ifm-color-primary-darker-normal: #006598;
+  --ifm-color-primary-darkest-normal: #00537d;
+  --ifm-color-primary-light-normal: #0083c5;
+  --ifm-color-primary-lighter-normal: #0089ce;
+  --ifm-color-primary-lightest-normal: #009be9;
+
+  --ifm-color-primary-develop: #2e8555;
+  --ifm-color-primary-dark-develop: #29784c;
+  --ifm-color-primary-darker-develop: #277148;
+  --ifm-color-primary-darkest-develop: #205d3b;
+  --ifm-color-primary-light-develop: #33925d;
+  --ifm-color-primary-lighter-develop: #359962;
+  --ifm-color-primary-lightest-develop: #3cad6e;
+
+  --ifm-color-primary-contribute: #ff0000;
+  --ifm-color-primary-dark-contribute: #e60000;
+  --ifm-color-primary-darker-contribute: #d90000;
+  --ifm-color-primary-darkest-contribute: #b30000;
+  --ifm-color-primary-light-contribute: #ff1a1a;
+  --ifm-color-primary-lighter-contribute: #ff2626;
+  --ifm-color-primary-lightest-contribute: #ff4d4d;
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: var(--ifm-color-primary-normal);
+  --ifm-color-primary-dark: var(--ifm-color-primary-dark-normal);
+  --ifm-color-primary-darker: var(--ifm-color-primary-darker-normal);
+  --ifm-color-primary-darkest: var(--ifm-color-primary-darkest-normal);
+  --ifm-color-primary-light: var(--ifm-color-primary-light-normal);
+  --ifm-color-primary-lighter: var(--ifm-color-primary-lighter-normal);
+  --ifm-color-primary-lightest: var(--ifm-color-primary-lightest-normal);
+
+  --ifm-color-primary-normal: #47b4eb;
+  --ifm-color-primary-dark-normal: #2ba9e8;
+  --ifm-color-primary-darker-normal: #1ea3e6;
+  --ifm-color-primary-darkest-normal: #1587c1;
+  --ifm-color-primary-light-normal: #63bfee;
+  --ifm-color-primary-lighter-normal: #70c5ef;
+  --ifm-color-primary-lightest-normal: #9ad6f4;
+
+  --ifm-color-primary-develop: #25c2a0;
+  --ifm-color-primary-dark-develop: #21af90;
+  --ifm-color-primary-darker-develop: #1fa588;
+  --ifm-color-primary-darkest-develop: #1a8870;
+  --ifm-color-primary-light-develop: #29d5b0;
+  --ifm-color-primary-lighter-develop: #32d8b4;
+  --ifm-color-primary-lightest-develop: #4fddbf;
+
+  --ifm-color-primary-contribute: #ff9999;
+  --ifm-color-primary-dark-contribute: #ff7070;
+  --ifm-color-primary-darker-contribute: #ff5c5c;
+  --ifm-color-primary-darkest-contribute: #ff1f1f;
+  --ifm-color-primary-light-contribute: #ffc2c2;
+  --ifm-color-primary-lighter-contribute: #ffd6d6;
+  --ifm-color-primary-lightest-contribute: #ffffff;
+}
+
+[data-area='normal'] {
+  --ifm-color-primary: var(--ifm-color-primary-normal);
+  --ifm-color-primary-dark: var(--ifm-color-primary-dark-normal);
+  --ifm-color-primary-darker: var(--ifm-color-primary-darker-normal);
+  --ifm-color-primary-darkest: var(--ifm-color-primary-darkest-normal);
+  --ifm-color-primary-light: var(--ifm-color-primary-light-normal);
+  --ifm-color-primary-lighter: var(--ifm-color-primary-lighter-normal);
+  --ifm-color-primary-lightest: var(--ifm-color-primary-lightest-normal);
+}
+
+[data-theme='dark'][data-area='normal'] {
+  --ifm-color-primary: var(--ifm-color-primary-normal);
+  --ifm-color-primary-dark: var(--ifm-color-primary-dark-normal);
+  --ifm-color-primary-darker: var(--ifm-color-primary-darker-normal);
+  --ifm-color-primary-darkest: var(--ifm-color-primary-darkest-normal);
+  --ifm-color-primary-light: var(--ifm-color-primary-light-normal);
+  --ifm-color-primary-lighter: var(--ifm-color-primary-lighter-normal);
+  --ifm-color-primary-lightest: var(--ifm-color-primary-lightest-normal);
+}
+
+[data-area='develop'] {
+  --ifm-color-primary: var(--ifm-color-primary-develop);
+  --ifm-color-primary-dark: var(--ifm-color-primary-dark-develop);
+  --ifm-color-primary-darker: var(--ifm-color-primary-darker-develop);
+  --ifm-color-primary-darkest: var(--ifm-color-primary-darkest-develop);
+  --ifm-color-primary-light: var(--ifm-color-primary-light-develop);
+  --ifm-color-primary-lighter: var(--ifm-color-primary-lighter-develop);
+  --ifm-color-primary-lightest: var(--ifm-color-primary-lightest-develop);
+}
+
+[data-theme='dark'][data-area='develop'] {
+  --ifm-color-primary: var(--ifm-color-primary-develop);
+  --ifm-color-primary-dark: var(--ifm-color-primary-dark-develop);
+  --ifm-color-primary-darker: var(--ifm-color-primary-darker-develop);
+  --ifm-color-primary-darkest: var(--ifm-color-primary-darkest-develop);
+  --ifm-color-primary-light: var(--ifm-color-primary-light-develop);
+  --ifm-color-primary-lighter: var(--ifm-color-primary-lighter-develop);
+  --ifm-color-primary-lightest: var(--ifm-color-primary-lightest-develop);
+}
+
+[data-area='contribute'] {
+  --ifm-color-primary: var(--ifm-color-primary-contribute);
+  --ifm-color-primary-dark: var(--ifm-color-primary-dark-contribute);
+  --ifm-color-primary-darker: var(--ifm-color-primary-darker-contribute);
+  --ifm-color-primary-darkest: var(--ifm-color-primary-darkest-contribute);
+  --ifm-color-primary-light: var(--ifm-color-primary-light-contribute);
+  --ifm-color-primary-lighter: var(--ifm-color-primary-lighter-contribute);
+  --ifm-color-primary-lightest: var(--ifm-color-primary-lightest-contribute);
+}
+
+[data-theme='dark'][data-area='contribute'] {
+  --ifm-color-primary: var(--ifm-color-primary-contribute);
+  --ifm-color-primary-dark: var(--ifm-color-primary-dark-contribute);
+  --ifm-color-primary-darker: var(--ifm-color-primary-darker-contribute);
+  --ifm-color-primary-darkest: var(--ifm-color-primary-darkest-contribute);
+  --ifm-color-primary-light: var(--ifm-color-primary-light-contribute);
+  --ifm-color-primary-lighter: var(--ifm-color-primary-lighter-contribute);
+  --ifm-color-primary-lightest: var(--ifm-color-primary-lightest-contribute);
+}
+
+.button--common {
+  --ifm-button-color: var(--ifm-color-content-inverse);
+  color: var(--ifm-button-color);
+}
+
+.button.button--normal {
+  @extend .button--common;
+  --ifm-button-background-color: var(--ifm-color-primary-normal);
+  --ifm-button-border-color: var(--ifm-color-primary-normal);
+}
+
+.button.button--develop {
+  @extend .button--common;
+  --ifm-button-background-color: var(--ifm-color-primary-develop);
+  --ifm-button-border-color: var(--ifm-color-primary-develop);
+}
+
+.button.button--contribute {
+  @extend .button--common;
+  --ifm-button-background-color: var(--ifm-color-primary-contribute);
+  --ifm-button-border-color: var(--ifm-color-primary-contribute);
+}

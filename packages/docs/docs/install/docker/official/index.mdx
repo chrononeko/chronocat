@@ -1,0 +1,77 @@
+---
+title: 官方镜像
+---
+
+import { Constructing } from '@site/src/components/Constructing'
+
+<Constructing />
+
+`chronoc/at` 是由 Chrononeko 团队开发和维护的 Chronocat 官方镜像。
+
+## 立即尝试
+
+创建一个目录作为 Chronocat 的数据目录，并在目录内执行：
+
+```sh
+docker run -it \
+  --name chronocat \
+  -p 16530:16530 \
+  -p 5500:5500 \
+  -p 16340:16340 \
+  -v ./config:/chrono/.chronocat/config \
+  -v ./qq:/chrono/.config/QQ \
+  chronoc/at
+```
+
+Chronocat 会随即启动并打印远程登录的链接，点击链接即可登录
+QQ。之后，即可立即开始使用 Satori 和 Red 服务了。
+
+## 参数
+
+下面解释了各个参数的意义。推荐配置的参数均已包含在上方的命令里。
+
+### 端口映射
+
+暴露 Chronocat 登录服务：
+
+```sh
+-p 16340:16340
+```
+
+暴露 Chronocat Red 服务：
+
+```sh
+-p 16530:16530
+```
+
+暴露 Chronocat Satori 服务：
+
+```sh
+-p 5500:5500
+```
+
+### 持久化
+
+下文中提供的命令都将在工作目录（当前文件夹）创建持久化目录，因此请先设定好用于
+Chronocat 的工作目录。
+
+持久化 Chronocat 配置：
+
+```sh
+-v ./config:/chrono/.chronocat/config
+```
+
+默认情况下，容器停止后登录信息会被保留，但销毁容器后登录信息会被一并销毁。因此，推荐对容器进行持久化配置，以保留
+QQ 的登录信息，或是直接保留所有 QQ 数据。
+
+若要持久化登录信息：
+
+```sh
+-v ./nt_db:/chrono/.config/QQ/global/nt_db
+```
+
+若要持久化 QQ 的所有数据：
+
+```sh
+-v ./qq:/chrono/.config/QQ
+```

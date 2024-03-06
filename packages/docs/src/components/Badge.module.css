@@ -1,0 +1,23 @@
+.badgeSatori {
+  background-color: #53489c;
+}
+
+.badgeSatori[data-theme='dark'] {
+  background-color: #53489c;
+}
+
+.badgeChronocat {
+  background-color: #b44e83;
+}
+
+.badgeChronocat[data-theme='dark'] {
+  background-color: #b44e83;
+}
+
+.badgeEvent {
+  background-color: #222299;
+}
+
+.badgeEvent[data-theme='dark'] {
+  background-color: #222299;
+}

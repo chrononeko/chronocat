@@ -1,0 +1,38 @@
+---
+title: 可信安装
+---
+
+import CodeBlock from '@theme/CodeBlock'
+import DtiSource from '!!raw-loader!../../../../scripts/dti.cts'
+
+:::warning[面向插件框架开发者的文档]
+
+本节文档面向插件框架开发者。如果你只是使用 Chronocat，则可以直接跳过本节。
+
+:::
+
+有些时候你可能只希望运行由 Chrononeko 团队发布的 Chronocat，但直接从 GitHub
+上下载 Chronocat 又比较麻烦。针对这种情况，我们提供一种特殊的 Chronocat
+发布，称为「可信安装」。这种发布文件内的前 1 KiB 为 Chronocat IIFE
+文件的签名，后跟文件的完整内容。你可以使用签名来验证文件，从而确保该文件为
+Chrononeko 团队发布。
+
+Chronocat 可信安装的公钥可以从这里获取：
+
+[https://chronocat.vercel.app/ti.pub](https://chronocat.vercel.app/ti.pub)
+
+你应当将公钥直接嵌入在插件框架内部。
+
+下面是一个使用 Node.js 验证可信安装的示例。示例代码位于 Chronocat 存储库内的
+scripts 文件夹内，因此你可以直接使用下面的命令进行验证：
+
+```sh
+yarn ts-node -T scripts/dti.cts <chronocat.js.ti.bin 的位置>
+```
+
+如果程序没有任何输出，那么验证成功。如果程序抛出异常，那么验证失败。
+
+你可以直接使用程序中的 `checkScript()` 函数；一参传入嵌入的公钥，二参传入需要验证的
+`chronocat.js.ti.bin` 文件即可。
+
+<CodeBlock language="typescript" title="dti.cts" children={DtiSource} />

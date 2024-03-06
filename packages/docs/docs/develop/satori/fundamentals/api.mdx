@@ -1,0 +1,15 @@
+---
+title: API
+---
+
+import { AreaDevelop } from '@site/src/components/AreaDevelop'
+
+<AreaDevelop />
+
+对资源进行的操作称为 API。例如，发送消息的操作实际上是 **创建了一条消息**，因此我们可以调用 `message.create`
+来发送消息。以此类推，要撤回消息只需 `message.delete`，要获取消息只需调用 `message.get`。再以此类推，要获取频道信息只需
+`channel.get`，要获取群组信息只需 `guild.get`。Chronocat 已实现的 API 已在 [参考](/develop/satori/reference/api) 中列出。
+
+API 使用 HTTP 进行调用。调用统一使用 POST 方法，并以 Satori 协议的版本作为前缀，因此 `message.create` 调用时应当以 POST 方式请求
+`http://127.0.0.1:5500/v1/message.create`。如果你配置了 Chronocat 的鉴权，那么你还需要附加 `Authorization` 请求头，值为
+`Bearer `（注意后跟空格）加上 token。

@@ -1,0 +1,74 @@
+---
+title: Chronocat v0.1.0
+description: Chronocat v0.1.0 正式发布。了解我们的未来计划。
+slug: '010'
+authors:
+  - name: Team Chrononeko
+    title: Chrononeko 团队
+    url: https://github.com/chrononeko
+tags: [release]
+date: 2024-02-24T04:48:07.034Z
+hide_table_of_contents: false
+---
+
+Chronocat v0.1.0 现已发布。随着 v0.1.0 版本的发布，我们同时要说明我们对 Chronocat 的未来规划。
+
+{/* truncate */}
+
+## 未来计划
+
+简单的说明：由于缺少产能，**Chronocat v0.1.x 将进入维护阶段。** v0.1.x 版本线不会再接收大的功能更新和常规 bug
+修复，只会处理影响安全的重大问题。
+
+同时，由于 Red 协议目前存在的问题，v0.1.x 将会是最后一个支持 Red 协议的版本线。后续版本将仅支持 Satori
+协议。我们仍将对 Red 协议提供支持；如果发现了 Red 协议的问题，我们会在 v0.1.x 上修复。
+
+## 新功能
+
+自 v0.0.50 以来，Chronocat 新增了许多功能。在 [更新日志](/more/changelog)
+可以一览更改的详细内容。这里列出一些值得注意的功能和更改：
+
+### API 补全
+
+最值得注意的功能是 Satori API 的补全。现在，Chronocat 基本实现了 Satori 标准的所有可实现 API，同时提供了数个 Chronocat 扩展的实验性
+API。这也是我们决定发布 v0.1.0 的主要原因。
+
+### 戳一戳
+
+在 v0.0.59，我们实现了手机「戳一戳」消息的接收支持。尽管实现仍然存在问题，戳一戳功能向我们展示了 Chronocat
+能够支持 QQ 尚未实现之功能的能力。
+
+### 日志
+
+在 v0.0.62，我们实现了 Chronocat 日志系统。Chronocat 日志系统能够：
+
+- 显示当前登录账号和 Chronocat 状态
+- 显示收到的消息和事件
+- 点击消息可查看消息的附加内容
+- 显示警告
+- 显示每个错误对应的错误码
+- 点击错误码即可跳转 Chronocat 官网上对应错误码的帮助文档
+
+### LiteLoaderQQNT v1 支持
+
+自 v0.0.67 起，Chronocat 同时支持 LiteLoaderQQNT v0 和 v1。
+
+### 配置更改
+
+Chronocat 配置弃用了实验性的 `platform` 配置项。目前没有任何用户在使用此配置项，因此该更改不会造成影响。
+
+### 远程登录更改
+
+现在，Chronocat 远程登录的「登录地址」要求填入完整的 URL。这是一项破坏性更改，意味着此前能够使用「IP+端口」格式进行远程登录的 Chronocat
+在升级到最新版后将失效。你需要手动修改登录地址到完整 URL。
+
+## 提醒
+
+在 Chronocat 私有的数月时间内，我们发现非常多的用户在不相关的群组内寻找 Chronocat 资源或提出问题。在不相关的群组内提及 Chronocat 只会增加 Chronocat
+面临的风险和公开的危险性，因此我们决定继续保持私有，直至旧版 Chronocat 用户全部转移至其他实现。
+
+旧版本的 Chronocat 已经开始冻结。请尽量避免继续使用 Chronocat，并避免在任何公众场合提及 Chronocat。我们推荐迁移到这些实现：
+
+- [OpenShamrock](https://github.com/whitechi73/OpenShamrock)
+- [Lagrange](https://github.com/LagrangeDev/Lagrange.Core)
+- [LiteLoaderQQNT-OneBotApi](https://github.com/linyuchen/LiteLoaderQQNT-OneBotApi)

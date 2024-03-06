@@ -1,0 +1,28 @@
+---
+title: 事件
+---
+
+import { AreaDevelop } from '@site/src/components/AreaDevelop'
+
+<AreaDevelop />
+
+与 API 相对，事件是「其他人对资源的操作」。类比 API，收到消息实际上是 **他人创建了消息**，事件类型是 `message-created`。同理，类比
+API，消息被撤回就是 `message-deleted`。事件的数据结构和 Chronocat 已实现的事件也已在 参考 中列出。
+
+## WebSocket
+
+一般情况下，事件使用 WebSocket 接收，端点为 `/v1/events`，只需创建 WebSocket 客户端并连接 `http://127.0.0.1:5500/v1/events`
+即可开始接收事件。如果你配置了 Chronocat 的鉴权，那么你还需要先发送一个鉴权对象才能开始接收消息，鉴权对象的结构为：
+
+```json
+{ "op": 3, "body": { "token": "Satori 服务的 Token" } }
+```
+
+连接建立后，你还需要每 10 秒发送一个心跳包来保证连接存活，心跳包的结构为：`{ "op": 1 }`
+
+## WebHook
+
+你也可以配置 Chronocat 来使用 WebHook 接收事件。如果你配置了 WebHook 的鉴权，那么 Chronocat
+在发送事件的时候将会带上 `Authorization: Bearer token` 头，这样你就可以判断消息是否来自 Chronocat。
+
+但为了保证消息接收的高性能和低时延，请始终使用 WebSocket。WebSocket 将受到 Chronocat 的一等支持，而 WebHook 不会。

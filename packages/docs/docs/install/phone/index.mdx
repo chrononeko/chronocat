@@ -1,0 +1,28 @@
+---
+title: 手机安装
+---
+
+import Link from '@docusaurus/Link'
+import { UntrustedContents } from '@site/src/components/UntrustedContents'
+
+<UntrustedContents />
+
+来自社区的 [@initialencounter](https://github.com/initialencounter) 在 ZeroTermux 软件和
+[社区 Docker 镜像](/install/docker/community) 的基础上制作了 chronocat-termux，可以在手机上安装和使用 Chronocat。
+
+<Link
+  className="button button--secondary button--lg"
+  to="https://github.com/initialencounter/chronocat-termux"
+>
+  <span>前往 chronocat-termux</span>
+</Link>
+
+运行 Chronocat 的内存约在 600MiB 左右。
+
+由于手机的环境受限，为了更方便地排查和解决问题，环境预装了 VNC 服务，同时 QQ
+并未开启无头模式。你可以随时使用 VNC 客户端进入桌面环境排查问题。如果你追求更低的内存占用，可以关闭
+VNC 服务，更换更轻量的 WM，最后使用无头模式启动 QQ：
+
+```sh
+./QQ --chrono-mode=headless3
+```

@@ -1,0 +1,26 @@
+---
+title: 2150：内存泄漏
+sidebar_position: 2150
+---
+
+import { ErrorScope } from '@site/src/components/ErrorScope'
+
+<ErrorScope scope="chronocat" />
+
+「内存泄漏」是软件开发中最常见的问题之一，导致内存泄漏的原因多种多样。在 Chronocat 内，内存泄漏有较大的概率是由 Chronocat
+的代码失误（通常称为「bug」）产生，小概率由 QQ 产生。
+
+出现内存泄漏警告时无需担心，Chronocat 已经自动地完成了所有需要做的事情：
+
+1. 持续检测内存泄漏，但在检测到内存泄漏后会停止继续检测
+1. 打印警告日志，并开始生成内存转储
+1. Chronocat 功能和服务继续正常运行
+
+因此，如果你当下没有精力解决此问题，你不需要做任何事。在无人使用的时候直接重启 QQ，Chronocat 会恢复到正常状态。
+
+如果你希望解决此问题，你可以这样做：
+
+1. 查看下方的 Issue 列表，寻找类似的 Issue 并查看其他用户的讨论
+1. 如果没有与你的问题相似的 Issue，那么你可以创建新的 Issue
+
+特别注意： **不要直接将转储文件提交入 Issue 内，而是私发给我。** 这一点在 Bugtracker 创建 Issue 时也有提示。

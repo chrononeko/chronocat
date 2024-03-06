@@ -1,0 +1,31 @@
+---
+title: 如何使用开发构建（dev 版本）？
+sidebar_position: 4
+---
+
+import Link from '@docusaurus/Link'
+
+很多时候你需要在非开发环境中使用开发构建的版本。例如，某个 bug 已经被修复但尚未发布正式版，或你希望测试某个
+PR 是否修复了某个 bug；此时你可以在自己的环境中使用开发构建版本。
+
+获取开发构建非常简单：你只需要找到对应的 Build Action，然后下载其产物即可。项目的首页、Commit
+页或 PR 页内都会有 Actions 标识，通常是一个绿色对勾、黄色圆点或是红色叉叉。点击它，并在 Checks
+列表中点击 `build` 右面的 Details 按钮，你就进入了对应提交的 Actions
+页面。选择你需要的产物进行下载即可。要下载产物，你需要登录你的 GitHub 账号。
+
+<Link
+  className="button button--secondary button--lg"
+  to="https://github.com/chrononeko/chronocat/actions/workflows/build.yml"
+>
+  <span>前往 Chronocat Build Actions</span>
+</Link>
+
+下载好之后即可安装，安装时请使用对应插件框架的 **离线安装**
+方法。安装完成后，你就可以使用开发版本的 Chronocat 构建了。
+
+<Link
+  className="button button--secondary button--lg button--normal"
+  to="/install"
+>
+  <span>前往安装</span>
+</Link>

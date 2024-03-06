@@ -1,0 +1,197 @@
+---
+title: 消息元素
+---
+
+import { AreaDevelop } from '@site/src/components/AreaDevelop'
+import { Badge } from '@site/src/components/Badge'
+
+<AreaDevelop />
+
+## 凡例
+
+| 来源                       |                                              |
+| -------------------------- | -------------------------------------------- |
+| <Badge type="satori" />    | 这个元素是 Satori 协议的标准元素或标准属性。 |
+| <Badge type="chronocat" /> | 这个元素是 Chronocat 的扩展元素或扩展属性。  |
+
+| 支持                                     |                                       |
+| ---------------------------------------- | ------------------------------------- |
+| <Badge type="introduced">v0.0.50</Badge> | 这个元素在 Chronocat v0.0.50 中加入。 |
+| <Badge type="notavailable" />            | QQ 尚未具备此功能。                   |
+| <Badge type="notimplemented" />          | Chronocat 尚未实现此功能。            |
+
+需要注意的是，即使某个元素尚不可用，你仍然可以使用此元素。元素会被 Chronocat 以最适合的形式发送。
+
+| 阶段                          |                          |
+| ----------------------------- | ------------------------ |
+| <Badge type="experimental" /> | 这个功能处于实验性阶段。 |
+
+| 收发                  |                          |
+| --------------------- | ------------------------ |
+| <Badge type="recv" /> | 这个元素或属性支持接收。 |
+| <Badge type="send" /> | 这个元素或属性支持发送。 |
+
+## 文本（text） <Badge type="satori" /> <Badge type="introduced">v0.0.50</Badge>
+
+一段纯文本。
+
+<details>
+<summary>发送和接收文本</summary>
+
+```html
+你好
+```
+
+</details>
+
+## @（at） <Badge type="satori" /> <Badge type="introduced">v0.0.50</Badge>
+
+| 属性 | 类型    | 范围                                        | 描述                                                   |
+| ---- | ------- | ------------------------------------------- | ------------------------------------------------------ |
+| id   | string? | <Badge type="recv" /> <Badge type="send" /> | 目标用户的 ID                                          |
+| name | string? | <Badge type="recv" /> <Badge type="send" /> | 目标用户的名称                                         |
+| role | string? | <Badge type="recv" /> <Badge type="send" /> | 目标角色                                               |
+| type | string? | <Badge type="recv" /> <Badge type="send" /> | 特殊操作，例如 all 表示 @全体成员，here 表示 @在线成员 |
+
+`<at>` 元素用于提及某个或某些用户。
+
+## 频道（sharp） <Badge type="satori" /> <Badge type="notavailable" />
+
+| 属性 | 类型    | 范围                                        | 描述           |
+| ---- | ------- | ------------------------------------------- | -------------- |
+| id   | string  | <Badge type="recv" /> <Badge type="send" /> | 目标频道的 ID  |
+| name | string? | <Badge type="recv" /> <Badge type="send" /> | 目标频道的名称 |
+
+QQ 尚未具备此功能。
+
+## 表情（face） <Badge type="satori" /> <Badge type="notimplemented" />
+
+| 属性     | 类型    | 范围                                        | 描述                               |
+| -------- | ------- | ------------------------------------------- | ---------------------------------- |
+| id       | string  | <Badge type="recv" /> <Badge type="send" /> | 表情的 ID                          |
+| name     | string? | <Badge type="recv" />                       | 表情的名称                         |
+| platform | string? | <Badge type="send" />                       | 表情显示的平台，始终为 `chronocat` |
+
+## 链接（a） <Badge type="satori" /> <Badge type="notavailable" />
+
+| 属性 | 类型   | 范围                                        | 描述       |
+| ---- | ------ | ------------------------------------------- | ---------- |
+| href | string | <Badge type="recv" /> <Badge type="send" /> | 链接的 URL |
+
+`<a>` 元素用于显示一个链接。当平台不支持链接时，建议显示为 `content (href)` 的形式。
+
+## 图片（img） <Badge type="satori" /> <Badge type="introduced">v0.0.50</Badge>
+
+| 属性                                  | 类型     | 范围                                        | 描述                      |
+| ------------------------------------- | -------- | ------------------------------------------- | ------------------------- |
+| src                                   | string   | <Badge type="recv" /> <Badge type="send" /> | 资源的 URL                |
+| title                                 | string?  | <Badge type="recv" /> <Badge type="send" /> | 资源文件名称              |
+| cache <Badge type="experimental" />   | boolean? | <Badge type="send" />                       | 是否使用已缓存的文件      |
+| timeout <Badge type="experimental" /> | string?  | <Badge type="send" />                       | 下载文件的最长时间 (毫秒) |
+| width                                 | number?  | <Badge type="recv" />                       | 图片的宽度 (像素)         |
+| height                                | number?  | <Badge type="recv" />                       | 图片的高度 (像素)         |
+
+## 音频（audio） <Badge type="satori" /> <Badge type="introduced">v0.0.50</Badge>
+
+| 属性                                  | 类型     | 范围                                        | 描述                      |
+| ------------------------------------- | -------- | ------------------------------------------- | ------------------------- |
+| src                                   | string   | <Badge type="recv" /> <Badge type="send" /> | 资源的 URL                |
+| title                                 | string?  | <Badge type="recv" /> <Badge type="send" /> | 资源文件名称              |
+| cache <Badge type="experimental" />   | boolean? | <Badge type="send" />                       | 是否使用已缓存的文件      |
+| timeout <Badge type="experimental" /> | string?  | <Badge type="send" />                       | 下载文件的最长时间 (毫秒) |
+| duration                              | number?  | <Badge type="recv" />                       | 音频长度 (秒)             |
+| poster                                | string?  | <Badge type="recv" /> <Badge type="send" /> | 缩略图 URL                |
+
+## 视频（video） <Badge type="satori" /> <Badge type="introduced">v0.0.50</Badge>
+
+| 属性                                  | 类型     | 范围                                        | 描述                      |
+| ------------------------------------- | -------- | ------------------------------------------- | ------------------------- |
+| src                                   | string   | <Badge type="recv" /> <Badge type="send" /> | 资源的 URL                |
+| title                                 | string?  | <Badge type="recv" /> <Badge type="send" /> | 资源文件名称              |
+| cache <Badge type="experimental" />   | boolean? | <Badge type="send" />                       | 是否使用已缓存的文件      |
+| timeout <Badge type="experimental" /> | string?  | <Badge type="send" />                       | 下载文件的最长时间 (毫秒) |
+| width                                 | number?  | <Badge type="recv" />                       | 视频的宽度 (像素)         |
+| height                                | number?  | <Badge type="recv" />                       | 视频的高度 (像素)         |
+| duration                              | number?  | <Badge type="recv" />                       | 视频长度 (秒)             |
+| poster                                | string?  | <Badge type="recv" /> <Badge type="send" /> | 缩略图 URL                |
+
+## 文件（file） <Badge type="satori" /> <Badge type="introduced">v0.0.50</Badge>
+
+| 属性                                  | 类型     | 范围                                        | 描述                      |
+| ------------------------------------- | -------- | ------------------------------------------- | ------------------------- |
+| src                                   | string   | <Badge type="recv" /> <Badge type="send" /> | 资源的 URL                |
+| title                                 | string?  | <Badge type="recv" /> <Badge type="send" /> | 资源文件名称              |
+| cache <Badge type="experimental" />   | boolean? | <Badge type="send" />                       | 是否使用已缓存的文件      |
+| timeout <Badge type="experimental" /> | string?  | <Badge type="send" />                       | 下载文件的最长时间 (毫秒) |
+| poster                                | string?  | <Badge type="recv" /> <Badge type="send" /> | 缩略图 URL                |
+
+## 粗体（b, strong） <Badge type="satori" /> <Badge type="notavailable" />
+
+QQ 尚未具备此功能。
+
+## 斜体（i, em） <Badge type="satori" /> <Badge type="notavailable" />
+
+QQ 尚未具备此功能。
+
+## 下划线（u, ins） <Badge type="satori" /> <Badge type="notavailable" />
+
+QQ 尚未具备此功能。
+
+## 删除线（s, del） <Badge type="satori" /> <Badge type="notavailable" />
+
+QQ 尚未具备此功能。
+
+## 剧透（spl） <Badge type="satori" /> <Badge type="notavailable" />
+
+QQ 尚未具备此功能。
+
+## 代码（code） <Badge type="satori" /> <Badge type="notavailable" />
+
+QQ 尚未具备此功能。
+
+## 上标（sup） <Badge type="satori" /> <Badge type="notavailable" />
+
+QQ 尚未具备此功能。
+
+## 下标（sub） <Badge type="satori" /> <Badge type="notavailable" />
+
+QQ 尚未具备此功能。
+
+## 换行（br） <Badge type="satori" /> <Badge type="notimplemented" />
+
+Chronocat 尚未实现此功能。
+
+## 段落（p） <Badge type="satori" /> <Badge type="notimplemented" />
+
+Chronocat 尚未实现此功能。
+
+## 消息（message） <Badge type="satori" /> <Badge type="introduced">v0.0.50</Badge>
+
+| 属性    | 类型     | 范围                  | 描述           |
+| ------- | -------- | --------------------- | -------------- |
+| id      | string?  | <Badge type="send" /> | 消息的 ID      |
+| forward | boolean? | <Badge type="send" /> | 是否为转发消息 |
+
+## 引用（quote） <Badge type="satori" /> <Badge type="introduced">v0.0.50</Badge>
+
+## 作者（author） <Badge type="satori" /> <Badge type="introduced">v0.0.50</Badge>
+
+| 属性   | 类型    | 范围                  | 描述     |
+| ------ | ------- | --------------------- | -------- |
+| id     | string? | <Badge type="send" /> | 用户 ID  |
+| name   | string? | <Badge type="send" /> | 昵称     |
+| avatar | string? | <Badge type="send" /> | 头像 URL |
+
+## 按钮（button） <Badge type="satori" /> <Badge type="notavailable" />
+
+| 属性  | 类型    | 范围                  | 描述       |
+| ----- | ------- | --------------------- | ---------- |
+| id    | string? | <Badge type="send" /> | 按钮的 ID  |
+| type  | string? | <Badge type="send" /> | 按钮的类型 |
+| href  | string? | <Badge type="send" /> | 按钮的链接 |
+| text  | string? | <Badge type="send" /> | 待输入文本 |
+| theme | string? | <Badge type="send" /> | 按钮的样式 |
+
+QQ 尚未具备此功能。
+
+## 戳一戳（chronocat:poke） <Badge type="chronocat" /> <Badge type="introduced">v0.0.59</Badge> <Badge type="experimental" /> <Badge type="recv" />

@@ -1,0 +1,99 @@
+---
+title: 配置
+---
+
+import Link from '@docusaurus/Link'
+import CodeBlock from '@theme/CodeBlock'
+import ChronocatConfigSource from '!!raw-loader!@site/static/chronocat.yml'
+
+Chronocat 的默认配置已经完全能够满足基础需求，因此一般情况下无需修改。而如果你希望开启多个
+Chronocat 服务或需要多账号登录，则可以参考下方的指南进行自定义配置。
+
+## 位置
+
+Chronocat 配置文件位于 `~/.chronocat/config/chronocat.yml`。要打开这个文件：
+
+- 在 Windows 上，按下 `Win+R`，然后输入 `"%USERPROFILE%/.chronocat/config"` 并回车。
+- 在 macOS 上，在桌面按下 `⌘⇧G`，然后输入 `~/Library/Containers/com.tencent.qq/Data/.chronocat/config` 并回车。
+- 在 Linux 上，在桌面按下 `Alt+F2`，然后输入 `~/.chronocat/config` 并回车。
+
+## 生成
+
+### 自动生成
+
+大多数情况下，Chronocat 配置文件是自动生成的。Chronocat
+生成配置文件会经过如下两步：
+
+1. 从默认配置文件生成一份全新的、带注释的配置文件。默认配置文件可以在本页的底部查看；
+1. 生成一个高强度密码，将配置文件中的服务密码（`token` 字段）设置为该密码。
+
+因此，自动生成的配置文件已同时满足开箱即用的便利性和安全性两大要求，大多数情况下无需修改。
+
+### 初始化服务密码
+
+在自动生成时，如果提供了 `--chrono-default-token` 命令行参数或 `CHRONO_DEFAULT_TOKEN`
+环境变量，则会使用提供的值设置服务密码。命令行参数优先于环境变量。
+
+### 手动创建
+
+在一些特殊环境下，你可能希望先手动配置好 Chronocat 配置文件，再启动
+Chronocat。如果你希望手动创建配置文件，则可以用自动生成类似的做法：
+
+1. 从页面底部获得一份默认配置文件，并参考上面的「位置」一节将配置文件存储到正确的位置；
+1. 将文件内的所有 `DEFINE_CHRONO_TOKEN` 替换成自己准备的服务密码。
+
+:::warning[必须替换服务密码]
+
+默认配置文件中，所有服务密码字段的值都是
+`DEFINE_CHRONO_TOKEN`。只要检测到这个值，Chronocat 就不会启动。在启动
+Chronocat 之前，你需要将所有 `DEFINE_CHRONO_TOKEN`
+字样都替换成你自己的服务密码。这有助于避免
+[密码喷洒攻击](https://owasp.org/www-community/attacks/Password_Spraying_Attack)。
+
+:::
+
+### 从 v0.0.45 迁移
+
+如果你从 Chronocat 版本 0.0.45 或更早迁移，那么：
+
+- 新的默认配置会生成，且所有 token 配置项将会保持与旧的 `RED_PROTOCOL_TOKEN` 文件一致。
+- **旧的 `RED_PROTOCOL_TOKEN` 文件将会失效，但将被保留。** 请在迁移后及时删除旧文件，避免造成混淆。
+
+## 编辑
+
+我们推荐使用任意一款带有 LSP 功能的编辑器来编辑 Chronocat 配置文件：
+
+- [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) （推荐）
+- [Emacs](https://github.com/emacs-lsp/lsp-mode)
+- [Vim](https://github.com/prabirshrestha/vim-lsp)
+- [Sublime Text](https://packagecontrol.io/packages/LSP-yaml)
+
+（点击编辑器以安装所需的插件）
+
+此外，我们推荐为编辑器配置一款等宽字体，这样可以极大地改善配置文件的编辑体验。
+
+## 参考
+
+参考页展示了完整的 Chronocat 配置文件结构。
+
+<Link
+  className="button button--secondary button--lg button--normal"
+  to="/config/reference"
+>
+  <span>Chronocat 配置文件参考</span>
+</Link>
+
+## 示例
+
+你可以直接从本站下载配置文件相关资源：
+
+- Chronocat 默认配置文件：[https://chronocat.vercel.app/chronocat.yml](https://chronocat.vercel.app/chronocat.yml)
+- Chronocat 配置文件架构：[https://chronocat.vercel.app/config-v0.schema.json](https://chronocat.vercel.app/config-v0.schema.json)
+
+这里也有一份完整的、默认的 `chronocat.yml` 文件供参考：
+
+<CodeBlock
+  language="yml"
+  title="chronocat.yml"
+  children={ChronocatConfigSource}
+/>

@@ -1,0 +1,14 @@
+.feature {
+  padding-bottom: 3rem;
+}
+
+.features {
+  display: flex;
+  align-items: center;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+.description {
+  min-height: 6rem;
+}

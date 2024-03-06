@@ -1,0 +1,56 @@
+---
+title: 错误码
+sidebar_position: -1
+---
+
+import { CardList } from '@site/src/components/CardList'
+import { ErrorScope } from '@site/src/components/ErrorScope'
+
+欢迎来到 Chronocat 错误码一览。这里记录了 Chronocat 的所有错误码。你可以使用浏览器的
+**页面内搜索** 功能搜索错误码，或直接进行 [全站搜索](/search)。
+
+## 错误范围
+
+错误可能由各种不同的原因引起。为了最快地确定问题，我们将错误大致分为以下几种：
+
+### 需要用户解决
+
+这个错误需要你来解决。查看对应的错误码主题，以了解如何解决这些问题。
+
+这类问题会带有如下标识：
+
+<ErrorScope scope="user" />
+
+### 需要开发者解决
+
+一些问题需要软件的开发者进行解决。
+
+如果你是使用软件的用户，那么携带全部的报错日志和有效信息寻找开发者，请求开发者解决问题。
+
+如果你是开发者，直接查看对应的错误码主题，了解如何解决这些问题。
+
+这类问题会带有如下标识：
+
+<ErrorScope scope="dev" />
+
+### Chronocat 问题
+
+这些问题为 Chronocat 的已知问题，我们会尽快解决。
+
+对应的错误码主题内记录了跟踪这些问题的 Issue。
+
+这类问题会带有如下标识：
+
+<ErrorScope scope="chronocat" />
+
+### 已由 Chronocat 解决
+
+这类问题曾经在旧版本的 Chronocat 中出现；现在，Chronocat 已修复了这些问题。
+
+这类问题会带有如下标识：
+
+<ErrorScope scope="solved" />
+
+## 错误码列表
+
+<CardList />

@@ -1,0 +1,45 @@
+---
+title: 接入
+sidebar_position: 1
+---
+
+import Link from '@docusaurus/Link'
+import DocCardList from '@theme/DocCardList'
+
+Chronocat 支持多种应用和框架。你可以从这里开始接入。
+
+## 聊天机器人框架（推荐）
+
+聊天机器人框架专用于构建聊天机器人。将 Chronocat 接入聊天机器人后，你将立即可以使用机器人提供的各种功能。
+一些框架还提供了插件市场，你可以直接在插件市场内安装喜欢的插件并进行使用，而无需自己编写功能。
+这是我们最推荐的接入方式。
+
+<DocCardList />
+
+## Satori SDK
+
+如果你不想使用上面的聊天机器人框架，或你本身有聊天机器人以外的其他需求，你可以基于 Satori SDK
+实现你的需求。
+
+| 项目                                                           | 语言       | 介绍                                   |
+| -------------------------------------------------------------- | ---------- | -------------------------------------- |
+| [Satori](https://github.com/satorijs/satori)                   | TypeScript | Satori 的官方 TypeScript 实现          |
+| [satori-rs](https://github.com/satorijs/satori-rs)             | Rust       | Satori 官方管理的 Rust 实现            |
+| [Yutori](https://github.com/Nyayurn/Yutori)                    | Java       | Java 8+ SDK                            |
+| [satori-sdk-go](https://github.com/dezhishen/satori-sdk-go)    | Go         | Go 语言开发的 Satori 协议的 SDK 客户端 |
+| [Patory](https://github.com/im-patory/patory)                  | PHP        | Satori PHP 实现                        |
+| [SPPS](https://github.com/im-patory/spps)                      | PHP        | Satori PHP SDK                         |
+| [satori-python](https://github.com/RF-Tar-Railt/satori-python) | Python     | 基于 Satori 协议的 Python 开发工具包   |
+| [satori-go](https://github.com/FloatTech/satori-go)            | Go         | Go 语言的 Satori 协议实现              |
+| [Satori.NET](https://github.com/bsdayo/Satori.NET)             | C#         | Satori 协议 .NET SDK                   |
+
+---
+
+不想使用现有的框架，而是想要自己开发？你可以基于 Chronocat 开发自己的框架或适配器。
+
+<Link
+  className="button button--secondary button--lg button--develop"
+  to="/develop"
+>
+  <span>前往开发</span>
+</Link>

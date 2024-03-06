@@ -1,0 +1,27 @@
+---
+title: 2143：使用 Satori 协议内的标准属性
+sidebar_position: 2143
+---
+
+import { ErrorScope } from '@site/src/components/ErrorScope'
+
+<ErrorScope scope="dev" />
+
+请查看 Satori 官网上的 [Satori - 标准元素](https://satori.chat/zh-CN/protocol/elements.html) 页面。
+
+资源元素的发送不是这样：
+
+```html
+<!-- 这样的消息元素是错的！ -->
+<image url="base64:xxx" />
+```
+
+1. 图片元素的类型应当是 `img`
+1. 指定资源的属性应当是 `src`
+1. 发送 base64 时应当使用 Data URI
+
+请像这样发送资源元素：
+
+```html
+<img src="data:image/png;base64,xxx" />
+```
