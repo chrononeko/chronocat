@@ -2,7 +2,7 @@ import type { Element, Peer, QFace } from '@chronocat/red'
 import { FaceType } from '@chronocat/red'
 import type { ChronocatContext } from '@chronocat/shell'
 import type { O } from 'ts-toolbelt'
-import type { CommonSaveResult } from '../../common/types'
+import type { CommonSaveResult } from '../../../common/types'
 
 const b = () => {
   const reg = {

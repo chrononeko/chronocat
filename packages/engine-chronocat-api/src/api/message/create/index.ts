@@ -3,7 +3,7 @@ import type {
   ChronocatSatoriServerConfig,
   MessageCreatePayload,
 } from '@chronocat/shell'
-import { common } from '../../common'
+import { common } from '../../../common'
 import { Messager } from './messager'
 
 export const buildMessageCreate =

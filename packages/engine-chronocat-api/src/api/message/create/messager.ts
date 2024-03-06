@@ -7,7 +7,7 @@ import type {
 } from '@chronocat/shell'
 import type h from '@satorijs/element'
 import type { O } from 'ts-toolbelt'
-import type { Common } from '../../common'
+import type { Common } from '../../../common'
 import { r } from './r'
 
 class State {
