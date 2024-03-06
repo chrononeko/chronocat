@@ -41,11 +41,6 @@ const redocusaurusConfig: PresetOptions = {
         title: 'API 参考',
       },
     },
-    {
-      id: 'config',
-      spec: 'static/openapi-config.json',
-      url: 'https://chronocat.vercel.app/openapi-config.json',
-    },
   ],
   theme: {
     primaryColor: '#2e8555',
