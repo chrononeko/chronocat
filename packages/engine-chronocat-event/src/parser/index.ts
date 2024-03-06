@@ -9,7 +9,7 @@ import type {
   Guild,
   GuildMember,
 } from '@chronocat/shell'
-import h from '@satorijs/element'
+import type h from '@satorijs/element'
 import { Buffer } from 'node:buffer'
 import type { O } from 'ts-toolbelt'
 import { parseMsgTypes } from './msgt'
@@ -375,7 +375,7 @@ async function parseElements(
         switch (m.textElement!.atType) {
           case 0: {
             // 纯文本消息
-            elements.push(h.text(m.textElement?.content))
+            elements.push(ctx.chronocat.h.text(m.textElement?.content))
             break
           }
 
@@ -391,7 +391,7 @@ async function parseElements(
               break
             }
             elements.push(
-              h('at', {
+              ctx.chronocat.h('at', {
                 id,
                 name,
               }),
@@ -405,7 +405,7 @@ async function parseElements(
       case 2: {
         // 图片消息
         elements.push(
-          h('img', {
+          ctx.chronocat.h('img', {
             src: `${config.self_url}/v1/assets/${Buffer.from(
               JSON.stringify({
                 msgId: message.msgId,
@@ -423,7 +423,7 @@ async function parseElements(
       case 3: {
         // 文件消息
         elements.push(
-          h('file', {
+          ctx.chronocat.h('file', {
             src: `${config.self_url}/v1/assets/${Buffer.from(
               JSON.stringify({
                 msgId: message.msgId,
@@ -441,7 +441,7 @@ async function parseElements(
       case 4: {
         // 语音消息
         elements.push(
-          h('audio', {
+          ctx.chronocat.h('audio', {
             src: `${config.self_url}/v1/assets/${Buffer.from(
               JSON.stringify({
                 msgId: message.msgId,
@@ -459,7 +459,7 @@ async function parseElements(
       case 5: {
         // 视频消息
         elements.push(
-          h('video', {
+          ctx.chronocat.h('video', {
             src: `${config.self_url}/v1/assets/${Buffer.from(
               JSON.stringify({
                 msgId: message.msgId,
@@ -479,7 +479,7 @@ async function parseElements(
         switch (m.faceElement!.faceType) {
           case FaceType.PCPoke: {
             elements.push(
-              h(`${ctx.chronocat.platform}:pcpoke`, {
+              ctx.chronocat.h(`${ctx.chronocat.platform}:pcpoke`, {
                 id: m.faceElement!.pokeType,
               }),
             )
@@ -489,7 +489,7 @@ async function parseElements(
           case FaceType.Normal:
           case FaceType.Super: {
             elements.push(
-              h(`${ctx.chronocat.platform}:face`, {
+              ctx.chronocat.h(`${ctx.chronocat.platform}:face`, {
                 id: m.faceElement!.faceIndex,
                 name: `[${(await ctx.chronocat.api['chronocat.internal.qface.get'](`${m.faceElement!.faceIndex}`))!.QDes.slice(1)}]`,
                 platform: ctx.chronocat.platform,
@@ -511,13 +511,13 @@ async function parseElements(
         )!
 
         elements.push(
-          h(
+          ctx.chronocat.h(
             'quote',
             {
               'chronocat:seq': m.replyElement!.replayMsgSeq,
             },
             [
-              await parseAuthor(source),
+              await parseAuthor(ctx, source),
               ...(await parseElements(ctx, config, source))[0],
             ],
           ),
@@ -533,8 +533,8 @@ async function parseElements(
   return [elements, extraEvents] as const
 }
 
-async function parseAuthor(message: RedMessage) {
-  return h('author', {
+async function parseAuthor(ctx: ChronocatContext, message: RedMessage) {
+  return ctx.chronocat.h('author', {
     id: message.senderUin,
     name: message.sendMemberName || message.sendNickName,
     avatar: `http://thirdqq.qlogo.cn/headimg_dl?dst_uin=${message.senderUin}&spec=640`,
