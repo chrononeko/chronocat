@@ -17,7 +17,7 @@ export const commonSend = async (
       peer.chatType === ChatType.Private
         ? {
             chatType: ChatType.Private,
-            peerUid: ctx.chronocat.uix.getUid(peer.peerUid!),
+            peerUid: ctx.chronocat.uix.getUid(peer.peerUid!)!,
           }
         : (peer as Peer),
     msgElements: elements,
@@ -40,9 +40,9 @@ export const commonSend = async (
 
 const defaultSendForwardCover = '（Chronocat 合并转发）'
 
-const defaultSrcContact: Partial<Peer> = {
+const defaultSrcContact: Peer = {
   chatType: ChatType.Group,
-  peerUin: '10000000',
+  peerUid: '10000000',
   guildId: '',
 }
 
@@ -64,18 +64,18 @@ export const commonSendForward = async (
     ? source.chatType === ChatType.Private
       ? {
           chatType: ChatType.Private,
-          peerUid: ctx.chronocat.uix.getUid(source.peerUid!),
+          peerUid: ctx.chronocat.uix.getUid(source.peerUid!)!,
         }
-      : source
+      : (source as Peer)
     : defaultSrcContact
 
   const dstContact =
     peer.chatType === ChatType.Private
       ? {
           chatType: ChatType.Private,
-          peerUid: ctx.chronocat.uix.getUid(peer.peerUid!),
+          peerUid: ctx.chronocat.uix.getUid(peer.peerUid!)!,
         }
-      : peer
+      : (peer as Peer)
 
   task = task
     .then(() => ctx.chronocat.sleep(80))

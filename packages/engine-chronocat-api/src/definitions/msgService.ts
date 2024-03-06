@@ -1,4 +1,4 @@
-import type { Peer } from '@chronocat/red'
+import type { Element, Peer } from '@chronocat/red'
 import type { O } from 'ts-toolbelt'
 import { define } from '../invoke'
 
