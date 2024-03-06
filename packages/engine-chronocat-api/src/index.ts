@@ -6,6 +6,7 @@ import type {
   OnMemberInfoChange,
   OnMemberListChange,
   OnMsgInfoListUpdate,
+  OnOpenParamChange,
   OnProfileChanged,
   OnRecentContactListChangedVer2,
   OnRecvMsg,
@@ -19,6 +20,7 @@ import type { ChronocatContext } from '@chronocat/shell'
 import type { IpcManData } from 'ipcman'
 import { ipcMan } from 'ipcman'
 import { buildAssetsGet } from './api/internal/assets/get'
+import { buildMessageCreate } from './api/message/create'
 import {
   chronoEventEmitter,
   friendMap,
@@ -29,7 +31,6 @@ import {
   sendCallbackMap,
   sendQueue,
 } from './globalVars'
-import { buildMessageCreate } from './api/message/create'
 
 declare const __DEFINE_CHRONO_VERSION__: string
 
@@ -152,6 +153,18 @@ export const apply = async (ctx: ChronocatContext) => {
             if (contact.chatType === ChatType.Private)
               ctx.chronocat.uix.add(contact.peerUid, contact.peerUin)
           }
+
+        return
+      }
+
+      case 'onOpenParamChange': {
+        const { data } = payload as OnOpenParamChange
+
+        for (const contact of data) {
+          ctx.chronocat.uix.add(contact.senderUid, contact.senderUin)
+          if (contact.chatType === ChatType.Private)
+            ctx.chronocat.uix.add(contact.peerUid, contact.peerUin)
+        }
 
         return
       }

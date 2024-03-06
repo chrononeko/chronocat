@@ -1,4 +1,5 @@
 import type {
+  Contact,
   ContactList,
   Group,
   Member,
@@ -153,4 +154,8 @@ export interface MsgsIncludeSelf {
   result: 0
   errMsg: ''
   msgList: RedMessage[]
+}
+
+export interface OnOpenParamChange {
+  data: Contact[]
 }

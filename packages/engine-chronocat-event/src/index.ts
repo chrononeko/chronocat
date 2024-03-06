@@ -6,6 +6,7 @@ import type {
   OnMemberInfoChange,
   OnMemberListChange,
   OnMsgInfoListUpdate,
+  OnOpenParamChange,
   OnProfileChanged,
   OnRecentContactListChangedVer2,
   OnRecvMsg,
@@ -131,6 +132,18 @@ export const apply = async (ctx: ChronocatContext) => {
             if (contact.chatType === ChatType.Private)
               ctx.chronocat.uix.add(contact.peerUid, contact.peerUin)
           }
+
+        return
+      }
+
+      case 'onOpenParamChange': {
+        const { data } = payload as OnOpenParamChange
+
+        for (const contact of data) {
+          ctx.chronocat.uix.add(contact.senderUid, contact.senderUin)
+          if (contact.chatType === ChatType.Private)
+            ctx.chronocat.uix.add(contact.peerUid, contact.peerUin)
+        }
 
         return
       }

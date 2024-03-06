@@ -688,7 +688,7 @@ export interface Contact {
   msgId: string
   notifiedType: number
   isBlock: boolean
-  listOfSpecificEventTypeInfosInMsgBox: unknown
+  listOfSpecificEventTypeInfosInMsgBox: SpecificEventTypeInfo[]
   guildContactInfo: unknown
   vasPersonalInfo: VasPersonalInfo
   vasMsgInfo: VasMsgInfo
@@ -747,6 +747,17 @@ export interface VasPersonalNamePlateInfo {
 
 export interface VasMsgInfo {
   bubbleId: 0
+}
+
+export interface SpecificEventTypeInfo {
+  eventTypeInMsgBox: number // 2001
+  msgInfos: [
+    {
+      msgSeq: string
+      msgTime: string // '1700000000'
+      highlightDigest: ''
+    },
+  ]
 }
 
 export interface ContactList {
