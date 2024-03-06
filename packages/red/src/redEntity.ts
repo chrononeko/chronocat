@@ -52,9 +52,8 @@ export interface Member {
 }
 
 export interface Peer {
-  chatType: 1 | 2
+  chatType: ChatType
   peerUid: string
-  peerUin: string
   guildId?: string
 }
 
