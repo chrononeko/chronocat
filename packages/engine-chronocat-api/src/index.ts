@@ -2,6 +2,7 @@ import type { RedIpcArgs } from '@chronocat/red'
 import type { ChronocatContext } from '@chronocat/shell'
 import { ipcMan } from 'ipcman'
 import { buildAssetsGet } from './api/internal/assets/get'
+import { qfaceGet, qfaceList } from './api/internal/qface'
 import { buildMessageCreate } from './api/message/create'
 import { buildHandler } from './handler'
 
@@ -22,4 +23,7 @@ export const apply = async (ctx: ChronocatContext) => {
   register('chronocat.internal.message.create.forward', buildMessageCreate(ctx))
 
   await ctx.chronocat.whenReady()
+
+  register('chronocat.internal.qface.get', qfaceGet)
+  register('chronocat.internal.qface.list', qfaceList)
 }
