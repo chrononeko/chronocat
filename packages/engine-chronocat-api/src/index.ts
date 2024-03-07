@@ -3,6 +3,7 @@ import type { ChronocatContext } from '@chronocat/shell'
 import { ipcMan } from 'ipcman'
 import { buildAssetsGet } from './api/internal/assets/get'
 import { qfaceGet, qfaceList } from './api/internal/qface'
+import { buildLoginGet } from './api/login/get'
 import { buildMessageCreate } from './api/message/create'
 import { buildHandler } from './handler'
 
@@ -20,6 +21,7 @@ export const apply = async (ctx: ChronocatContext) => {
   const register = ctx.chronocat.api.register(name)
   register('chronocat.internal.assets.get', buildAssetsGet(ctx))
   register('message.create', buildMessageCreate(ctx))
+  register('login.get', buildLoginGet(ctx))
   register('chronocat.internal.message.create.forward', buildMessageCreate(ctx))
 
   await ctx.chronocat.whenReady()

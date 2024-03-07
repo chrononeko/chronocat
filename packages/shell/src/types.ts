@@ -2,7 +2,12 @@ import type { QFace, RedMessage } from '@chronocat/red'
 import type h from '@satorijs/element'
 import type styles from 'ansi-styles'
 import type { O } from 'ts-toolbelt'
-import type { Event, Message, MessageCreatePayload } from './satori/types'
+import type {
+  Event,
+  Login,
+  Message,
+  MessageCreatePayload,
+} from './satori/types'
 import type { api } from './services/api'
 import type { getAuthData } from './services/authData'
 import type { baseDir } from './services/baseDir'
@@ -73,6 +78,8 @@ export interface Methods {
     [MessageCreatePayload, ChronocatSatoriServerConfig],
     Message[],
   ]
+
+  'login.get': [[], Login]
 
   // Internal
 
