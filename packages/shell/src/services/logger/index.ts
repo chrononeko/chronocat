@@ -77,7 +77,7 @@ class ChronocatLogger {
     void (this.task = this.task.then(async () => {
       await this.init
       // if (!options?.init) await this.auth
-      await this.file!.write(output)
+      await this.file!.write(output + '\n')
     }))
 
   private write = (output: string) => {
@@ -96,7 +96,7 @@ class ChronocatLogger {
     const output = `${this.getPrefix()}${formatTime()}${formatCode(
       0,
       'M',
-    )} ${m}\n`
+    )} ${m}`
     this.write(output)
   }
 
@@ -104,7 +104,7 @@ class ChronocatLogger {
     const output = `${this.getPrefix()}${formatTime()}${formatCode(
       options?.code || 0,
       'I',
-    )} ${formatErrorMessage(m)}\n`
+    )} ${formatErrorMessage(m)}`
     this.write(output)
     if (options?.throw) throw m
   }
@@ -114,7 +114,7 @@ class ChronocatLogger {
   //     options?.code || 0,
   //     'S',
   //     styles.green,
-  //   )} ${formatErrorMessage(m)}\n`
+  //   )} ${formatErrorMessage(m)}`
   //   this.write(output)
   //   if (options?.throw) throw m
   // }
@@ -124,7 +124,7 @@ class ChronocatLogger {
       options?.code || 0,
       'W',
       styles.yellow,
-    )} ${formatErrorMessage(m)}\n`
+    )} ${formatErrorMessage(m)}`
     this.write(output)
     if (options?.throw) throw m
   }
@@ -134,7 +134,7 @@ class ChronocatLogger {
       options?.code || 0,
       'E',
       styles.red,
-    )} ${formatErrorMessage(m)}\n`
+    )} ${formatErrorMessage(m)}`
     this.write(output)
     if (options?.throw) throw m
   }
@@ -144,7 +144,7 @@ class ChronocatLogger {
     const output = `${this.getPrefix()}${formatTime()}${formatCode(
       options?.code || 0,
       'D',
-    )} ${formatErrorMessage(m)}\n`
+    )} ${formatErrorMessage(m)}`
     this.write(output)
     if (options?.throw) throw m
   }
