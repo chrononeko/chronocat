@@ -29,6 +29,7 @@ interface EngineInfo {
   filename: string
   type: string
   path: string
+  hidden: boolean
 }
 
 export const chronocat = async () => {
@@ -60,27 +61,29 @@ export const chronocat = async () => {
     },
   }
 
-  const enginesPath = join(baseDir, 'engines')
+  const engines: EngineInfo[] = []
 
-  mkdirSync(enginesPath, {
+  const externalEnginesPath = join(baseDir, 'engines')
+
+  mkdirSync(externalEnginesPath, {
     recursive: true,
   })
 
-  const engines = readdirSync(enginesPath)
+  readdirSync(externalEnginesPath)
     .map((filename) => {
       let valid = false
       let name = filename
       let type = 'js'
 
-      if (name.endsWith('.jsc')) {
+      if (name.endsWith('.engine.jsc')) {
         valid = true
-        name = name.slice(0, name.length - 4)
+        name = name.slice(0, name.length - 11)
         type = 'jsc'
       }
 
-      if (name.endsWith('.js')) {
+      if (name.endsWith('.engine.js')) {
         valid = true
-        name = name.slice(0, name.length - 3)
+        name = name.slice(0, name.length - 10)
       }
 
       if (!valid) return undefined
@@ -89,12 +92,45 @@ export const chronocat = async () => {
         name,
         filename,
         type,
-        path: join(enginesPath, filename),
+        path: join(externalEnginesPath, filename),
+        hidden: false,
       }
     })
     .filter(
       Boolean as unknown as (x: EngineInfo | undefined) => x is EngineInfo,
     )
+
+  if (!engines.length)
+    readdirSync(__dirname)
+      .map((filename) => {
+        let valid = false
+        let name = filename
+        let type = 'js'
+
+        if (name.endsWith('.engine.jsc')) {
+          valid = true
+          name = name.slice(0, name.length - 11)
+          type = 'jsc'
+        }
+
+        if (name.endsWith('.engine.js')) {
+          valid = true
+          name = name.slice(0, name.length - 10)
+        }
+
+        if (!valid) return undefined
+
+        return {
+          name,
+          filename,
+          type,
+          path: join(__dirname, filename),
+          hidden: true,
+        }
+      })
+      .filter(
+        Boolean as unknown as (x: EngineInfo | undefined) => x is EngineInfo,
+      )
 
   if (!engines.length)
     l.warn('没有找到任何引擎。Chronocat 服务仍将启动。', { code: 2156 })
@@ -110,7 +146,7 @@ export const chronocat = async () => {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       const engine = require(engineInfo.path) as unknown as Engine
       l.info(
-        `使用引擎 ${engine.name} v${engine.version}${styles.grey.open}，来自 ${engineInfo.filename}${styles.grey.close}`,
+        `使用引擎 ${styles.green.open}${engine.name}${styles.green.close} v${engine.version}${engineInfo.hidden ? '' : `${styles.grey.open}，来自 ${engineInfo.filename}${styles.grey.close}`}`,
       )
       engine.apply(ctx)
     } catch (e) {
