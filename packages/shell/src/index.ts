@@ -99,6 +99,7 @@ export const chronocat = async () => {
     .filter(
       Boolean as unknown as (x: EngineInfo | undefined) => x is EngineInfo,
     )
+    .forEach((x) => engines.push(x))
 
   if (!engines.length)
     readdirSync(__dirname)
@@ -131,6 +132,7 @@ export const chronocat = async () => {
       .filter(
         Boolean as unknown as (x: EngineInfo | undefined) => x is EngineInfo,
       )
+      .forEach((x) => engines.push(x))
 
   if (!engines.length)
     l.warn('没有找到任何引擎。Chronocat 服务仍将启动。', { code: 2156 })
