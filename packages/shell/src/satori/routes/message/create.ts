@@ -105,21 +105,5 @@ async function messageCreateUsingJson({
     else method = 'chronocat.internal.message.create.forward.fake'
   }
 
-  try {
-    return await cctx.chronocat.api[method](payloadRich, config)
-  } catch (e) {
-    cctx.chronocat.l.error(
-      new Error(`${path} 失败，来自 ${req.socket.remoteAddress}`, {
-        cause: e,
-      }),
-      {
-        code: 500,
-      },
-    )
-
-    res.writeHead(500)
-    res.end(`500 internal server error\n${e as string}`)
-
-    return
-  }
+  return await cctx.chronocat.api[method](payloadRich, config)
 }

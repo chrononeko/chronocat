@@ -103,14 +103,14 @@ export const initSatoriServer = async (
         return
       } catch (e) {
         l.warn(
-          new Error('satori: server: 500。', {
+          new Error(`${path} 失败，来自 ${req.socket.remoteAddress}`, {
             cause: e,
           }),
           { code: 500 },
         )
 
         res.writeHead(500)
-        res.end('500 internal server error')
+        res.end(`500 internal server error\n${e as string}`)
 
         return
       }
@@ -168,7 +168,7 @@ export const initSatoriServer = async (
       return
     } catch (e) {
       l.warn(
-        new Error('satori: server: 500。', {
+        new Error(`${path} 失败，来自 ${req.socket.remoteAddress}`, {
           cause: e,
         }),
         {
@@ -177,7 +177,7 @@ export const initSatoriServer = async (
       )
 
       res.writeHead(500)
-      res.end('500 internal server error')
+      res.end(`500 internal server error\n${e as string}`)
 
       return
     }
