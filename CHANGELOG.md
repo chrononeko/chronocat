@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## v0.2.1 (2024-03-08)
+
+### shell
+
+- 内置 chronocat 两个引擎，在未找到外部引擎时自动加载内置引擎 (6c5404e5085f353a47be17ea3ba0f47c41b89da0)
+- 统一日志与 HTTP 错误码 (2f41a2c89be30f8285caedccb098ffc2fc7726ce)
+- 优化 API 调用报错时的日志 (3c7c3e1c1be31c8ff75624bb56e61160c6af7931)
+- 修复了日志在终端直接输出时会产生空行的问题 (90941772fbcd2b5fb8793dc7527829d20bb8e578)
+
+### engine-chronocat-api
+
+- 修复了 at 元素的解析和发送问题 (1d30a45d1f2abd5330a45df49a0e1a14d7bce22f)
+- 实现 `qface.get` 和 `qface.list` (32f24c5ce251b9592dbd1804185214bc2427360d)
+- 实现 `login.get` (0b9e6970a19d7855323c80ff9593855fe289f4ab)
+
+### engine-chronocat-event
+
+- 修复了 at 元素的解析和发送问题 (1d30a45d1f2abd5330a45df49a0e1a14d7bce22f)
+
 ## v0.2.0 (2024-03-06)
 
 这是一个主要（Major）版本，并包含破坏性更改。请阅读 Team Chrononeko 的最新博客以了解详情。Chronocat v0.1.x 将会继续维护。
