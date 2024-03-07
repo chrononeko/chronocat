@@ -1,5 +1,4 @@
 import type { ChronocatContext, Login } from '@chronocat/shell'
-import { LoginStatus } from '@chronocat/shell'
 
 export const buildLoginGet = (ctx: ChronocatContext) => async () => {
   const authData = await ctx.chronocat.getAuthData()
@@ -11,7 +10,7 @@ export const buildLoginGet = (ctx: ChronocatContext) => async () => {
     },
     self_id: authData.uin,
     platform: ctx.chronocat.platform,
-    status: LoginStatus.ONLINE,
+    status: 1, // LoginStatus.ONLINE,
   }
 
   return result
