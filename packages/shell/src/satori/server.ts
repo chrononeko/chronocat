@@ -71,7 +71,7 @@ export const initSatoriServer = async (
       l.warn(
         `satori: server: 404，请求 ${url.pathname}，来自 ${req.socket.remoteAddress}`,
         {
-          code: 2136,
+          code: 404,
         },
       )
       res.writeHead(404)
@@ -85,7 +85,7 @@ export const initSatoriServer = async (
       if (req.method !== 'GET') {
         l.warn(
           `satori: server: 不支持 ${req.method} 请求资源，来自 ${req.socket.remoteAddress}`,
-          { code: 2137 },
+          { code: 405 },
         )
         res.writeHead(405)
         res.end('405 method not allowed')
@@ -106,7 +106,7 @@ export const initSatoriServer = async (
           new Error('satori: server: 500。', {
             cause: e,
           }),
-          { code: 2138 },
+          { code: 500 },
         )
 
         res.writeHead(500)
@@ -124,7 +124,7 @@ export const initSatoriServer = async (
       )
     ) {
       l.warn(`satori: server: 401，来自 ${req.socket.remoteAddress}`, {
-        code: 2139,
+        code: 401,
       })
       res.writeHead(401)
       res.end('401 unauthorized')
@@ -137,7 +137,7 @@ export const initSatoriServer = async (
       l.warn(
         `satori: server: 404，请求 ${url.pathname}，来自 ${req.socket.remoteAddress}`,
         {
-          code: 2140,
+          code: 404,
         },
       )
       res.writeHead(404)
@@ -148,7 +148,7 @@ export const initSatoriServer = async (
     if (req.method !== 'POST') {
       l.warn(
         `satori: server: 不支持 ${req.method} 请求 API，来自 ${req.socket.remoteAddress}`,
-        { code: 2141 },
+        { code: 405 },
       )
       res.writeHead(405)
       res.end('405 method not allowed')
@@ -172,7 +172,7 @@ export const initSatoriServer = async (
           cause: e,
         }),
         {
-          code: 2142,
+          code: 500,
         },
       )
 

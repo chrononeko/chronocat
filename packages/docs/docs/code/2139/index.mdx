@@ -1,0 +1,15 @@
+---
+title: 2139：认证失败
+sidebar_position: 2139
+---
+
+import { ErrorScope } from '@site/src/components/ErrorScope'
+
+<ErrorScope scope="dev" />
+
+你配置了 token，或正在使用默认生成的 token，但并未设置认证字段。
+
+Chronocat 默认即会开启 API 认证并生成 token。即使你在使用默认设置，也需要设置认证字段以调用 API。
+
+如果你设置了认证但仍遇到此问题，最常见的情况是没有前置 `Bearer `。Chronocat Satori API
+使用 Bearer 认证法，需要添加的请求头为 `Authorization: Bearer token`。
