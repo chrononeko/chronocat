@@ -25,6 +25,7 @@ import type {
   Login,
   Message,
   MessageCreatePayload,
+  MessageDeletePayload,
   MessageGetPayload,
   UserPayload,
 } from './satori/types'
@@ -116,6 +117,7 @@ export interface Methods {
     Message[],
   ]
   'message.get': [[MessageGetPayload], Message]
+  'message.delete': [[MessageDeletePayload], Record<string, never>]
 
   'login.get': [[], Login]
 

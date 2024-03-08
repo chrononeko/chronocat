@@ -14,7 +14,7 @@ import { guildMemberList } from './guild/member/list'
 import { guildRemove } from './guild/remove'
 // import { loginGet } from './login/get'
 import { messageCreate } from './message/create'
-// import { messageDelete } from './message/delete'
+import { messageDelete } from './message/delete'
 import { messageGet } from './message/get'
 // import { messageList } from './message/list'
 import { notImplemented } from './notimpl'
@@ -48,7 +48,7 @@ const routesIntl = {
   // 'login.get': loginGet,
   'message.create': messageCreate,
   'message.get': messageGet,
-  // 'message.delete': messageDelete,
+  'message.delete': messageDelete,
   'message.update': notImplemented,
   // 'message.list': messageList,
   'reaction.create': notImplemented,
