@@ -1,5 +1,3 @@
-import type { CSPair } from 'ansi-styles'
-import styles from 'ansi-styles'
 import { Logiri, link } from 'logiri'
 import { spawn } from 'node:child_process'
 import type { FileHandle } from 'node:fs/promises'
@@ -14,6 +12,7 @@ import { getAuthData } from '../authData'
 import { baseDir } from '../baseDir'
 import { getConfig } from '../config'
 import { logiriMessageCreated } from './logiri'
+import { ColorFormatter, grey, red, yellow } from '../../utils/colors'
 
 interface LogOptions {
   code?: number
@@ -66,9 +65,8 @@ class ChronocatLogger {
   }
 
   private getPrefix = () =>
-    `${
-      (this.online && this.uin) ||
-      `${styles.grey.open}[    ]${styles.grey.close}`
+    `${(this.online && this.uin) ||
+    grey('[    ]')
     }`
 
   private writeConsole = (output: string) => void console.log(output)
@@ -123,7 +121,7 @@ class ChronocatLogger {
     const output = `${this.getPrefix()}${formatTime()}${formatCode(
       options?.code || 0,
       'W',
-      styles.yellow,
+      yellow,
     )} ${formatErrorMessage(m)}`
     this.write(output)
     if (options?.throw) throw m
@@ -133,7 +131,7 @@ class ChronocatLogger {
     const output = `${this.getPrefix()}${formatTime()}${formatCode(
       options?.code || 0,
       'E',
-      styles.red,
+      red,
     )} ${formatErrorMessage(m)}`
     this.write(output)
     if (options?.throw) throw m
@@ -182,15 +180,15 @@ async function openLogWindow(logName: string, logPath: string) {
   }
 }
 
-function formatCode(code: number, level: Level, color?: CSPair) {
+function formatCode(code: number, level: Level, color?: ColorFormatter) {
   const p4c = p4(code)
   let result = `${link(
     `[${level}][CH${p4c}]`,
     `https://chronocat.vercel.app/code/${p4c}`,
   )}`
-  if (color) result = `${color.open}${result}${color.close}`
+  if (color) result = `${color(result)}`
   else {
-    if (!code) result = `${styles.grey.open}${result}${styles.grey.close}`
+    if (!code) result = `${grey(result)}`
   }
   return result
 }
@@ -202,9 +200,9 @@ function formatErrorMessage(m: string | Error) {
   while (true) {
     if (e.cause && e.cause instanceof Error) {
       e = e.cause
-      message += ` ${styles.grey.open}原因：${styles.grey.close} ${e.message}`
+      message += ` ${grey('原因：')} ${e.message}`
     } else if (e.cause) {
-      message += ` ${styles.grey.open}原因：${styles.grey.close} ${String(e)}`
+      message += ` ${grey('原因：')} ${String(e)}`
       break
     } else break
   }
@@ -213,7 +211,7 @@ function formatErrorMessage(m: string | Error) {
 
 function formatTime() {
   const d = new Date()
-  return `${styles.grey.open}[${p2(d.getMonth() + 1)}-${p2(d.getDate())} ${p2(
+  return grey(`[${p2(d.getMonth() + 1)}-${p2(d.getDate())} ${p2(
     d.getHours(),
-  )}:${p2(d.getMinutes())}:${p2(d.getSeconds())}]${styles.grey.close}`
+  )}:${p2(d.getMinutes())}:${p2(d.getSeconds())}]`)
 }

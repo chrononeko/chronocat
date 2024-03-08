@@ -1,5 +1,4 @@
 import h from '@satorijs/element'
-import styles from 'ansi-styles'
 import { initServers } from './server'
 import { api } from './services/api'
 import { getAuthData } from './services/authData'
@@ -43,7 +42,6 @@ export const chronocat = async () => {
       l,
       platform: PLATFORM,
       sleep,
-      styles,
       timeout,
       uix,
       validate,

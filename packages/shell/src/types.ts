@@ -65,7 +65,6 @@ export interface ChronocatContext {
     l: typeof l
     platform: typeof PLATFORM
     sleep: typeof sleep
-    styles: typeof styles
     timeout: typeof timeout
     uix: typeof uix
     validate: typeof validate

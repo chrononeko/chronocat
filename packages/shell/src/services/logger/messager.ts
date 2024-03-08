@@ -1,12 +1,12 @@
 import h from '@satorijs/element'
-import styles from 'ansi-styles'
 import { link } from 'logiri'
+import { grey } from '../../utils/colors'
 
 export class LogiriMessager {
   private children: string[] = []
   private results: string[] = []
 
-  prepare = async () => {}
+  prepare = async () => { }
 
   render = async (elements: h[], flush?: boolean) => {
     for (const element of elements) await this.visit(element)
@@ -68,14 +68,13 @@ export class LogiriMessager {
         const id = author?.attrs['user-id'] as string | undefined
 
         this.children.push(
-          `${styles.grey.open}${
-            id
-              ? `${link(
-                  `[回复${id}]`,
-                  `http://thirdqq.qlogo.cn/headimg_dl?dst_uin=${id}&spec=640`,
-                )} `
-              : `[回复] `
-          }${styles.grey.close}`,
+          grey(id
+            ? `${link(
+              `[回复${id}]`,
+              `http://thirdqq.qlogo.cn/headimg_dl?dst_uin=${id}&spec=640`,
+            )} `
+            : `[回复] `)
+          ,
         )
         return
       }
