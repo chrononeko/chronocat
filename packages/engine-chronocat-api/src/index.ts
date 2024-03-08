@@ -8,6 +8,7 @@ import { buildChannelMute } from './api/channel/mute'
 import { buildGuildApprove } from './api/guild/approve'
 import { buildGuildGet } from './api/guild/get'
 import { buildGuildList } from './api/guild/list'
+import { buildGuildRemove } from './api/guild/remove'
 import { buildAssetsGet } from './api/internal/assets/get'
 import { qfaceGet, qfaceList } from './api/internal/qface'
 import { buildLoginGet } from './api/login/get'
@@ -36,6 +37,7 @@ export const apply = async (ctx: ChronocatContext) => {
   register('guild.get', buildGuildGet(ctx))
   register('guild.list', buildGuildList(ctx))
   register('guild.approve', buildGuildApprove(ctx))
+  register('guild.remove', buildGuildRemove(ctx))
   register('message.create', buildMessageCreate(ctx))
   register('login.get', buildLoginGet(ctx))
   register('chronocat.internal.message.create.forward', buildMessageCreate(ctx))

@@ -100,6 +100,7 @@ export interface Methods {
   'guild.get': [[GuildGetPayload], Guild]
   'guild.list': [[], GuildListResponse]
   'guild.approve': [[ApprovePayload], Record<string, never>]
+  'guild.remove': [[GuildRemovePayload], Record<string, never>]
 
   'message.create': [
     [MessageCreatePayload, ChronocatSatoriServerConfig],
