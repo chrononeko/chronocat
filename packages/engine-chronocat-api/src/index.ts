@@ -1,6 +1,7 @@
 import type { RedIpcArgs } from '@chronocat/red'
 import type { ChronocatContext } from '@chronocat/shell'
 import { ipcMan } from 'ipcman'
+import { buildChannelGet } from './api/channel/get'
 import { buildChannelList } from './api/channel/list'
 import { buildChannelMemberMute } from './api/channel/member/mute'
 import { buildChannelMute } from './api/channel/mute'
@@ -24,6 +25,7 @@ export const apply = async (ctx: ChronocatContext) => {
   const register = ctx.chronocat.api.register(name)
   register('chronocat.internal.assets.get', buildAssetsGet(ctx))
   register('channel.list', buildChannelList(ctx))
+  register('channel.get', buildChannelGet(ctx))
   register('unsafe.channel.mute', buildChannelMute(ctx))
   register('unsafe.channel.member.mute', buildChannelMemberMute(ctx))
   register('message.create', buildMessageCreate(ctx))

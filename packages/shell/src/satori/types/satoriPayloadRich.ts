@@ -3,6 +3,7 @@ import type { Op } from './satoriEntity'
 
 export type {
   ApprovePayload,
+  ChannelGetPayload,
   ChannelListPayload,
   ChannelListResponse,
   ChannelMemberMutePayload,

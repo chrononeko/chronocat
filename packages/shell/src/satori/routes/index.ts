@@ -1,4 +1,4 @@
-// import { channelGet } from './channel/get'
+import { channelGet } from './channel/get'
 import { channelList } from './channel/list'
 import { channelMemberMute } from './channel/member/mute'
 import { channelMute } from './channel/mute'
@@ -23,7 +23,7 @@ import type { Route } from './types'
 // import { userGet } from './user/get'
 
 const routesIntl = {
-  // 'channel.get': channelGet,
+  'channel.get': channelGet,
   'channel.list': channelList,
   'channel.create': notImplemented,
   'channel.update': notImplemented,
