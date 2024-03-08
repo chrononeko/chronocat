@@ -3,6 +3,8 @@ import type h from '@satorijs/element'
 import type styles from 'ansi-styles'
 import type { O } from 'ts-toolbelt'
 import type {
+  ChannelListPayload,
+  ChannelListResponse,
   ChannelMemberMutePayload,
   ChannelMutePayload,
   Event,
@@ -76,6 +78,7 @@ export interface SelfProfileDispatchMessage {
 export interface Methods {
   // Satori
 
+  'channel.list': [[ChannelListPayload], ChannelListResponse]
   'unsafe.channel.mute': [[ChannelMutePayload], Record<string, never>]
   'unsafe.channel.member.mute': [
     [ChannelMemberMutePayload],

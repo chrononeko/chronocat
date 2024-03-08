@@ -1,5 +1,5 @@
 // import { channelGet } from './channel/get'
-// import { channelList } from './channel/list'
+import { channelList } from './channel/list'
 import { channelMemberMute } from './channel/member/mute'
 import { channelMute } from './channel/mute'
 // import { friendApprove } from './friend/approve'
@@ -24,7 +24,7 @@ import type { Route } from './types'
 
 const routesIntl = {
   // 'channel.get': channelGet,
-  // 'channel.list': channelList,
+  'channel.list': channelList,
   'channel.create': notImplemented,
   'channel.update': notImplemented,
   'channel.delete': notImplemented,

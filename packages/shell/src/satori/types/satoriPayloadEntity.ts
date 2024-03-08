@@ -1,4 +1,4 @@
-import type { Guild, GuildMember, User } from './satoriEntity'
+import type { Channel, Guild, GuildMember, User } from './satoriEntity'
 
 export interface Next {
   /**
@@ -96,6 +96,10 @@ export interface ChannelMemberMutePayload {
 
 export interface ChannelListPayload extends Next {
   guild_id: string
+}
+
+export interface ChannelListResponse extends Next {
+  data: Channel[]
 }
 
 export interface ChannelGetPayload {
