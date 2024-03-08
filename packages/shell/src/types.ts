@@ -16,6 +16,7 @@ import type {
   Guild,
   GuildGetPayload,
   GuildListResponse,
+  GuildRemovePayload,
   Login,
   Message,
   MessageCreatePayload,
@@ -98,7 +99,7 @@ export interface Methods {
 
   'guild.get': [[GuildGetPayload], Guild]
   'guild.list': [[], GuildListResponse]
-  'guild.approve': [[ApprovePayload], void]
+  'guild.approve': [[ApprovePayload], Record<string, never>]
 
   'message.create': [
     [MessageCreatePayload, ChronocatSatoriServerConfig],

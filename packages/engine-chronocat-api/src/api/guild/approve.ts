@@ -30,4 +30,6 @@ export const buildGuildApprove =
         },
       },
     })
+
+    return {}
   }
