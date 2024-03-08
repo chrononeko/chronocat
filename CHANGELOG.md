@@ -1,5 +1,41 @@
 # CHANGELOG
 
+## v0.2.2 (2024-03-08)
+
+### shell
+
+- 即使外部引擎存在，也始终加载内置引擎 (1205dc7d180f10e5c6863e17a14980527a36371d)
+- 修复了 IPv6 无法调用 Satori API 的问题 感谢群友发现问题 (ae9b642ed5a0e88fa41a14f891d19e6acf7afa56)
+
+### llqqnt
+
+- 发布包同时支持 LiteLoaderQQNT v0 和 v1 (81ca85e1ff5fa22acdf04a1b8032206119a3c3c1)
+
+### engine-chronocat-api
+
+- 实现 `channel.list` (32e8060facb4d0acd0e9f2871b1c100006987d8b)
+- 实现 `channel.get` (1d5ed2d05e909e273ae8080e140e7006f2ee8c7d)
+- 实现 `unsafe.channel.mute` (6efc21489de1e2ab19ac8f63d31a93d351ec3a57)
+- 实现 `unsafe.channel.member.mute` (10b7362656d16c09d26572fa038505a138b6b515)
+- 实现 `user.channel.create` (8e38e33069801cf72bbb63ecc54c90de85d16487)
+- 实现 `guild.get` (6e499f499f408cc0a86916efe0220232fc93f752)
+- 实现 `guild.list` (991f654b490c9a36e51400d4c8acd2bf68e11a4f)
+- 实现 `guild.approve` (b71a61a4307e7ea6a4eebf103f62a5b4fdafef05)
+- 实现 `guild.remove` (c6374f574d869099420e88ac33eddfe7de71e440)
+- 实现 `guild.member.get` (45d644947eb7370157f062679619341a58949ce3)
+- 实现 `guild.member.list` (d0df894c10a7af1de09417c9f7e22d2c30b2270a)
+- 实现 `message.get` (6f71181ee226bace81af61c4a6768cb4450756e6)
+- 实现 `message.delete` (bf14ad477f4b18e68bc82d485ae2db0b4ae6798e)
+- 实现 `message.list` (df371ce674f747d83704c77f8cdbe7af81eb73fe)
+- 实现 `user.get` (163fcda9d2dca0796fd1a785e9a3e56a60bbee0b)
+- 实现 `friend.list` (122ee09de938080c1d7a9ea93bec08d778f3eac8)
+- 实现 `friend.approve` (81a6ed1449561c13ef41214a0c16b2f98ec6b558)
+- 实现 `unsafe.friend.remove` (f4d59395654c4d04bb78b111675c0414fd57e060)
+
+### engine-chronocat-event
+
+- 修复 `guild-member-added` 事件中没有 Member 资源的问题 感谢群友发现问题 (09b7d625df03bf1f714b2420f42f1dd3446e45bf)
+
 ## v0.2.1 (2024-03-08)
 
 ### shell
