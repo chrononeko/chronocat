@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "codegen": "node -r esbuild-register scripts/codegen.cts",
-    "build": "concurrently -n codegen yarn:codegen && concurrently -n cjs,dts yarn:build:cjs yarn:build:dts",
+    "build": "node -r esbuild-register ../../scripts/runOnChanged.cts ./src concurrently -n codegen yarn:codegen && concurrently -n cjs,dts yarn:build:cjs yarn:build:dts",
     "build:cjs": "node -r esbuild-register ../../scripts/build.cts",
     "build:dts": "tsc -p tsconfig.json"
   },
