@@ -131,6 +131,7 @@ export interface Methods {
   'user.get': [[UserGetPayload], User]
 
   'friend.list': [[Next], FriendListResponse]
+  'friend.approve': [[ApprovePayload], Record<string, never>]
 
   // Internal
 
