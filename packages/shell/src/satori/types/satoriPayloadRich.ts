@@ -9,13 +9,17 @@ export type {
   ChannelMemberMutePayload,
   ChannelMutePayload,
   FriendListResponse,
+  GuildGetPayload,
   GuildListResponse,
+  GuildMemberGetPayload,
+  GuildMemberKickPayload,
   GuildMemberListPayload,
   GuildMemberListResponse,
   GuildRemovePayload,
   MessageDeletePayload,
   MessageGetPayload,
   Next,
+  UserGetPayload,
   UserPayload,
 } from './satoriPayloadEntity'
 

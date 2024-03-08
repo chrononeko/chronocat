@@ -10,6 +10,8 @@ import type {
   ChannelMemberMutePayload,
   ChannelMutePayload,
   Event,
+  Guild,
+  GuildGetPayload,
   Login,
   Message,
   MessageCreatePayload,
@@ -89,6 +91,8 @@ export interface Methods {
     Record<string, never>,
   ]
   'user.channel.create': [[UserPayload], Channel]
+
+  'guild.get': [[GuildGetPayload], Guild]
 
   'message.create': [
     [MessageCreatePayload, ChronocatSatoriServerConfig],
