@@ -20,7 +20,7 @@ import { messageList } from './message/list'
 import { notImplemented } from './notimpl'
 import type { Route } from './types'
 import { userChannelCreate } from './user/channel/create'
-// import { userGet } from './user/get'
+import { userGet } from './user/get'
 
 const routesIntl = {
   'channel.get': channelGet,
@@ -55,7 +55,7 @@ const routesIntl = {
   'reaction.delete': notImplemented,
   'reaction.clear': notImplemented,
   'reaction.list': notImplemented,
-  // 'user.get': userGet,
+  'user.get': userGet,
   // 'friend.list': friendList,
   // 'friend.approve': friendApprove,
   // 'unsafe.friend.remove': friendRemove,

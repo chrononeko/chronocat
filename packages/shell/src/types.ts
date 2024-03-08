@@ -29,6 +29,8 @@ import type {
   MessageGetPayload,
   MessageListPayload,
   MessageListResponse,
+  User,
+  UserGetPayload,
   UserPayload,
 } from './satori/types'
 import type { api } from './services/api'
@@ -123,6 +125,8 @@ export interface Methods {
   'message.list': [[MessageListPayload], MessageListResponse]
 
   'login.get': [[], Login]
+
+  'user.get': [[UserGetPayload], User]
 
   // Internal
 

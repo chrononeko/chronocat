@@ -20,6 +20,7 @@ import { buildMessageDelete } from './api/message/delete'
 import { buildMessageGet } from './api/message/get'
 import { buildMessageList } from './api/message/list'
 import { buildUserChannelCreate } from './api/user/channel/create'
+import { buildUserGet } from './api/user/get'
 import { buildHandler } from './handler'
 
 declare const __DEFINE_CHRONO_VERSION__: string
@@ -53,6 +54,7 @@ export const apply = async (ctx: ChronocatContext) => {
   register('message.list', buildMessageList(ctx))
   register('login.get', buildLoginGet(ctx))
   register('chronocat.internal.message.create.forward', buildMessageCreate(ctx))
+  register('user.get', buildUserGet(ctx))
 
   await ctx.chronocat.whenReady()
 
