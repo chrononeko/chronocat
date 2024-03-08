@@ -23,7 +23,7 @@
     "lib"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.json"
+    "build": "node -r esbuild-register ../../scripts/runOnChanged.cts ./src tsc -p tsconfig.json"
   },
   "devDependencies": {
     "concurrently": "^8.2.1",

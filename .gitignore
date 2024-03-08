@@ -133,3 +133,6 @@ dist/
 
 # Temp files
 tmp/
+
+# Run on change hash cache
+.runOnChanged.hashes.json
