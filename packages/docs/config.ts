@@ -171,10 +171,6 @@ const themeConfig: ThemeConfig = {
             label: 'Satori',
             to: '/develop/satori',
           },
-          {
-            label: 'RedProtocol',
-            to: '/develop/red',
-          },
         ],
       },
       {
