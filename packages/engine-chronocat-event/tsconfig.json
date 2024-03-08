@@ -7,4 +7,5 @@
   "include": [
     "src",
   ],
+  "incremental": true
 }
