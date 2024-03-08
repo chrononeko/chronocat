@@ -55,9 +55,9 @@ jobs:
           path: build/dist/iife
 
       - name: Build IIFE-TI
-        if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/v')
         env:
           TI_KEY: ${{ secrets.TI_KEY }}
+        if: env.TI_KEY != null
         run: |
           mkdir -p build/dist/iife-ti
           echo "$TI_KEY" > $RUNNER_TEMP/ti.pem
@@ -67,7 +67,9 @@ jobs:
         shell: bash
 
       - name: Upload IIFE-TI
-        if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/v')
+        env:
+          TI_KEY: ${{ secrets.TI_KEY }}
+        if: env.TI_KEY != null
         uses: actions/upload-artifact@v3
         with:
           name: chronocat-iife-ti-${{ github.sha }}
