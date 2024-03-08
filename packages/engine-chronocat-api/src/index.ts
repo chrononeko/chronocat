@@ -2,6 +2,7 @@ import type { RedIpcArgs } from '@chronocat/red'
 import type { ChronocatContext } from '@chronocat/shell'
 import { ipcMan } from 'ipcman'
 import { buildChannelMemberMute } from './api/channel/member/mute'
+import { buildChannelMute } from './api/channel/mute'
 import { buildAssetsGet } from './api/internal/assets/get'
 import { qfaceGet, qfaceList } from './api/internal/qface'
 import { buildLoginGet } from './api/login/get'
@@ -21,6 +22,7 @@ export const apply = async (ctx: ChronocatContext) => {
 
   const register = ctx.chronocat.api.register(name)
   register('chronocat.internal.assets.get', buildAssetsGet(ctx))
+  register('unsafe.channel.mute', buildChannelMute(ctx))
   register('unsafe.channel.member.mute', buildChannelMemberMute(ctx))
   register('message.create', buildMessageCreate(ctx))
   register('login.get', buildLoginGet(ctx))
