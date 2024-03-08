@@ -3,6 +3,8 @@ import type { Op } from './satoriEntity'
 
 export type {
   ApprovePayload,
+  ChannelMemberMutePayload,
+  ChannelMutePayload,
   FriendListResponse,
   GuildListResponse,
   GuildMemberListPayload,
