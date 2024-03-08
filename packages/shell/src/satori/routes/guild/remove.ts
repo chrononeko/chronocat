@@ -11,7 +11,7 @@ export const guildRemove = async ({
   const payload = (await json()) as GuildRemovePayload
 
   const validateResult =
-    await cctx.chronocat.validate('ChannelMutePayload')(payload)
+    await cctx.chronocat.validate('GuildRemovePayload')(payload)
 
   if (validateResult) {
     const err = `解析 ${path} 请求时出现问题，来自 ${req.socket.remoteAddress}。${validateResult}`

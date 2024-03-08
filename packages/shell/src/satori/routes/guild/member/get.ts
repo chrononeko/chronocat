@@ -10,8 +10,9 @@ export const guildMemberGet = async ({
 }: RouteContext) => {
   const payload = (await json()) as GuildMemberGetPayload
 
-  const validateResult =
-    await cctx.chronocat.validate('ChannelMutePayload')(payload)
+  const validateResult = await cctx.chronocat.validate('GuildMemberGetPayload')(
+    payload,
+  )
 
   if (validateResult) {
     const err = `解析 ${path} 请求时出现问题，来自 ${req.socket.remoteAddress}。${validateResult}`
