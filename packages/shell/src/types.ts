@@ -13,6 +13,7 @@ import type {
   Login,
   Message,
   MessageCreatePayload,
+  UserPayload,
 } from './satori/types'
 import type { api } from './services/api'
 import type { getAuthData } from './services/authData'
@@ -87,6 +88,7 @@ export interface Methods {
     [ChannelMemberMutePayload],
     Record<string, never>,
   ]
+  'user.channel.create': [[UserPayload], Channel]
 
   'message.create': [
     [MessageCreatePayload, ChronocatSatoriServerConfig],

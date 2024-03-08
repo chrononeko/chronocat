@@ -9,6 +9,7 @@ import { buildAssetsGet } from './api/internal/assets/get'
 import { qfaceGet, qfaceList } from './api/internal/qface'
 import { buildLoginGet } from './api/login/get'
 import { buildMessageCreate } from './api/message/create'
+import { buildUserChannelCreate } from './api/user/channel/create'
 import { buildHandler } from './handler'
 
 declare const __DEFINE_CHRONO_VERSION__: string
@@ -28,6 +29,7 @@ export const apply = async (ctx: ChronocatContext) => {
   register('channel.get', buildChannelGet(ctx))
   register('unsafe.channel.mute', buildChannelMute(ctx))
   register('unsafe.channel.member.mute', buildChannelMemberMute(ctx))
+  register('user.channel.create', buildUserChannelCreate(ctx))
   register('message.create', buildMessageCreate(ctx))
   register('login.get', buildLoginGet(ctx))
   register('chronocat.internal.message.create.forward', buildMessageCreate(ctx))

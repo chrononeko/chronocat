@@ -19,7 +19,7 @@ import { messageCreate } from './message/create'
 // import { messageList } from './message/list'
 import { notImplemented } from './notimpl'
 import type { Route } from './types'
-// import { userChannelCreate } from './user/channel/create'
+import { userChannelCreate } from './user/channel/create'
 // import { userGet } from './user/get'
 
 const routesIntl = {
@@ -30,7 +30,7 @@ const routesIntl = {
   'channel.delete': notImplemented,
   'unsafe.channel.mute': channelMute,
   'unsafe.channel.member.mute': channelMemberMute,
-  // 'user.channel.create': userChannelCreate,
+  'user.channel.create': userChannelCreate,
   // 'guild.get': guildGet,
   // 'guild.list': guildList,
   // 'guild.approve': guildApprove,
