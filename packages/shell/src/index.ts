@@ -92,32 +92,32 @@ export const chronocat = async () => {
     },
   }
 
-  // 将 outerContext 挂载至 process.domain
-  if (!process || !process.domain) {
-    l.warn('process.domain 不存在，无法挂载 outerContext，一些 Engine 可能加载失败。')
+  // 将 outerContext 挂载至 process.version
+  if (!process || !process.version) {
+    l.warn('process.version 不存在，无法挂载 outerContext，一些 Engine 可能加载失败。')
   } else {
-    // 如何通过 process.domain 获取 outerContext：
+    // 如何通过 process.version 获取 outerContext：
     // ```ts
-    // process.domain = '__chronocat__'
-    // const outerContext = process.domain
+    // process.version = '__chronocat__'
+    // const outerContext = process.version
     // ```
 
-    const origDomain = process.domain
+    const origVersion = process.version
 
     let signalHack = false
     // @ts-ignore
-    process.__defineSetter__('domain', (x) => {
+    process.__defineSetter__('version', (x) => {
       if (x === '__chronocat__')
         signalHack = true
     })
 
     // @ts-ignore
-    process.__defineGetter__('domain', () => {
+    process.__defineGetter__('version', () => {
       if (signalHack) {
         signalHack = false
         return outerContext
       }
-      return origDomain
+      return origVersion
     })
   }
 
