@@ -4,7 +4,7 @@ import { channelMemberMute } from './channel/member/mute'
 import { channelMute } from './channel/mute'
 import { friendApprove } from './friend/approve'
 import { friendList } from './friend/list'
-// import { friendRemove } from './friend/remove'
+import { friendRemove } from './friend/remove'
 import { guildApprove } from './guild/approve'
 import { guildGet } from './guild/get'
 import { guildList } from './guild/list'
@@ -58,7 +58,7 @@ const routesIntl = {
   'user.get': userGet,
   'friend.list': friendList,
   'friend.approve': friendApprove,
-  // 'unsafe.friend.remove': friendRemove,
+  'unsafe.friend.remove': friendRemove,
 } as const
 
 export type Routes = keyof typeof routesIntl

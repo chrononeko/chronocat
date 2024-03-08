@@ -7,6 +7,7 @@ import { buildChannelMemberMute } from './api/channel/member/mute'
 import { buildChannelMute } from './api/channel/mute'
 import { buildFriendApprove } from './api/friend/approve'
 import { buildFriendList } from './api/friend/list'
+import { buildFriendRemove } from './api/friend/remove'
 import { buildGuildApprove } from './api/guild/approve'
 import { buildGuildGet } from './api/guild/get'
 import { buildGuildList } from './api/guild/list'
@@ -59,6 +60,7 @@ export const apply = async (ctx: ChronocatContext) => {
   register('user.get', buildUserGet(ctx))
   register('friend.list', buildFriendList(ctx))
   register('friend.approve', buildFriendApprove(ctx))
+  register('unsafe.friend.remove', buildFriendRemove(ctx))
 
   await ctx.chronocat.whenReady()
 

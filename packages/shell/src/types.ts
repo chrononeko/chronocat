@@ -132,6 +132,7 @@ export interface Methods {
 
   'friend.list': [[Next], FriendListResponse]
   'friend.approve': [[ApprovePayload], Record<string, never>]
+  'unsafe.friend.remove': [[UserPayload], Record<string, never>]
 
   // Internal
 
