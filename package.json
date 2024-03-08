@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "clean": "node -r esbuild-register scripts/clean.cts",
-    "build": "concurrently -n red \"yarn workspace @chronocat/red build\" && concurrently -n shell \"yarn workspace @chronocat/shell build\" && concurrently -n shell \"yarn workspace @chronocat/plugin-iife build\" && concurrently -n llqqnt,iife,api,event \"yarn workspace @chronocat/plugin-llqqnt build\" \"yarn workspace @chronocat/engine-chronocat-api build\" \"yarn workspace @chronocat/engine-chronocat-event build\" && concurrently -n packengine yarn:packengine",
+    "build": "concurrently -n red \"yarn workspace @chronocat/red build\" && concurrently -n shell \"yarn workspace @chronocat/shell build\" && concurrently -n llqqnt,iife,api,event \"yarn workspace @chronocat/plugin-llqqnt build\" \"yarn workspace @chronocat/plugin-iife build\" \"yarn workspace @chronocat/engine-chronocat-api build\" \"yarn workspace @chronocat/engine-chronocat-event build\" && concurrently -n packengine yarn:packengine",
     "packengine": "node -r esbuild-register scripts/packengine.cts"
   },
   "devDependencies": {
