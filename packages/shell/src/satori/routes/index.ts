@@ -9,7 +9,7 @@ import { guildApprove } from './guild/approve'
 import { guildGet } from './guild/get'
 import { guildList } from './guild/list'
 import { guildMemberGet } from './guild/member/get'
-// import { guildMemberKick } from './guild/member/kick'
+import { guildMemberKick } from './guild/member/kick'
 import { guildMemberList } from './guild/member/list'
 import { guildRemove } from './guild/remove'
 // import { loginGet } from './login/get'
@@ -37,7 +37,7 @@ const routesIntl = {
   'unsafe.guild.remove': guildRemove,
   'guild.member.get': guildMemberGet,
   'guild.member.list': guildMemberList,
-  // 'guild.member.kick': guildMemberKick,
+  'guild.member.kick': guildMemberKick,
   'guild.member.approve': notImplemented,
   'guild.member.role.set': notImplemented,
   'guild.member.role.unset': notImplemented,

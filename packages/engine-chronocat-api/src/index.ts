@@ -9,6 +9,7 @@ import { buildGuildApprove } from './api/guild/approve'
 import { buildGuildGet } from './api/guild/get'
 import { buildGuildList } from './api/guild/list'
 import { buildGuildMemberGet } from './api/guild/member/get'
+import { buildGuildMemberKick } from './api/guild/member/kick'
 import { buildGuildMemberList } from './api/guild/member/list'
 import { buildGuildRemove } from './api/guild/remove'
 import { buildAssetsGet } from './api/internal/assets/get'
@@ -42,6 +43,7 @@ export const apply = async (ctx: ChronocatContext) => {
   register('guild.remove', buildGuildRemove(ctx))
   register('guild.member.get', buildGuildMemberGet(ctx))
   register('guild.member.list', buildGuildMemberList(ctx))
+  register('guild.member.kick', buildGuildMemberKick(ctx))
   register('message.create', buildMessageCreate(ctx))
   register('login.get', buildLoginGet(ctx))
   register('chronocat.internal.message.create.forward', buildMessageCreate(ctx))
