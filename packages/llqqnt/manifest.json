@@ -4,7 +4,7 @@
   "name": "Chronocat",
   "slug": "chronocat",
   "description": "小巧轻便的 Red 实现",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "thumbnail": "./chronocat.png",
   "authors": [
     {
