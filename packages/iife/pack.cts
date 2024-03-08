@@ -7,5 +7,5 @@ void (async () => {
     '../../build/dist/iife/',
   )
   await mkdir(distPath, { recursive: true })
-  await cp(join(__dirname, 'lib/index.js'), join(distPath, 'main.js'))
+  await cp(join(__dirname, 'lib/index.js'), join(distPath, 'chronocat.js'))
 })()
