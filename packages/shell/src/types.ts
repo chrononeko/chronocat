@@ -2,7 +2,6 @@
 
 import type { QFace, RedMessage } from '@chronocat/red'
 import type h from '@satorijs/element'
-import type styles from 'ansi-styles'
 import type { O } from 'ts-toolbelt'
 import type {
   ApprovePayload,

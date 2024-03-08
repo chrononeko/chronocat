@@ -14,6 +14,7 @@ import type { ChronocatContext, Engine } from './types'
 import { PLATFORM } from './utils/consts'
 import { exists } from './utils/fs'
 import { sleep, timeout } from './utils/time'
+import { bgGrey, cyan, white } from './utils/colors'
 
 export * from './satori/types'
 export * from './services/config/configEntity'
@@ -81,7 +82,14 @@ export const chronocat = async () => {
   ready!()
 
   const outerContext = {
-    load: (x: Engine) => x.apply(ctx),
+    load: (x: Engine) => {
+      l.info(`加载引擎 ${cyan(x.name)} ${bgGrey(white(`v${x.version}`))}`)
+      try {
+        x.apply(ctx)
+      } catch (e) {
+        l.error(`加载引擎 ${x.name} 时出现问题。`, { code: 2155, throw: true })
+      }
+    },
   }
 
   // 将 outerContext 挂载至 process.domain
