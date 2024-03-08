@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-invalid-void-type */
+
 import type { QFace, RedMessage } from '@chronocat/red'
 import type h from '@satorijs/element'
 import type styles from 'ansi-styles'
@@ -96,7 +98,7 @@ export interface Methods {
 
   'guild.get': [[GuildGetPayload], Guild]
   'guild.list': [[], GuildListResponse]
-  'guild.approve': [[ApprovePayload], never]
+  'guild.approve': [[ApprovePayload], void]
 
   'message.create': [
     [MessageCreatePayload, ChronocatSatoriServerConfig],
@@ -107,7 +109,7 @@ export interface Methods {
 
   // Internal
 
-  'chronocat.internal.notimpl': [[], never]
+  'chronocat.internal.notimpl': [[], void]
 
   'chronocat.internal.message.create.forward': [
     [MessageCreatePayload, ChronocatSatoriServerConfig],
