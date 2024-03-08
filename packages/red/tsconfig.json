@@ -6,7 +6,6 @@
     "target": "ESNext",
     "module": "ESNext",
     "emitDeclarationOnly": false,
-    "incremental": true
   },
   "include": [
     "src",
