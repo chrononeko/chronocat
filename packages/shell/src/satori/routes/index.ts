@@ -7,7 +7,7 @@ import { channelMute } from './channel/mute'
 // import { friendRemove } from './friend/remove'
 // import { guildApprove } from './guild/approve'
 import { guildGet } from './guild/get'
-// import { guildList } from './guild/list'
+import { guildList } from './guild/list'
 // import { guildMemberGet } from './guild/member/get'
 // import { guildMemberKick } from './guild/member/kick'
 // import { guildMemberList } from './guild/member/list'
@@ -32,7 +32,7 @@ const routesIntl = {
   'unsafe.channel.member.mute': channelMemberMute,
   'user.channel.create': userChannelCreate,
   'guild.get': guildGet,
-  // 'guild.list': guildList,
+  'guild.list': guildList,
   // 'guild.approve': guildApprove,
   // 'unsafe.guild.remove': guildRemove,
   // 'guild.member.get': guildMemberGet,

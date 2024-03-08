@@ -12,6 +12,7 @@ import type {
   Event,
   Guild,
   GuildGetPayload,
+  GuildListResponse,
   Login,
   Message,
   MessageCreatePayload,
@@ -93,6 +94,7 @@ export interface Methods {
   'user.channel.create': [[UserPayload], Channel]
 
   'guild.get': [[GuildGetPayload], Guild]
+  'guild.list': [[], GuildListResponse]
 
   'message.create': [
     [MessageCreatePayload, ChronocatSatoriServerConfig],
