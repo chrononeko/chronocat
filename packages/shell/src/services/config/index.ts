@@ -53,7 +53,7 @@ const task = (async () => {
         { code: 2157 },
       )
 
-    l.error(new Error(`解析配置时出现问题。${validateResult}`), {
+    l.error(new Error(`解析配置时出现问题。\n${validateResult}\n\n\t配置文件位置：${configPath}\n\t请自行检查。`), {
       code: 2154,
       throw: true,
     })
