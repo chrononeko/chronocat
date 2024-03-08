@@ -13,6 +13,7 @@ import type {
   ChannelMemberMutePayload,
   ChannelMutePayload,
   Event,
+  FriendListResponse,
   Guild,
   GuildGetPayload,
   GuildListResponse,
@@ -29,6 +30,7 @@ import type {
   MessageGetPayload,
   MessageListPayload,
   MessageListResponse,
+  Next,
   User,
   UserGetPayload,
   UserPayload,
@@ -127,6 +129,8 @@ export interface Methods {
   'login.get': [[], Login]
 
   'user.get': [[UserGetPayload], User]
+
+  'friend.list': [[Next], FriendListResponse]
 
   // Internal
 

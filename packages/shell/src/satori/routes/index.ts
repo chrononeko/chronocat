@@ -3,7 +3,7 @@ import { channelList } from './channel/list'
 import { channelMemberMute } from './channel/member/mute'
 import { channelMute } from './channel/mute'
 // import { friendApprove } from './friend/approve'
-// import { friendList } from './friend/list'
+import { friendList } from './friend/list'
 // import { friendRemove } from './friend/remove'
 import { guildApprove } from './guild/approve'
 import { guildGet } from './guild/get'
@@ -56,7 +56,7 @@ const routesIntl = {
   'reaction.clear': notImplemented,
   'reaction.list': notImplemented,
   'user.get': userGet,
-  // 'friend.list': friendList,
+  'friend.list': friendList,
   // 'friend.approve': friendApprove,
   // 'unsafe.friend.remove': friendRemove,
 } as const
