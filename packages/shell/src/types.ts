@@ -25,6 +25,7 @@ import type {
   Login,
   Message,
   MessageCreatePayload,
+  MessageGetPayload,
   UserPayload,
 } from './satori/types'
 import type { api } from './services/api'
@@ -114,6 +115,7 @@ export interface Methods {
     [MessageCreatePayload, ChronocatSatoriServerConfig],
     Message[],
   ]
+  'message.get': [[MessageGetPayload], Message]
 
   'login.get': [[], Login]
 
