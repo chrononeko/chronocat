@@ -15,15 +15,15 @@ import { PLATFORM } from './utils/consts'
 import { exists } from './utils/fs'
 import { sleep, timeout } from './utils/time'
 import { bgGrey, cyan, white } from './utils/colors'
+import { STARTUP_TEXT } from './utils/startup'
 
 export * from './satori/types'
 export * from './services/config/configEntity'
 export * from './types'
 
-declare const __DEFINE_CHRONO_VERSION__: string
 
 export const chronocat = async () => {
-  l.info(`Chronocat v${__DEFINE_CHRONO_VERSION__}`)
+  l.write(STARTUP_TEXT)
 
   let ready: () => void
   const readyPromise = new Promise<void>((res) => {

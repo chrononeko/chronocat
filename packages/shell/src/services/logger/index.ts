@@ -78,7 +78,7 @@ class ChronocatLogger {
       await this.file!.write(output + '\n')
     }))
 
-  private write = (output: string) => {
+  write = (output: string) => {
     this.writeConsole(output)
     this.writeFile(output)
   }
