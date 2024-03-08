@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "clean": "ts-node -T scripts/clean.cts",
-    "build": "concurrently -n red \"yarn workspace @chronocat/red build\" && concurrently -n shell \"yarn workspace @chronocat/shell build\" && concurrently -n llqqntv0,llqqntv1,api,event \"yarn workspace @chronocat/plugin-llqqntv0 build\" \"yarn workspace @chronocat/plugin-llqqntv1 build\" \"yarn workspace @chronocat/engine-chronocat-api build\" \"yarn workspace @chronocat/engine-chronocat-event build\" && concurrently -n packengine yarn:packengine",
+    "build": "concurrently -n red \"yarn workspace @chronocat/red build\" && concurrently -n shell \"yarn workspace @chronocat/shell build\" && concurrently -n llqqnt,api,event \"yarn workspace @chronocat/plugin-llqqnt build\" \"yarn workspace @chronocat/engine-chronocat-api build\" \"yarn workspace @chronocat/engine-chronocat-event build\" && concurrently -n packengine yarn:packengine",
     "packengine": "ts-node -T scripts/packengine.cts"
   },
   "resolutions": {

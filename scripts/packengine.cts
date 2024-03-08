@@ -21,14 +21,7 @@ void Promise.all(
       distPath,
       resolve(
         __dirname,
-        `../build/dist/llqqntv0/LiteLoaderQQNT-Plugin-Chronocat/src/${filename}`,
-      ),
-    )
-    await cp(
-      distPath,
-      resolve(
-        __dirname,
-        `../build/dist/llqqntv1/LiteLoaderQQNT-Plugin-Chronocat/src/${filename}`,
+        `../build/dist/llqqnt/LiteLoaderQQNT-Plugin-Chronocat/src/${filename}`,
       ),
     )
   }),

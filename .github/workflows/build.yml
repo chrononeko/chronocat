@@ -30,17 +30,11 @@ jobs:
           yarn build
         shell: bash
 
-      - name: Upload LiteLoaderQQNT Plugin v0
+      - name: Upload LiteLoaderQQNT Plugin
         uses: actions/upload-artifact@v3
         with:
-          name: chronocat-llqqntv0-${{ github.sha }}
-          path: build/dist/llqqntv0
-
-      - name: Upload LiteLoaderQQNT Plugin v1
-        uses: actions/upload-artifact@v3
-        with:
-          name: chronocat-llqqntv1-${{ github.sha }}
-          path: build/dist/llqqntv1
+          name: chronocat-llqqnt-${{ github.sha }}
+          path: build/dist/llqqnt
 
       - name: Upload engine-chronocat-api
         uses: actions/upload-artifact@v3
@@ -69,6 +63,6 @@ jobs:
           user_email: 'hi@ilharper.com'
           external_repository: chrononeko/LiteLoaderQQNT-Plugin-Chronocat
           publish_branch: master
-          publish_dir: build/dist/llqqntv1/LiteLoaderQQNT-Plugin-Chronocat
+          publish_dir: build/dist/llqqnt/LiteLoaderQQNT-Plugin-Chronocat
           enable_jekyll: true # Not to create .nojekyll since this is not a gh page
           commit_message: 'chore: publish ${{ github.sha }}'

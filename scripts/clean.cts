@@ -13,8 +13,7 @@ void Promise.all(
     '../packages/engine-chronocat-api/tsconfig.tsbuildinfo',
     '../packages/engine-chronocat-event/lib',
     '../packages/engine-chronocat-event/tsconfig.tsbuildinfo',
-    '../packages/llqqntv0/lib',
-    '../packages/llqqntv1/lib',
+    '../packages/llqqnt/lib',
     '../packages/docs/static/config-v0.schema.json',
     '../packages/docs/static/openapi.yaml',
   ].map((x) =>
