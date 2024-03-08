@@ -18,6 +18,8 @@ export type {
   GuildRemovePayload,
   MessageDeletePayload,
   MessageGetPayload,
+  MessageListPayload,
+  MessageListResponse,
   Next,
   UserGetPayload,
   UserPayload,

@@ -16,7 +16,7 @@ import { guildRemove } from './guild/remove'
 import { messageCreate } from './message/create'
 import { messageDelete } from './message/delete'
 import { messageGet } from './message/get'
-// import { messageList } from './message/list'
+import { messageList } from './message/list'
 import { notImplemented } from './notimpl'
 import type { Route } from './types'
 import { userChannelCreate } from './user/channel/create'
@@ -50,7 +50,7 @@ const routesIntl = {
   'message.get': messageGet,
   'message.delete': messageDelete,
   'message.update': notImplemented,
-  // 'message.list': messageList,
+  'message.list': messageList,
   'reaction.create': notImplemented,
   'reaction.delete': notImplemented,
   'reaction.clear': notImplemented,

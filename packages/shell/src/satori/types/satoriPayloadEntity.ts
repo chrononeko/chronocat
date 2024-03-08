@@ -1,4 +1,4 @@
-import type { Channel, Guild, GuildMember, User } from './satoriEntity'
+import type { Channel, Guild, GuildMember, Message, User } from './satoriEntity'
 
 export interface Next {
   /**
@@ -81,6 +81,14 @@ export interface MessageDeletePayload {
 export interface MessageGetPayload {
   channel_id: string
   message_id: string
+}
+
+export interface MessageListPayload extends Next {
+  channel_id: string
+}
+
+export interface MessageListResponse extends Next {
+  data: Message[]
 }
 
 export interface ChannelMutePayload {
