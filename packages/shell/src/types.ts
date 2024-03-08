@@ -3,6 +3,7 @@ import type h from '@satorijs/element'
 import type styles from 'ansi-styles'
 import type { O } from 'ts-toolbelt'
 import type {
+  ApprovePayload,
   Channel,
   ChannelGetPayload,
   ChannelListPayload,
@@ -95,6 +96,7 @@ export interface Methods {
 
   'guild.get': [[GuildGetPayload], Guild]
   'guild.list': [[], GuildListResponse]
+  'guild.approve': [[ApprovePayload], never]
 
   'message.create': [
     [MessageCreatePayload, ChronocatSatoriServerConfig],

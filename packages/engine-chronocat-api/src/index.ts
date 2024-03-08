@@ -5,6 +5,7 @@ import { buildChannelGet } from './api/channel/get'
 import { buildChannelList } from './api/channel/list'
 import { buildChannelMemberMute } from './api/channel/member/mute'
 import { buildChannelMute } from './api/channel/mute'
+import { buildGuildApprove } from './api/guild/approve'
 import { buildGuildGet } from './api/guild/get'
 import { buildGuildList } from './api/guild/list'
 import { buildAssetsGet } from './api/internal/assets/get'
@@ -34,6 +35,7 @@ export const apply = async (ctx: ChronocatContext) => {
   register('user.channel.create', buildUserChannelCreate(ctx))
   register('guild.get', buildGuildGet(ctx))
   register('guild.list', buildGuildList(ctx))
+  register('guild.approve', buildGuildApprove(ctx))
   register('message.create', buildMessageCreate(ctx))
   register('login.get', buildLoginGet(ctx))
   register('chronocat.internal.message.create.forward', buildMessageCreate(ctx))
