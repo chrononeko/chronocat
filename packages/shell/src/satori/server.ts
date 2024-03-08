@@ -50,10 +50,7 @@ export const initSatoriServer = async (
       return
     }
 
-    const url = new URL(
-      req.url,
-      `http://${req.socket.remoteAddress}:${req.socket.remotePort}`,
-    )
+    const url = new URL(req.url, 'http://dummy')
 
     res.setHeader('Server', poweredBy)
     res.setHeader('X-Powered-By', poweredBy)
