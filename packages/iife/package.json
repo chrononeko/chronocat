@@ -1,0 +1,26 @@
+{
+  "name": "@chronocat/plugin-iife",
+  "description": "小巧轻便的 Red 实现",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0",
+  "author": {
+    "name": "Il Harper",
+    "email": "hi@ilharper.com",
+    "url": "https://ilharper.com"
+  },
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "ts-node -T ../../scripts/build.cts build && ts-node -T pack.cts"
+  },
+  "devDependencies": {
+    "@chronocat/shell": "workspace:packages/shell",
+    "concurrently": "^8.2.1",
+    "tosource": "^2.0.0-alpha.3",
+    "ts-node": "^10.9.1",
+    "typescript": "~5.1.0"
+  }
+}
