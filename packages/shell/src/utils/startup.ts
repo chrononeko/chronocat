@@ -46,5 +46,7 @@ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 
 ${cyan('ChronoCat')} ${bgBlue(white(__DEFINE_CHRONO_VERSION__))}
 
+${grey('[+] 点击形如 [CH2157] 的日志文本可以打开相应说明页面。')}
+
 `
 
