@@ -29,7 +29,7 @@ export type Api = {
 
 const buildNotimpl = (name: string) => {
   const fn = () =>
-    l.error(new Error(`没有引擎提供 ${name}。可能没有加载所需的引擎？`), {
+    l.error(new Error(`没有引擎提供 ${bgMagenta(white(name))}。可能没有加载所需的引擎？`), {
       code: 2159,
       throw: true,
     })

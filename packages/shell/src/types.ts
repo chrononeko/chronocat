@@ -96,9 +96,7 @@ export interface SelfProfileDispatchMessage {
   }>
 }
 
-export interface Methods {
-  // Satori
-
+export interface SatoriMethods {
   'channel.get': [[ChannelGetPayload], Channel]
   'channel.list': [[ChannelListPayload], ChannelListResponse]
   'unsafe.channel.mute': [[ChannelMutePayload], Record<string, never>]
@@ -131,9 +129,9 @@ export interface Methods {
   'friend.list': [[Next], FriendListResponse]
   'friend.approve': [[ApprovePayload], Record<string, never>]
   'unsafe.friend.remove': [[UserPayload], Record<string, never>]
+}
 
-  // Internal
-
+export interface CCInternalMethods {
   'chronocat.internal.notimpl': [[], void]
 
   'chronocat.internal.message.create.forward': [
@@ -155,3 +153,5 @@ export interface Methods {
   'chronocat.internal.qface.get': [[string], QFace | undefined]
   'chronocat.internal.qface.list': [[], QFace[] | undefined]
 }
+
+export type Methods = SatoriMethods & CCInternalMethods
