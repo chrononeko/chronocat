@@ -1,4 +1,4 @@
-import { bgBlue, cyan, grey, white } from "./colors"
+import { bgCyan, cyan, grey, bold } from "./colors"
 
 declare const __DEFINE_CHRONO_VERSION__: string
 
@@ -33,18 +33,17 @@ ${`
 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 bbbbbbbb______bbbb__bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb______bbbbbbbbbbb__bbbbbb
-bbbbbbb/b____/bbb/b/_bbbb_____bb____bbbb____bbb____bbb/b____/bb____b_bb/b/_bbbbb
-bbbbbb/b/bbbbbbb/b__b\\bb/b___/b/b__b\\bb/b__b\\b/b__b\\b/b/bbbbbb/b__b\`/b/b__/bbbbb
-bbbbb/b/___bbbb/b/b/b/b/b/bbbb/b/_/b/b/b/b/b//b/_/b//b/___bbb/b/_/b/b/b/_bbbbbbb
+bbbbbbb/ ____/bbb/ /_bbbb_____bb____bbbb____bbb____bbb/ ____/bb____b_bb/ /_bbbbb
+bbbbbb/ /bbbbbbb/ __ \\bb/ ___/b/ __ \\bb/ __ \\b/ __ \\b/ /bbbbbb/ __ \`/b/ __/bbbbb
+bbbbb/ /___bbbb/ /b/ /b/ /bbbb/ /_/ /b/ /b/ // /_/ // /___bbb/ /_/ /b/ /_bbbbbbb
 bbbbb\\____/bbb/_/b/_/b/_/bbbbb\\____/b/_/b/_/b\\____/b\\____/bbb\\__,_/bb\\__/bbbbbbb
 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-`
-    .replace(/([^b])/g, cyan('$1'))
+`.replace(/([^b])/g, cyan('$1'))
     .replace(/b/g, () => grey(bgStr[(i++) % bgStr.length]!))
   }
 
-${cyan('ChronoCat')} ${bgBlue(white(__DEFINE_CHRONO_VERSION__))}
+${cyan('ChronoCat')} ${bgCyan(` ${bold(__DEFINE_CHRONO_VERSION__)} `)}
 
 ${grey('[+] 点击形如 [CH2157] 的日志文本可以打开相应说明页面。')}
 
