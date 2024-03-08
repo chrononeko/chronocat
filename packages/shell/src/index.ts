@@ -101,38 +101,38 @@ export const chronocat = async () => {
     )
     .forEach((x) => engines.push(x))
 
-  if (!engines.length)
-    readdirSync(__dirname)
-      .map((filename) => {
-        let valid = false
-        let name = filename
-        let type = 'js'
+  // if (!engines.length)
+  readdirSync(__dirname)
+    .map((filename) => {
+      let valid = false
+      let name = filename
+      let type = 'js'
 
-        if (name.endsWith('.engine.jsc')) {
-          valid = true
-          name = name.slice(0, name.length - 11)
-          type = 'jsc'
-        }
+      if (name.endsWith('.engine.jsc')) {
+        valid = true
+        name = name.slice(0, name.length - 11)
+        type = 'jsc'
+      }
 
-        if (name.endsWith('.engine.js')) {
-          valid = true
-          name = name.slice(0, name.length - 10)
-        }
+      if (name.endsWith('.engine.js')) {
+        valid = true
+        name = name.slice(0, name.length - 10)
+      }
 
-        if (!valid) return undefined
+      if (!valid) return undefined
 
-        return {
-          name,
-          filename,
-          type,
-          path: join(__dirname, filename),
-          hidden: true,
-        }
-      })
-      .filter(
-        Boolean as unknown as (x: EngineInfo | undefined) => x is EngineInfo,
-      )
-      .forEach((x) => engines.push(x))
+      return {
+        name,
+        filename,
+        type,
+        path: join(__dirname, filename),
+        hidden: true,
+      }
+    })
+    .filter(
+      Boolean as unknown as (x: EngineInfo | undefined) => x is EngineInfo,
+    )
+    .forEach((x) => engines.push(x))
 
   if (!engines.length)
     l.warn('没有找到任何引擎。Chronocat 服务仍将启动。', { code: 2156 })
