@@ -14,9 +14,9 @@
     "lib"
   ],
   "scripts": {
-    "codegen": "ts-node -T scripts/codegen.cts",
+    "codegen": "node -r esbuild-register scripts/codegen.cts",
     "build": "concurrently -n codegen yarn:codegen && concurrently -n cjs,dts yarn:build:cjs yarn:build:dts",
-    "build:cjs": "ts-node -T ../../scripts/build.cts",
+    "build:cjs": "node -r esbuild-register ../../scripts/build.cts",
     "build:dts": "tsc -p tsconfig.json"
   },
   "devDependencies": {

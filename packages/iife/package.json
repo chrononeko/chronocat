@@ -14,7 +14,7 @@
     "lib"
   ],
   "scripts": {
-    "build": "ts-node -T ../../scripts/build.cts build && ts-node -T pack.cts"
+    "build": "node -r esbuild-register ../../scripts/build.cts build && node -r esbuild-register pack.cts"
   },
   "devDependencies": {
     "@chronocat/shell": "workspace:packages/shell",

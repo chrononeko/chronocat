@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "build": "concurrently -n cjs,dts yarn:build:cjs yarn:build:dts",
-    "build:cjs": "ts-node -T ../../scripts/build.cts",
+    "build:cjs": "node -r esbuild-register ../../scripts/build.cts",
     "build:dts": "tsc -p tsconfig.json"
   },
   "devDependencies": {

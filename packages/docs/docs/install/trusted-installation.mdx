@@ -27,7 +27,7 @@ Chronocat 可信安装的公钥可以从这里获取：
 scripts 文件夹内，因此你可以直接使用下面的命令进行验证：
 
 ```sh
-yarn ts-node -T scripts/dti.cts <chronocat.js.ti.bin 的位置>
+yarn node -r esbuild-register scripts/dti.cts <chronocat.js.ti.bin 的位置>
 ```
 
 如果程序没有任何输出，那么验证成功。如果程序抛出异常，那么验证失败。

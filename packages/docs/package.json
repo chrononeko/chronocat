@@ -9,7 +9,7 @@
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
-    "genclg": "ts-node -T scripts/genclg.cts",
+    "genclg": "node -r esbuild-register scripts/genclg.cts",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids"
   },
