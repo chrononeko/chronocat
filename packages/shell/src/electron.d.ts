@@ -19286,6 +19286,7 @@ interface Document {
 
 declare namespace NodeJS {
   interface Process extends NodeJS.EventEmitter {
+    domain: any;
 
     // Docs: https://electronjs.org/docs/api/process
 
@@ -19304,7 +19305,7 @@ declare namespace NodeJS {
     /**
      * * `allocated` Integer - Size of all allocated objects in Kilobytes.
      * * `total` Integer - Total allocated space in Kilobytes.
-     * 
+     *
      * Returns an object with Blink memory information. It can be useful for debugging
      * rendering / DOM related memory issues. Note that all values are reported in
      * Kilobytes.
@@ -19314,7 +19315,7 @@ declare namespace NodeJS {
     /**
      * The number of milliseconds since epoch, or `null` if the information is
      * unavailable
-     * 
+     *
      * Indicates the creation time of the application. The time is represented as
      * number of milliseconds since epoch. It returns null if it is unable to get the
      * process creation time.
@@ -19330,7 +19331,7 @@ declare namespace NodeJS {
      * * `mallocedMemory` Integer
      * * `peakMallocedMemory` Integer
      * * `doesZapGarbage` boolean
-     * 
+     *
      * Returns an object with V8 heap statistics. Note that all statistics are reported
      * in Kilobytes.
      */
@@ -19341,11 +19342,11 @@ declare namespace NodeJS {
     getIOCounters(): Electron.IOCounters;
     /**
      * Resolves with a ProcessMemoryInfo
-     * 
+     *
      * Returns an object giving memory usage statistics about the current process. Note
      * that all statistics are reported in Kilobytes. This api should be called after
      * app ready.
-     * 
+     *
      * Chromium does not provide `residentSet` value for macOS. This is because macOS
      * performs in-memory compression of pages that haven't been recently used. As a
      * result the resident set size value is not what one would expect. `private`
@@ -19362,16 +19363,16 @@ declare namespace NodeJS {
      * Kilobytes available to the system.
      * * `swapFree` Integer _Windows_ _Linux_ - The free amount of swap memory in
      * Kilobytes available to the system.
-     * 
+     *
      * Returns an object giving memory usage statistics about the entire system. Note
      * that all statistics are reported in Kilobytes.
      */
     getSystemMemoryInfo(): Electron.SystemMemoryInfo;
     /**
      * The version of the host operating system.
-     * 
+     *
      * Example:
-     * 
+     *
      * **Note:** It returns the actual operating system version instead of kernel
      * version on macOS unlike `os.release()`.
      */
@@ -19389,7 +19390,7 @@ declare namespace NodeJS {
     setFdLimit(maxDescriptors: number): void;
     /**
      * Indicates whether the snapshot has been created successfully.
-     * 
+     *
      * Takes a V8 heap snapshot and saves it to `filePath`.
      */
     takeHeapSnapshot(filePath: string): boolean;
@@ -19488,7 +19489,7 @@ declare namespace NodeJS {
     traceProcessWarnings: boolean;
     /**
      * A `string` representing the current process's type, can be:
-     * 
+     *
      * * `browser` - The main process
      * * `renderer` - A renderer process
      * * `worker` - In a web worker

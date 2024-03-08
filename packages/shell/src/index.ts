@@ -1,7 +1,5 @@
 import h from '@satorijs/element'
 import styles from 'ansi-styles'
-import { mkdirSync, readdirSync } from 'node:fs'
-import { join } from 'node:path'
 import { initServers } from './server'
 import { api } from './services/api'
 import { getAuthData } from './services/authData'
@@ -23,14 +21,6 @@ export * from './services/config/configEntity'
 export * from './types'
 
 declare const __DEFINE_CHRONO_VERSION__: string
-
-interface EngineInfo {
-  name: string
-  filename: string
-  type: string
-  path: string
-  hidden: boolean
-}
 
 export const chronocat = async () => {
   l.info(`Chronocat v${__DEFINE_CHRONO_VERSION__}`)
@@ -61,110 +51,6 @@ export const chronocat = async () => {
     },
   }
 
-  const engines: EngineInfo[] = []
-
-  const externalEnginesPath = join(baseDir, 'engines')
-
-  mkdirSync(externalEnginesPath, {
-    recursive: true,
-  })
-
-  readdirSync(externalEnginesPath)
-    .map((filename) => {
-      let valid = false
-      let name = filename
-      let type = 'js'
-
-      if (name.endsWith('.engine.jsc')) {
-        valid = true
-        name = name.slice(0, name.length - 11)
-        type = 'jsc'
-      }
-
-      if (name.endsWith('.engine.js')) {
-        valid = true
-        name = name.slice(0, name.length - 10)
-      }
-
-      if (!valid) return undefined
-
-      return {
-        name,
-        filename,
-        type,
-        path: join(externalEnginesPath, filename),
-        hidden: false,
-      }
-    })
-    .filter(
-      Boolean as unknown as (x: EngineInfo | undefined) => x is EngineInfo,
-    )
-    .forEach((x) => engines.push(x))
-
-  // if (!engines.length)
-  readdirSync(__dirname)
-    .map((filename) => {
-      let valid = false
-      let name = filename
-      let type = 'js'
-
-      if (name.endsWith('.engine.jsc')) {
-        valid = true
-        name = name.slice(0, name.length - 11)
-        type = 'jsc'
-      }
-
-      if (name.endsWith('.engine.js')) {
-        valid = true
-        name = name.slice(0, name.length - 10)
-      }
-
-      if (!valid) return undefined
-
-      return {
-        name,
-        filename,
-        type,
-        path: join(__dirname, filename),
-        hidden: true,
-      }
-    })
-    .filter(
-      Boolean as unknown as (x: EngineInfo | undefined) => x is EngineInfo,
-    )
-    .forEach((x) => engines.push(x))
-
-  if (!engines.length)
-    l.warn('没有找到任何引擎。Chronocat 服务仍将启动。', { code: 2156 })
-
-  for (const engineInfo of engines) {
-    try {
-      l.debug(
-        `加载引擎：${styles.green.open}${engineInfo.filename}${styles.green.close}`,
-      )
-
-      if (engineInfo.type === 'jsc') require('bytenode')
-
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const engine = require(engineInfo.path) as unknown as Engine
-      l.info(
-        `使用引擎 ${styles.green.open}${engine.name}${styles.green.close} v${engine.version}${engineInfo.hidden ? '' : `${styles.grey.open}，来自 ${engineInfo.filename}${styles.grey.close}`}`,
-      )
-      engine.apply(ctx)
-    } catch (e) {
-      setTimeout(() => process.exit(1), 2000)
-      l.error(
-        new Error(`加载引擎 ${engineInfo.filename} 失败`, {
-          cause: e,
-        }),
-        {
-          code: 2155,
-          throw: true,
-        },
-      )
-    }
-  }
-
   emitter.register(setSelfProfile)
 
   // getConfig() 包含用户配置，因此会先等待登录
@@ -173,7 +59,7 @@ export const chronocat = async () => {
   l.debug('等待登录')
   const config = await getConfig()
   if (!config.enable) {
-    l.info('根据配置文件要求，退出 Chronocat')
+    l.info('根据配置文件要求，Chronocat 不会启用。')
     return
   }
 
@@ -187,7 +73,7 @@ export const chronocat = async () => {
   // Log satori message
   emitter.register(async (m) => {
     if (m.type !== 'satori') return
-    ;(await m.toSatori(ctx, log)).forEach((e) => l.parse(e))
+      ; (await m.toSatori(ctx, log)).forEach((e) => l.parse(e))
   })
 
   emitter.register((await initServers(ctx)).emit)
@@ -195,4 +81,39 @@ export const chronocat = async () => {
   l.info('中身はあんまりないよ～ (v0.x)', { code: 560 })
 
   ready!()
+
+  const outerContext = {
+    load: (x: Engine) => x.apply(ctx),
+  }
+
+  // 将 outerContext 挂载至 process.domain
+  if (!process || !process.domain) {
+    l.warn('process.domain 不存在，无法挂载 outerContext，一些 Engine 可能加载失败。')
+  } else {
+    // 如何通过 process.domain 获取 outerContext：
+    // ```ts
+    // process.domain = '__chronocat__'
+    // const outerContext = process.domain
+    // ```
+
+    const origDomain = process.domain
+
+    let signalHack = false
+    // @ts-ignore
+    process.__defineSetter__('domain', (x) => {
+      if (x === '__chronocat__')
+        signalHack = true
+    })
+
+    // @ts-ignore
+    process.__defineGetter__('domain', () => {
+      if (signalHack) {
+        signalHack = false
+        return outerContext
+      }
+      return origDomain
+    })
+  }
+
+  return outerContext
 }
