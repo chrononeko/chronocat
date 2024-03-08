@@ -249,7 +249,7 @@ async function parseGuildMemberAddedMessage(
     }&spec=640`,
   }
 
-  if (event2.member) delete event2.member
+  if (!event2.member) event2.member = {}
 
   return [event2, ...extraEvents]
 }
@@ -350,7 +350,7 @@ async function parseGuildMemberAddedLegacyInviteMessage(
     avatar: `http://thirdqq.qlogo.cn/headimg_dl?dst_uin=${userId}&spec=640`,
   }
 
-  if (event2.member) delete event2.member
+  if (!event2.member) event2.member = {}
 
   return [event2, ...extraEvents]
 }
