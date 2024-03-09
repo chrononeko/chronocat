@@ -21,8 +21,7 @@ export * from './satori/types'
 export * from './services/config/configEntity'
 export * from './types'
 
-
-export const chronocat = async () => {
+export const chronocat = () => {
   l.write(STARTUP_TEXT)
 
   let ready: () => void
@@ -56,30 +55,31 @@ export const chronocat = async () => {
   // 这是首个等待登录的位置
   // 所有在登录前就需要启动的服务均应在此之前
   l.debug('等待登录')
-  const config = await getConfig()
-  if (!config.enable) {
-    l.info('根据配置文件要求，Chronocat 不会启用。')
-    return
-  }
+  void getConfig().then(async (config) => {
+    if (!config.enable) {
+      l.info('根据配置文件要求，Chronocat 不会启用。')
+      return
+    }
 
-  const log: ChronocatLogCurrentConfig = config.log!
-  // 预处理 self_url
-  if (!log.self_url || log.self_url === 'https://chronocat.vercel.app')
-    log.self_url = `http://127.0.0.1:5500`
-  if (log.self_url.endsWith('/'))
-    log.self_url = log.self_url.slice(0, log.self_url.length - 1)
+    const log: ChronocatLogCurrentConfig = config.log!
+    // 预处理 self_url
+    if (!log.self_url || log.self_url === 'https://chronocat.vercel.app')
+      log.self_url = `http://127.0.0.1:5500`
+    if (log.self_url.endsWith('/'))
+      log.self_url = log.self_url.slice(0, log.self_url.length - 1)
 
-  // Log satori message
-  emitter.register(async (m) => {
-    if (m.type !== 'satori') return
-      ; (await m.toSatori(ctx, log)).forEach((e) => l.parse(e))
+    // Log satori message
+    emitter.register(async (m) => {
+      if (m.type !== 'satori') return
+      ;(await m.toSatori(ctx, log)).forEach((e) => l.parse(e))
+    })
+
+    emitter.register((await initServers(ctx)).emit)
+
+    l.info('中身はあんまりないよ～ (v0.x)', { code: 560 })
+
+    ready!()
   })
-
-  emitter.register((await initServers(ctx)).emit)
-
-  l.info('中身はあんまりないよ～ (v0.x)', { code: 560 })
-
-  ready!()
 
   const outerContext = {
     load: (x: Engine) => {
@@ -94,7 +94,9 @@ export const chronocat = async () => {
 
   // 将 outerContext 挂载至 process.version
   if (!process || !process.version) {
-    l.warn('process.version 不存在，无法挂载 outerContext，一些 Engine 可能加载失败。')
+    l.warn(
+      'process.version 不存在，无法挂载 outerContext，一些 Engine 可能加载失败。',
+    )
   } else {
     // 如何通过 process.version 获取 outerContext：
     // ```ts
@@ -105,13 +107,16 @@ export const chronocat = async () => {
     const origVersion = process.version
 
     let signalHack = false
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment, @typescript-eslint/prefer-ts-expect-error
     // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     process.__defineSetter__('version', (x) => {
-      if (x === '__chronocat__')
-        signalHack = true
+      if (x === '__chronocat__') signalHack = true
     })
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment, @typescript-eslint/prefer-ts-expect-error
     // @ts-ignore
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     process.__defineGetter__('version', () => {
       if (signalHack) {
         signalHack = false
