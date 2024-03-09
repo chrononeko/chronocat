@@ -3,7 +3,7 @@
   "type": "extension",
   "name": "Chronocat",
   "slug": "chronocat",
-  "description": "小巧轻便的 Red 实现",
+  "description": "模块化的 Satori 框架",
   "version": "0.2.2",
   "thumbnail": "./chronocat.png",
   "authors": [
