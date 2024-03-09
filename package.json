@@ -16,7 +16,7 @@
     "clean": "node -r esbuild-register scripts/clean.cts",
     "build": "concurrently -n red \"yarn workspace @chronocat/red build\" && concurrently -n shell \"yarn workspace @chronocat/shell build\" && concurrently -n api,event \"yarn workspace @chronocat/engine-chronocat-api build\" \"yarn workspace @chronocat/engine-chronocat-event build\" && concurrently -n llqqnt,iife \"yarn workspace @chronocat/plugin-llqqnt build\" \"yarn workspace @chronocat/plugin-iife build\" && concurrently -n packengine yarn:packengine",
     "packengine": "node -r esbuild-register scripts/packengine.cts",
-    "lint": "eslint --ignore-path .gitignore --ignore-pattern **/*.d.ts .",
+    "lint": "eslint --ignore-path .gitignore --ignore-pattern '**/*.d.ts' .",
     "lint:fix": "yarn lint --fix",
     "test": "jest"
   },
