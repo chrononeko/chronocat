@@ -1,10 +1,12 @@
-import * as fs from 'node:fs'
+import * as cp from 'node:child_process'
 import * as crypto from 'node:crypto'
-
+import * as fs from 'node:fs'
 
 const watchFolder = process.argv[2]
 if (!watchFolder) {
-  console.error('Usage: node -r esbuild-register runOnChanged <folder> <command>')
+  console.error(
+    'Usage: node -r esbuild-register runOnChanged <folder> <command>',
+  )
   process.exit(1)
 }
 const command = process.argv.slice(3).join(' ')
@@ -12,10 +14,10 @@ const command = process.argv.slice(3).join(' ')
 // create or compare hash of files in the folder
 let hasChanged = false
 
-let hashes = new Map()
+let hashes = new Map<string, string>()
 
-const sha1 = (data: string) => crypto.createHash('sha1').update(data).digest('hex')
-
+const sha1 = (data: string) =>
+  crypto.createHash('sha1').update(data).digest('hex')
 
 const hashFile = (file: string) => {
   const hash = sha1(fs.readFileSync(file, 'utf8'))
@@ -28,7 +30,7 @@ const hashFile = (file: string) => {
 const hashFilepath = `${watchFolder}/.runOnChanged.hashes.json`
 const hashFolder = (folder: string) => {
   const files = fs.readdirSync(folder)
-  files.forEach((file: any) => {
+  files.forEach((file) => {
     const path = `${folder}/${file}`
 
     if (file.endsWith('.runOnChanged.hashes.json')) return
@@ -42,7 +44,10 @@ const hashFolder = (folder: string) => {
 }
 
 if (fs.existsSync(hashFilepath)) {
-  const oldHashes = JSON.parse(fs.readFileSync(hashFilepath, 'utf8'))
+  const oldHashes = JSON.parse(fs.readFileSync(hashFilepath, 'utf8')) as Record<
+    string,
+    string
+  >
   hashes = new Map(Object.entries(oldHashes))
 }
 
@@ -51,8 +56,7 @@ hashFolder(watchFolder)
 if (hasChanged) {
   console.log('[+] Files have changed, rebuilding...')
   fs.writeFileSync(hashFilepath, JSON.stringify(Object.fromEntries(hashes)))
-  require('child_process').execSync(command, { stdio: 'inherit' })
+  cp.execSync(command, { stdio: 'inherit' })
 } else {
   console.log('[-] Files not changed :)')
 }
-

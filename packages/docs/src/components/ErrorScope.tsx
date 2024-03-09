@@ -3,7 +3,6 @@
 import Link from '@docusaurus/Link'
 // eslint-disable-next-line import/no-unresolved
 import Admonition from '@theme/Admonition'
-import { clsx } from 'clsx'
 
 const errorScopeMap = {
   user: {

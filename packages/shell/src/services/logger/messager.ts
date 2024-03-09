@@ -6,7 +6,7 @@ export class LogiriMessager {
   private children: string[] = []
   private results: string[] = []
 
-  prepare = async () => { }
+  prepare = async () => {}
 
   render = async (elements: h[], flush?: boolean) => {
     for (const element of elements) await this.visit(element)
@@ -68,13 +68,14 @@ export class LogiriMessager {
         const id = author?.attrs['user-id'] as string | undefined
 
         this.children.push(
-          grey(id
-            ? `${link(
-              `[回复${id}]`,
-              `http://thirdqq.qlogo.cn/headimg_dl?dst_uin=${id}&spec=640`,
-            )} `
-            : `[回复] `)
-          ,
+          grey(
+            id
+              ? `${link(
+                  `[回复${id}]`,
+                  `http://thirdqq.qlogo.cn/headimg_dl?dst_uin=${id}&spec=640`,
+                )} `
+              : `[回复] `,
+          ),
         )
         return
       }

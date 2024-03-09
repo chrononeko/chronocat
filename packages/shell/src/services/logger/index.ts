@@ -12,7 +12,8 @@ import { getAuthData } from '../authData'
 import { baseDir } from '../baseDir'
 import { getConfig } from '../config'
 import { logiriMessageCreated } from './logiri'
-import { ColorFormatter, grey, red, yellow } from '../../utils/colors'
+import type { ColorFormatter } from '../../utils/colors'
+import { grey, red, yellow } from '../../utils/colors'
 
 interface LogOptions {
   code?: number
