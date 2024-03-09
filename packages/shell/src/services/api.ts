@@ -1,5 +1,5 @@
 import type { Methods } from '../types'
-import { bgMagenta, cyan, white } from '../utils/colors'
+import { bgMagenta, cyan, magenta, white } from '../utils/colors'
 import { l } from './logger'
 
 const notimplSym = Symbol('chronocat.internal.notimpl')
@@ -70,7 +70,7 @@ api.register =
       l.warn(
         `${cyan(engine)}(${newPriority}) 与 ${cyan(api[method].engine)}(${
           api[method].priority
-        }) 重复注册了方法 ${bgMagenta(white(method))}，将采用 ${newPriority > api[method].priority ? engine : api[method].engine} 的版本。`,
+        }) 重复注册了方法 ${magenta(method)}，将采用 ${newPriority > api[method].priority ? engine : api[method].engine} 的版本。`,
       )
 
       if (newPriority < api[method].priority) return
