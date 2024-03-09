@@ -4,13 +4,17 @@ import { resolve } from 'node:path'
 void Promise.all(
   [
     '../build',
+    '../packages/red/src/.runOnChanged.hashes.json',
     '../packages/red/lib',
     '../packages/red/tsconfig.tsbuildinfo',
+    '../packages/shell/src/.runOnChanged.hashes.json',
     '../packages/shell/lib',
     '../packages/shell/generated',
     '../packages/shell/tsconfig.tsbuildinfo',
+    '../packages/engine-chronocat-api/src/.runOnChanged.hashes.json',
     '../packages/engine-chronocat-api/lib',
     '../packages/engine-chronocat-api/tsconfig.tsbuildinfo',
+    '../packages/engine-chronocat-event/src/.runOnChanged.hashes.json',
     '../packages/engine-chronocat-event/lib',
     '../packages/engine-chronocat-event/tsconfig.tsbuildinfo',
     '../packages/iife/lib',
