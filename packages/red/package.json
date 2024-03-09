@@ -27,8 +27,7 @@
   },
   "devDependencies": {
     "concurrently": "^8.2.1",
-    "tosource": "^2.0.0-alpha.3",
-    "ts-node": "^10.9.1",
+    "esbuild-register": "^3.5.0",
     "ts-toolbelt": "^9.6.0",
     "typescript": "~5.1.0"
   }
