@@ -1,4 +1,4 @@
-import { bgCyan, cyan, grey, bold } from "./colors"
+import { bgCyan, cyan, grey, bold } from './colors'
 
 declare const __DEFINE_CHRONO_VERSION__: string
 
@@ -15,16 +15,19 @@ const backgroundStrings = [
   'convenient',
   'strong',
   'koishi',
-  'ilharp'
+  'ilharp',
 ]
 
 const bgStr = (() => {
   const LENGTH = 200
   const arr = new Array(LENGTH).fill(0)
-  return arr.map((_, __) => {
-    const str = backgroundStrings[Math.floor(Math.random() * backgroundStrings.length)]
-    return str
-  }).join('.')
+  return arr
+    .map((_, __) => {
+      const str =
+        backgroundStrings[Math.floor(Math.random() * backgroundStrings.length)]
+      return str
+    })
+    .join('.')
 })()
 let i = 0
 
@@ -39,13 +42,12 @@ bbbbb/ /___bbbb/ /b/ /b/ /bbbb/ /_/ /b/ /b/ // /_/ // /___bbb/ /_/ /b/ /_bbbbbbb
 bbbbb\\____/bbb/_/b/_/b/_/bbbbb\\____/b/_/b/_/b\\____/b\\____/bbb\\__,_/bb\\__/bbbbbbb
 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
-`.replace(/([^b])/g, cyan('$1'))
-    .replace(/b/g, () => grey(bgStr[(i++) % bgStr.length]!))
-  }
+`
+  .replace(/([^b])/g, cyan('$1'))
+  .replace(/b/g, () => grey(bgStr[i++ % bgStr.length]!))}
 
-${bgCyan(' ChronoCat ')} ${bold(__DEFINE_CHRONO_VERSION__)}
+${cyan(' ChronoCat ')} ${bold(__DEFINE_CHRONO_VERSION__)}
 
 ${grey('[+] 点击形如 [CH2157] 的日志文本可以打开相应说明页面。')}
 
 `
-
