@@ -1,5 +1,5 @@
 import type { Methods } from '../types'
-import { bgMagenta, cyan, magenta, white } from '../utils/colors'
+import { cyan, magenta } from '../utils/colors'
 import { l } from './logger'
 
 export type ApiImpl<M extends keyof Methods> = ((
@@ -26,9 +26,7 @@ export type Api = {
 const buildNotimpl = (name: string) => {
   const fn = () =>
     l.error(
-      new Error(
-        `没有引擎提供 ${bgMagenta(white(name))}。可能没有加载所需的引擎？`,
-      ),
+      new Error(`没有引擎提供 ${magenta(name)}。可能没有加载所需的引擎？`),
       {
         code: 2159,
         throw: true,

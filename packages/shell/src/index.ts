@@ -11,18 +11,22 @@ import { getSelfProfile, setSelfProfile } from './services/selfProfile'
 import { uix } from './services/uix'
 import { validate } from './services/validate'
 import type { ChronocatContext, Engine } from './types'
+import { bold, cyan, grey } from './utils/colors'
 import { PLATFORM } from './utils/consts'
 import { exists } from './utils/fs'
-import { sleep, timeout } from './utils/time'
-import { bgGrey, cyan, white } from './utils/colors'
 import { STARTUP_TEXT } from './utils/startup'
+import { sleep, timeout } from './utils/time'
 
 export * from './satori/types'
 export * from './services/config/configEntity'
 export * from './types'
 
+declare const __DEFINE_CHRONO_VERSION__: string
+
 export const chronocat = () => {
   l.write(STARTUP_TEXT)
+  l.info(`${cyan('Chronocat')} ${bold(__DEFINE_CHRONO_VERSION__)}`)
+  l.info(grey('当左侧错误指示灯亮起时，点击错误码以检查说明。'))
 
   let ready: () => void
   const readyPromise = new Promise<void>((res) => {
@@ -83,7 +87,7 @@ export const chronocat = () => {
 
   const outerContext = {
     load: (x: Engine) => {
-      l.info(`加载引擎 ${cyan(x.name)} ${bgGrey(white(`v${x.version}`))}`)
+      l.info(`加载引擎 ${cyan(x.name)} ${grey(`v${x.version}`)}`)
       try {
         x.apply(ctx)
       } catch (e) {

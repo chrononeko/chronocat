@@ -31,13 +31,4 @@ export const magenta = color('magenta')
 export const cyan = color('cyan')
 export const white = color('white')
 
-export const bgGrey = bgColor('bgGrey')
-export const bgRed = bgColor('bgRed')
-export const bgGreen = bgColor('bgGreen')
-export const bgYellow = bgColor('bgYellow')
-export const bgBlue = bgColor('bgBlue')
-export const bgMagenta = bgColor('bgMagenta')
-export const bgCyan = bgColor('bgCyan')
-export const bgWhite = bgColor('bgWhite')
-
 export type ColorFormatter = ReturnType<typeof color>

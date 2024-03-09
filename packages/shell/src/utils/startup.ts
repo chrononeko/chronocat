@@ -1,6 +1,4 @@
-import { cyan, grey, bold } from './colors'
-
-declare const __DEFINE_CHRONO_VERSION__: string
+import { cyan, grey } from './colors'
 
 const backgroundStrings = [
   'chronocat',
@@ -45,9 +43,5 @@ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 `
   .replace(/([^b])/g, cyan('$1'))
   .replace(/b/g, () => grey(bgStr[i++ % bgStr.length]!))}
-
-${cyan(' ChronoCat ')} ${bold(__DEFINE_CHRONO_VERSION__)}
-
-${grey('[+] 点击形如 [CH2157] 的日志文本可以打开相应说明页面。')}
 
 `
