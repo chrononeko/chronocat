@@ -64,10 +64,7 @@ class ChronocatLogger {
     })
   }
 
-  private getPrefix = () =>
-    `${(this.online && this.uin) ||
-    grey('[    ]')
-    }`
+  private getPrefix = () => `${(this.online && this.uin) || grey('[    ]')}`
 
   private writeConsole = (output: string) => void console.log(output)
 
@@ -78,8 +75,12 @@ class ChronocatLogger {
       await this.file!.write(output + '\n')
     }))
 
+  private applyZeroWidthLogTag = (m: string) => {
+    return m.split('\n').join('\n\u200b\u200c\u200b\u200b')
+  }
+
   write = (output: string) => {
-    this.writeConsole(output)
+    this.writeConsole(this.applyZeroWidthLogTag(output))
     this.writeFile(output)
   }
 
@@ -211,7 +212,9 @@ function formatErrorMessage(m: string | Error) {
 
 function formatTime() {
   const d = new Date()
-  return grey(`[${p2(d.getMonth() + 1)}-${p2(d.getDate())} ${p2(
-    d.getHours(),
-  )}:${p2(d.getMinutes())}:${p2(d.getSeconds())}]`)
+  return grey(
+    `[${p2(d.getMonth() + 1)}-${p2(d.getDate())} ${p2(
+      d.getHours(),
+    )}:${p2(d.getMinutes())}:${p2(d.getSeconds())}]`,
+  )
 }
