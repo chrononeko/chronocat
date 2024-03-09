@@ -66,7 +66,7 @@ api.register =
     priority: number = -1,
   ) => {
     const newPriority = priority === -1 ? defaultPriority : priority
-    if (api[method]) {
+    if (!api[method][notimplSym]) {
       l.warn(
         `${cyan(engine)}(${newPriority}) 与 ${cyan(api[method].engine)}(${
           api[method].priority
