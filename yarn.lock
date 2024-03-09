@@ -358,6 +358,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/helper-define-polyfill-provider@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "@babel/helper-define-polyfill-provider@npm:0.6.0"
+  dependencies:
+    "@babel/helper-compilation-targets": "npm:^7.22.6"
+    "@babel/helper-plugin-utils": "npm:^7.22.5"
+    debug: "npm:^4.1.1"
+    lodash.debounce: "npm:^4.0.8"
+    resolve: "npm:^1.14.2"
+  peerDependencies:
+    "@babel/core": ^7.4.0 || ^8.0.0-0 <8.0.0
+  checksum: 10c0/bf6af52fadbbebc5bf71166b91eac4fc21431ec9b0d2a94063f3a3d900ed44aa1384ad23e920a85e7a657fcf3e80edb2eaaac9d902bd1e632f3b50c836b45c53
+  languageName: node
+  linkType: hard
+
 "@babel/helper-environment-visitor@npm:^7.22.20":
   version: 7.22.20
   resolution: "@babel/helper-environment-visitor@npm:7.22.20"
@@ -1748,15 +1763,13 @@ __metadata:
     clsx: "npm:^1.2.1"
     concurrently: "npm:^8.2.1"
     docusaurus-plugin-sass: "npm:^0.2.5"
+    esbuild-register: "npm:^3.5.0"
     prism-react-renderer: "npm:^1.3.5"
     raw-loader: "npm:^4.0.2"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     redocusaurus: "npm:^1.6.4"
     sass: "npm:^1.66.1"
-    tosource: "npm:^2.0.0-alpha.3"
-    ts-node: "npm:^10.9.1"
-    typescript: "npm:~5.1.0"
   languageName: unknown
   linkType: soft
 
@@ -1769,11 +1782,10 @@ __metadata:
     "@satorijs/element": "npm:^2.5.1"
     "@types/mime": "npm:^3.0.1"
     concurrently: "npm:^8.2.1"
+    esbuild-register: "npm:^3.5.0"
     ipcman: "npm:^0.1.3"
     mime: "npm:^3.0.0"
     node-fetch: "npm:^3.3.2"
-    tosource: "npm:^2.0.0-alpha.3"
-    ts-node: "npm:^10.9.1"
     ts-toolbelt: "npm:^9.6.0"
     typescript: "npm:~5.1.0"
   languageName: unknown
@@ -1787,10 +1799,9 @@ __metadata:
     "@chronocat/shell": "workspace:packages/shell"
     "@satorijs/element": "npm:^2.5.1"
     concurrently: "npm:^8.2.1"
+    esbuild-register: "npm:^3.5.0"
     ipcman: "npm:^0.1.3"
     node-fetch: "npm:^3.3.2"
-    tosource: "npm:^2.0.0-alpha.3"
-    ts-node: "npm:^10.9.1"
     ts-toolbelt: "npm:^9.6.0"
     typescript: "npm:~5.1.0"
   languageName: unknown
@@ -1801,10 +1812,7 @@ __metadata:
   resolution: "@chronocat/plugin-iife@workspace:packages/iife"
   dependencies:
     "@chronocat/shell": "workspace:packages/shell"
-    concurrently: "npm:^8.2.1"
-    tosource: "npm:^2.0.0-alpha.3"
-    ts-node: "npm:^10.9.1"
-    typescript: "npm:~5.1.0"
+    esbuild-register: "npm:^3.5.0"
   languageName: unknown
   linkType: soft
 
@@ -1813,10 +1821,7 @@ __metadata:
   resolution: "@chronocat/plugin-llqqnt@workspace:packages/llqqnt"
   dependencies:
     "@chronocat/shell": "workspace:packages/shell"
-    concurrently: "npm:^8.2.1"
-    tosource: "npm:^2.0.0-alpha.3"
-    ts-node: "npm:^10.9.1"
-    typescript: "npm:~5.1.0"
+    esbuild-register: "npm:^3.5.0"
   languageName: unknown
   linkType: soft
 
@@ -1825,8 +1830,7 @@ __metadata:
   resolution: "@chronocat/red@workspace:packages/red"
   dependencies:
     concurrently: "npm:^8.2.1"
-    tosource: "npm:^2.0.0-alpha.3"
-    ts-node: "npm:^10.9.1"
+    esbuild-register: "npm:^3.5.0"
     ts-toolbelt: "npm:^9.6.0"
     typescript: "npm:~5.1.0"
   languageName: unknown
@@ -1848,12 +1852,11 @@ __metadata:
     busboy: "npm:^1.6.0"
     bytenode: "npm:^1.5.3"
     concurrently: "npm:^8.2.1"
+    esbuild-register: "npm:^3.5.0"
     js-yaml: "npm:^4.1.0"
     logiri: "npm:^0.1.2"
     node-fetch: "npm:^3.3.2"
     protobufjs: "npm:^7.2.5"
-    tosource: "npm:^2.0.0-alpha.3"
-    ts-node: "npm:^10.9.1"
     ts-toolbelt: "npm:^9.6.0"
     typescript: "npm:~5.1.0"
     typescript-json-schema: "npm:^0.61.0"
@@ -5766,15 +5769,15 @@ __metadata:
   linkType: hard
 
 "babel-plugin-polyfill-corejs2@npm:^0.4.8":
-  version: 0.4.8
-  resolution: "babel-plugin-polyfill-corejs2@npm:0.4.8"
+  version: 0.4.9
+  resolution: "babel-plugin-polyfill-corejs2@npm:0.4.9"
   dependencies:
     "@babel/compat-data": "npm:^7.22.6"
-    "@babel/helper-define-polyfill-provider": "npm:^0.5.0"
+    "@babel/helper-define-polyfill-provider": "npm:^0.6.0"
     semver: "npm:^6.3.1"
   peerDependencies:
     "@babel/core": ^7.4.0 || ^8.0.0-0 <8.0.0
-  checksum: 10c0/843e7528de0e03a31a6f3837896a95f75b0b24b0294a077246282372279e974400b0bdd82399e8f9cbfe42c87ed56540fd71c33eafb7c8e8b9adac546ecc5fe5
+  checksum: 10c0/2cd47af763eb40aa41f1d6d9cbf1bdd217ff6c28f614b057c0328ee42a4d82cbcdcbc7d081d93e2a2d80446c899f25c3ebec048a63d260ef65a0a364134f71cd
   languageName: node
   linkType: hard
 
@@ -7255,13 +7258,13 @@ __metadata:
   linkType: hard
 
 "data-view-byte-length@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "data-view-byte-length@npm:1.0.0"
+  version: 1.0.1
+  resolution: "data-view-byte-length@npm:1.0.1"
   dependencies:
-    call-bind: "npm:^1.0.6"
+    call-bind: "npm:^1.0.7"
     es-errors: "npm:^1.3.0"
     is-data-view: "npm:^1.0.1"
-  checksum: 10c0/779eed07675503459988cbc3cf9aa5c40164f3ff7912d81e009c64f98c29a1a456357200ef819487b0f7b28da3d4f3036596ca7015e8a4f6af3810f8302c797a
+  checksum: 10c0/b7d9e48a0cf5aefed9ab7d123559917b2d7e0d65531f43b2fd95b9d3a6b46042dd3fca597c42bba384e66b70d7ad66ff23932f8367b241f53d93af42cfe04ec2
   languageName: node
   linkType: hard
 
@@ -7776,9 +7779,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.668":
-  version: 1.4.698
-  resolution: "electron-to-chromium@npm:1.4.698"
-  checksum: 10c0/b6c8c68aa0d1333ae5d8a8bf26c9735d6cbeb43e516ea2e6b94441fb924e7e9b990904939218427b110f48a4f533fb002ae4b1dd4c6eff66423805a9c7a15f7f
+  version: 1.4.699
+  resolution: "electron-to-chromium@npm:1.4.699"
+  checksum: 10c0/328051c526d840f137492ff870b782785666880e5a3df14abe9d04a843b1bfbb07139bf6496ada7958f97b482044cd6021d95db57e46f96b598b36e19c7da93c
   languageName: node
   linkType: hard
 
@@ -16711,13 +16714,6 @@ __metadata:
   version: 1.0.1
   resolution: "toidentifier@npm:1.0.1"
   checksum: 10c0/93937279934bd66cc3270016dd8d0afec14fb7c94a05c72dc57321f8bd1fa97e5bea6d1f7c89e728d077ca31ea125b78320a616a6c6cd0e6b9cb94cb864381c1
-  languageName: node
-  linkType: hard
-
-"tosource@npm:^2.0.0-alpha.3":
-  version: 2.0.0-alpha.3
-  resolution: "tosource@npm:2.0.0-alpha.3"
-  checksum: 10c0/34f29e963461c5b4eb5b4b8f873c7ac1627a610ea930de6cd61a4351f6c30e6f57eea632e3abd7e0ac0915bddc7c7195f4e331cf8435e560f62ca5d2ffa22a06
   languageName: node
   linkType: hard
 
