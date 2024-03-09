@@ -36,17 +36,29 @@ jobs:
           name: chronocat-llqqnt-${{ github.sha }}
           path: build/dist/llqqnt
 
-      - name: Upload engine-chronocat-api
+      - name: Upload engine-chronocat-api LiteLoaderQQNT Plugin
         uses: actions/upload-artifact@v3
         with:
-          name: engine-chronocat-api-${{ github.sha }}
-          path: build/dist/engine-chronocat-api
+          name: chronocat-llqqnt-engine-chronocat-api-${{ github.sha }}
+          path: build/dist/llqqnt-plugin-chronocat-engine-chronocat-api
 
-      - name: Upload engine-chronocat-event
+      - name: Upload engine-chronocat-event LiteLoaderQQNT Plugin
         uses: actions/upload-artifact@v3
         with:
-          name: engine-chronocat-event-${{ github.sha }}
-          path: build/dist/engine-chronocat-event
+          name: chronocat-llqqnt-engine-chronocat-event-${{ github.sha }}
+          path: build/dist/llqqnt-plugin-chronocat-engine-chronocat-event
+
+      # - name: Upload engine-chronocat-api
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: engine-chronocat-api-${{ github.sha }}
+      #     path: build/dist/engine-chronocat-api
+
+      # - name: Upload engine-chronocat-event
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: engine-chronocat-event-${{ github.sha }}
+      #     path: build/dist/engine-chronocat-event
 
       - name: Upload IIFE
         uses: actions/upload-artifact@v3
