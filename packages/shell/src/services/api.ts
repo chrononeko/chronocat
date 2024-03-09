@@ -2,12 +2,10 @@ import type { Methods } from '../types'
 import { bgMagenta, cyan, magenta, white } from '../utils/colors'
 import { l } from './logger'
 
-const notimplSym = Symbol('chronocat.internal.notimpl')
-
 export type ApiImpl<M extends keyof Methods> = ((
   ...args: Methods[M][0]
 ) => Promise<Methods[M][1]>) & {
-  [notimplSym]: boolean
+  notimpl: boolean
 
   engine: string
   priority: number
@@ -16,8 +14,6 @@ export type ApiImpl<M extends keyof Methods> = ((
 export type Api = {
   [M in keyof Methods]: ApiImpl<M>
 } & {
-  notimpl: typeof notimplSym
-
   register: (
     engine: string,
     priority?: number,
@@ -41,9 +37,9 @@ const buildNotimpl = (name: string) => {
 
   ;(
     fn as unknown as {
-      [notimplSym]: boolean
+      notimpl: boolean
     }
-  )[notimplSym] = true
+  ).notimpl = true
 
   return fn
 }
@@ -66,7 +62,7 @@ api.register =
     priority: number = -1,
   ) => {
     const newPriority = priority === -1 ? defaultPriority : priority
-    if (!api[method][notimplSym]) {
+    if (!api[method].notimpl) {
       l.warn(
         `${cyan(engine)}(${newPriority}) 与 ${cyan(api[method].engine)}(${
           api[method].priority
