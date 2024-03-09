@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## v0.2.3 (2024-03-10)
+
+这个版本包含重大架构更改。请阅读 Team Chrononeko
+的最新博客以了解详情。**LiteLoaderQQNT 用户请安装全部三个插件，TI 用户请直接安装 TI 文件**。
+
+### shell
+
+- 使用被动式引擎加载 (7ea06d1ef8c7a3bf8fb2794f46bec71279ac4004)
+- 实现 IIFE (1cae1a0720a17519ee7e91de6dcd9dc582e6a5a2)
+- 实现可信安装 (6f5fb99afe966662c9656f678fd90e1ab3ad7016)
+- 优化启动体验 (f721816d9ee5bc253ebe906646ca8de95038da40)
+- 实现 API 注册优先级 (49d12becefb43a058d52bd0df52b094ddfdff3c3)
+- 修改挂载点 (41b0eba4ce246a0a04622a4047133fd55df0e26e)
+- LiteLoaderQQNT 插件取消内置引擎 (d9c736f07d1e24ed672c4c420a864627c5af59f7)
+- 引擎打包为 LiteLoaderQQNT 插件 (6614d8270fecd07f00eb99d5deb42aa1aef6debd)
+
 ## v0.2.2 (2024-03-08)
 
 ### shell
