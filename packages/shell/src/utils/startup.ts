@@ -1,4 +1,4 @@
-import { bgCyan, cyan, grey, bold } from './colors'
+import { cyan, grey, bold } from './colors'
 
 declare const __DEFINE_CHRONO_VERSION__: string
 
