@@ -60,11 +60,11 @@ jobs:
       #     name: engine-chronocat-event-${{ github.sha }}
       #     path: build/dist/engine-chronocat-event
 
-      - name: Upload IIFE
-        uses: actions/upload-artifact@v3
-        with:
-          name: chronocat-iife-${{ github.sha }}
-          path: build/dist/iife
+      # - name: Upload IIFE
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: chronocat-iife-${{ github.sha }}
+      #     path: build/dist/iife
 
       - name: Build IIFE-TI
         env:
