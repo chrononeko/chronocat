@@ -1,5 +1,5 @@
-import ccApi from '@chronocat/engine-chronocat-api'
-import ccEvent from '@chronocat/engine-chronocat-event'
+import * as ccApi from '@chronocat/engine-chronocat-api'
+import * as ccEvent from '@chronocat/engine-chronocat-event'
 import { chronocat } from '@chronocat/shell'
 
 const octx = chronocat()
