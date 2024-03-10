@@ -3,6 +3,179 @@ title: 更新日志
 sidebar_position: 10000
 ---
 
+## [v0.2.4](https://github.com/chrononeko/chronocat/releases/tag/v0.2.4) (2024-03-10)
+
+LiteLoaderQQNT 用户请安装前三个插件。此版本新增的「戳一戳引擎」可根据自身需求选择安装。
+
+### [iife](https://github.com/chrononeko/chronocat/tree/master/packages/iife)
+
+- 修复了 iife 未加载引擎的问题 ([`4a098692`](https://github.com/chrononeko/chronocat/commit/4a098692c5cb1bba973784a7c4ae245786e35128))
+
+### [engine-chronocat-api](https://github.com/chrononeko/chronocat/tree/master/packages/engine-chronocat-api)
+
+- 修复了 `guild.get` 返回结果内没有群名称的问题 感谢群友发现问题 ([`1311e1b5`](https://github.com/chrononeko/chronocat/commit/1311e1b5d131a6ecd0493fe62ba274ac7b0ce9bc))
+- 修复了 `guild.list` 耗时较长且提示「获取群列表失败」，实际上正确获取了最新数据的问题 ([`2800c7c8`](https://github.com/chrononeko/chronocat/commit/2800c7c8e4685dd158ec1a0c6889caa4c779f2da))
+
+### [engine-poke](https://github.com/chrononeko/engine-poke/tree/master)
+
+- 实现戳一戳引擎
+
+## [v0.2.3](https://github.com/chrononeko/chronocat/releases/tag/v0.2.3) (2024-03-10)
+
+这个版本包含重大架构更改。请阅读 Team Chrononeko
+的最新博客以了解详情。**LiteLoaderQQNT 用户请安装全部三个插件，TI 用户请直接安装 TI 文件**。
+
+### [shell](https://github.com/chrononeko/chronocat/tree/master/packages/shell)
+
+- 使用被动式引擎加载 ([`7ea06d1e`](https://github.com/chrononeko/chronocat/commit/7ea06d1ef8c7a3bf8fb2794f46bec71279ac4004))
+- 实现 IIFE ([`1cae1a07`](https://github.com/chrononeko/chronocat/commit/1cae1a0720a17519ee7e91de6dcd9dc582e6a5a2))
+- 实现可信安装 ([`6f5fb99a`](https://github.com/chrononeko/chronocat/commit/6f5fb99afe966662c9656f678fd90e1ab3ad7016))
+- 优化启动体验 ([`f721816d`](https://github.com/chrononeko/chronocat/commit/f721816d9ee5bc253ebe906646ca8de95038da40))
+- 实现 API 注册优先级 ([`49d12bec`](https://github.com/chrononeko/chronocat/commit/49d12becefb43a058d52bd0df52b094ddfdff3c3))
+- 修改挂载点 ([`41b0eba4`](https://github.com/chrononeko/chronocat/commit/41b0eba4ce246a0a04622a4047133fd55df0e26e))
+- LiteLoaderQQNT 插件取消内置引擎 ([`d9c736f0`](https://github.com/chrononeko/chronocat/commit/d9c736f07d1e24ed672c4c420a864627c5af59f7))
+- 引擎打包为 LiteLoaderQQNT 插件 ([`6614d827`](https://github.com/chrononeko/chronocat/commit/6614d8270fecd07f00eb99d5deb42aa1aef6debd))
+
+## [v0.2.2](https://github.com/chrononeko/chronocat/releases/tag/v0.2.2) (2024-03-08)
+
+### [shell](https://github.com/chrononeko/chronocat/tree/master/packages/shell)
+
+- 即使外部引擎存在，也始终加载内置引擎 ([`1205dc7d`](https://github.com/chrononeko/chronocat/commit/1205dc7d180f10e5c6863e17a14980527a36371d))
+- 修复了 IPv6 无法调用 Satori API 的问题 感谢群友发现问题 ([`ae9b642e`](https://github.com/chrononeko/chronocat/commit/ae9b642ed5a0e88fa41a14f891d19e6acf7afa56))
+
+### [llqqnt](https://github.com/chrononeko/chronocat/tree/master/packages/llqqnt)
+
+- 发布包同时支持 LiteLoaderQQNT v0 和 v1 ([`81ca85e1`](https://github.com/chrononeko/chronocat/commit/81ca85e1ff5fa22acdf04a1b8032206119a3c3c1))
+
+### [engine-chronocat-api](https://github.com/chrononeko/chronocat/tree/master/packages/engine-chronocat-api)
+
+- 实现 `channel.list` ([`32e8060f`](https://github.com/chrononeko/chronocat/commit/32e8060facb4d0acd0e9f2871b1c100006987d8b))
+- 实现 `channel.get` ([`1d5ed2d0`](https://github.com/chrononeko/chronocat/commit/1d5ed2d05e909e273ae8080e140e7006f2ee8c7d))
+- 实现 `unsafe.channel.mute` ([`6efc2148`](https://github.com/chrononeko/chronocat/commit/6efc21489de1e2ab19ac8f63d31a93d351ec3a57))
+- 实现 `unsafe.channel.member.mute` ([`10b73626`](https://github.com/chrononeko/chronocat/commit/10b7362656d16c09d26572fa038505a138b6b515))
+- 实现 `user.channel.create` ([`8e38e330`](https://github.com/chrononeko/chronocat/commit/8e38e33069801cf72bbb63ecc54c90de85d16487))
+- 实现 `guild.get` ([`6e499f49`](https://github.com/chrononeko/chronocat/commit/6e499f499f408cc0a86916efe0220232fc93f752))
+- 实现 `guild.list` ([`991f654b`](https://github.com/chrononeko/chronocat/commit/991f654b490c9a36e51400d4c8acd2bf68e11a4f))
+- 实现 `guild.approve` ([`b71a61a4`](https://github.com/chrononeko/chronocat/commit/b71a61a4307e7ea6a4eebf103f62a5b4fdafef05))
+- 实现 `guild.remove` ([`c6374f57`](https://github.com/chrononeko/chronocat/commit/c6374f574d869099420e88ac33eddfe7de71e440))
+- 实现 `guild.member.get` ([`45d64494`](https://github.com/chrononeko/chronocat/commit/45d644947eb7370157f062679619341a58949ce3))
+- 实现 `guild.member.list` ([`d0df894c`](https://github.com/chrononeko/chronocat/commit/d0df894c10a7af1de09417c9f7e22d2c30b2270a))
+- 实现 `message.get` ([`6f71181e`](https://github.com/chrononeko/chronocat/commit/6f71181ee226bace81af61c4a6768cb4450756e6))
+- 实现 `message.delete` ([`bf14ad47`](https://github.com/chrononeko/chronocat/commit/bf14ad477f4b18e68bc82d485ae2db0b4ae6798e))
+- 实现 `message.list` ([`df371ce6`](https://github.com/chrononeko/chronocat/commit/df371ce674f747d83704c77f8cdbe7af81eb73fe))
+- 实现 `user.get` ([`163fcda9`](https://github.com/chrononeko/chronocat/commit/163fcda9d2dca0796fd1a785e9a3e56a60bbee0b))
+- 实现 `friend.list` ([`122ee09d`](https://github.com/chrononeko/chronocat/commit/122ee09de938080c1d7a9ea93bec08d778f3eac8))
+- 实现 `friend.approve` ([`81a6ed14`](https://github.com/chrononeko/chronocat/commit/81a6ed1449561c13ef41214a0c16b2f98ec6b558))
+- 实现 `unsafe.friend.remove` ([`f4d59395`](https://github.com/chrononeko/chronocat/commit/f4d59395654c4d04bb78b111675c0414fd57e060))
+
+### [engine-chronocat-event](https://github.com/chrononeko/chronocat/tree/master/packages/engine-chronocat-event)
+
+- 修复 `guild-member-added` 事件中没有 Member 资源的问题 感谢群友发现问题 ([`09b7d625`](https://github.com/chrononeko/chronocat/commit/09b7d625df03bf1f714b2420f42f1dd3446e45bf))
+
+## [v0.2.1](https://github.com/chrononeko/chronocat/releases/tag/v0.2.1) (2024-03-08)
+
+### [shell](https://github.com/chrononeko/chronocat/tree/master/packages/shell)
+
+- 内置 chronocat 两个引擎，在未找到外部引擎时自动加载内置引擎 ([`6c5404e5`](https://github.com/chrononeko/chronocat/commit/6c5404e5085f353a47be17ea3ba0f47c41b89da0))
+- 统一日志与 HTTP 错误码 ([`2f41a2c8`](https://github.com/chrononeko/chronocat/commit/2f41a2c89be30f8285caedccb098ffc2fc7726ce))
+- 优化 API 调用报错时的日志 ([`3c7c3e1c`](https://github.com/chrononeko/chronocat/commit/3c7c3e1c1be31c8ff75624bb56e61160c6af7931))
+- 修复了日志在终端直接输出时会产生空行的问题 ([`90941772`](https://github.com/chrononeko/chronocat/commit/90941772fbcd2b5fb8793dc7527829d20bb8e578))
+
+### [engine-chronocat-api](https://github.com/chrononeko/chronocat/tree/master/packages/engine-chronocat-api)
+
+- 修复了 at 元素的解析和发送问题 ([`1d30a45d`](https://github.com/chrononeko/chronocat/commit/1d30a45d1f2abd5330a45df49a0e1a14d7bce22f))
+- 实现 `qface.get` 和 `qface.list` ([`32f24c5c`](https://github.com/chrononeko/chronocat/commit/32f24c5ce251b9592dbd1804185214bc2427360d))
+- 实现 `login.get` ([`0b9e6970`](https://github.com/chrononeko/chronocat/commit/0b9e6970a19d7855323c80ff9593855fe289f4ab))
+
+### [engine-chronocat-event](https://github.com/chrononeko/chronocat/tree/master/packages/engine-chronocat-event)
+
+- 修复了 at 元素的解析和发送问题 ([`1d30a45d`](https://github.com/chrononeko/chronocat/commit/1d30a45d1f2abd5330a45df49a0e1a14d7bce22f))
+
+## [v0.2.0](https://github.com/chrononeko/chronocat/releases/tag/v0.2.0) (2024-03-06)
+
+这是一个主要（Major）版本，并包含破坏性更改。请阅读 Team Chrononeko 的最新博客以了解详情。Chronocat v0.1.x 将会继续维护。
+
+### [shell](https://github.com/chrononeko/chronocat/tree/master/packages/shell)
+
+- 重构 core 到 Chronocat Shell
+
+### [engine-chronocat-api](https://github.com/chrononeko/chronocat/tree/master/packages/engine-chronocat-api)
+
+- 首个版本
+
+### [engine-chronocat-event](https://github.com/chrononeko/chronocat/tree/master/packages/engine-chronocat-event)
+
+- 首个版本
+
+## [v0.1.1](https://github.com/chrononeko/chronocat/releases/tag/v0.1.1) (2024-02-25)
+
+### [core](https://github.com/chrononeko/chronocat/tree/master/packages/core)
+
+- Satori：`pcpoke` 支持收发具体类型，包括「戳一戳」「比心」「点赞」「心碎」「666」「放大招」 ([`567494fb`](https://github.com/chrononeko/chronocat/commit/567494fbed23cefef4b7c973068716e956b95565))
+- Satori：`pcpoke` 不要与其他元素一起发送 ([`3b8b1b24`](https://github.com/chrononeko/chronocat/commit/3b8b1b24f61e6f2c06c30b8072c1b36871acc0d5))
+- Satori：`pcpoke` 添加日志提示 ([`44ce55ad`](https://github.com/chrononeko/chronocat/commit/44ce55ad92216b836a849746e050666580c10506))
+
+## [v0.1.0](https://github.com/chrononeko/chronocat/releases/tag/v0.1.0) (2024-02-23)
+
+### [core](https://github.com/chrononeko/chronocat/tree/master/packages/core)
+
+- 登录服务接入日志 ([`e2a0d398`](https://github.com/chrononeko/chronocat/commit/e2a0d398d1ab8d3e4b4723065ae8bac589a38300))
+- 弃用实验性 `platform` 配置项 ([`1df2f55c`](https://github.com/chrononeko/chronocat/commit/1df2f55ca17c85017a501991f2485d20be9687b4))
+
+## [v0.0.75](https://github.com/chrononeko/chronocat/releases/tag/v0.0.75) (2024-02-13)
+
+### [core](https://github.com/chrononeko/chronocat/tree/master/packages/core)
+
+- Satori：实现了 API `unsafe.channel.mute`、`unsafe.channel.member.mute` ([`3fd12863`](https://github.com/chrononeko/chronocat/commit/3fd128630b691374524fc45e05fdd989db139c22))
+- Satori：实现了 API `channel.list` ([`ebc9d1e4`](https://github.com/chrononeko/chronocat/commit/ebc9d1e4aa1cf5a0e3c41810f8535e01b410f54d))
+- Satori：实现了 API `channel.get`、`guild.get`、`user.get`、`message.list`、`guild.member.kick` ([`dfe6b097`](https://github.com/chrononeko/chronocat/commit/dfe6b097f958439b071352eeadb483b08b2b8250))
+
+## [v0.0.74](https://github.com/chrononeko/chronocat/releases/tag/v0.0.74) (2024-02-06)
+
+### [core](https://github.com/chrononeko/chronocat/tree/master/packages/core)
+
+- 日志回复消息可点击 ([`92cec78e`](https://github.com/chrononeko/chronocat/commit/92cec78e5f2f0badd592698f831c226112ae8a2d))
+- 日志打印戳一戳消息 ([`720eddca`](https://github.com/chrononeko/chronocat/commit/720eddca88dfdce791acceb11be27de77fa4fcf0))
+- Satori：实现了 API `message.get`、`message.delete` ([`ab94944b`](https://github.com/chrononeko/chronocat/commit/ab94944b79c6756589ae25931adbcf6d20aed079))
+- Satori：实现 `face` 元素，支持任意 QQ 表情/Emoji/超级表情收发，支持接收掷骰结果/剪刀石头布结果/接龙次数 ([`013b28a4`](https://github.com/chrononeko/chronocat/commit/013b28a4b7cd4a7bdaf593f05d20eb0f70870c56))
+- Satori：实现 `pcpoke` 元素，支持收发「窗口抖动」表情 ([`39914807`](https://github.com/chrononeko/chronocat/commit/399148074ef98ae3ec8ae7ce1c755652d88ce4a5))
+- Red & Satori：实现了 `message-deleted` 事件 ([`87f06d5d`](https://github.com/chrononeko/chronocat/commit/87f06d5d9a190e6c5f1bba2de4391f5f45f3ea7c))
+
+## [v0.0.73](https://github.com/chrononeko/chronocat/releases/tag/v0.0.73) (2024-01-29)
+
+### [core](https://github.com/chrononeko/chronocat/tree/master/packages/core)
+
+- 细化日志信息 ([`089ae1f7`](https://github.com/chrononeko/chronocat/commit/089ae1f75d4c7afb4dae2ac826eefab029f8f226))
+
+### [module-native](https://github.com/chrononeko/module-native/tree/master)
+
+- 彻底修复无法发送合并转发和接收戳一戳的问题 ([`b43ed6f5`](https://github.com/chrononeko/module-native/commit/b43ed6f53c527e7685f6e1251eacf3aab4126b4b))
+
+## [v0.0.72](https://github.com/chrononeko/chronocat/releases/tag/v0.0.72) (2024-01-28)
+
+### [core](https://github.com/chrononeko/chronocat/tree/master/packages/core)
+
+- 修复了模块加载失败时不会打印错误日志的问题 ([`2e9a2807`](https://github.com/chrononeko/chronocat/commit/2e9a2807d12904420f7a79d938f40c37d1f91cfe))
+- 内存泄漏时日志提示并转储 ([`3b4f6910`](https://github.com/chrononeko/chronocat/commit/3b4f69100303a65c290699c94a0ada4f9726f2ac))
+
+## [v0.0.71](https://github.com/chrononeko/chronocat/releases/tag/v0.0.71) (2024-01-22)
+
+### [core](https://github.com/chrononeko/chronocat/tree/master/packages/core)
+
+- 尝试修复无法发送合并转发和接收戳一戳的问题 ([`11623ef1`](https://github.com/chrononeko/chronocat/commit/11623ef12c937ee9cb28814b85ea9eb55d1a240a))
+- 优化文件体积 ([`fbd489e3`](https://github.com/chrononeko/chronocat/commit/fbd489e362ae02aa6a816b2d82fc9ac06ffcafa2))
+- 远程登录支持 https ([`02ecb31e`](https://github.com/chrononeko/chronocat/commit/02ecb31e594dab5ed7db45de284b5864d9324503))
+
+### [llqqnt](https://github.com/chrononeko/chronocat/tree/master/packages/llqqnt)
+
+- 修复了 LiteLoaderQQNT 无法加载 Chronocat 的问题 感谢群友发现问题 ([`12458892`](https://github.com/chrononeko/chronocat/commit/12458892be7bf398d85c955392649f993bfce30f))
+
+## [v0.0.70](https://github.com/chrononeko/chronocat/releases/tag/v0.0.70) (2024-01-20)
+
+### [core](https://github.com/chrononeko/chronocat/tree/master/packages/core)
+
+- 添加了初始化完成的日志 ([`9c91cc11`](https://github.com/chrononeko/chronocat/commit/9c91cc11b9bab48b4c8718003de6715340fb536c))
+
 ## [v0.0.69](https://github.com/chrononeko/chronocat/releases/tag/v0.0.69) (2024-01-18)
 
 ### [core](https://github.com/chrononeko/chronocat/tree/master/packages/core)

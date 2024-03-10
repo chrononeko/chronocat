@@ -17,13 +17,13 @@ const FeatureList: FeatureItem[] = [
     title: '安装',
     description:
       '如果你尚未安装 Chronocat，请从这里开始安装。Chronocat 可通过 LiteLoaderQQNT 安装。',
-    to: '/install',
+    to: '/guide/install/shell',
   },
   {
     title: '接入',
     description:
       '如果你已安装 Chronocat，请从这里开始将 Chronocat 接入你喜爱的应用或框架。Chronocat 支持多种应用和框架。',
-    to: '/connect',
+    to: '/guide/connect',
   },
   {
     title: '开发',

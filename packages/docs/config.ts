@@ -77,7 +77,8 @@ const themeConfig: ThemeConfig = {
       {
         label: '使用',
         position: 'left',
-        to: 'install',
+        to: 'guide/install/shell',
+        activeBasePath: 'guide',
       },
       {
         label: '开发',
@@ -139,16 +140,20 @@ const themeConfig: ThemeConfig = {
         title: '使用',
         items: [
           {
-            label: '安装',
-            to: '/install',
+            label: '安装 Chronocat',
+            to: '/guide/install/shell',
+          },
+          {
+            label: '安装引擎',
+            to: '/guide/install/engine',
           },
           {
             label: '接入',
-            to: '/connect',
+            to: '/guide/connect',
           },
           {
             label: '配置',
-            to: '/config',
+            to: '/guide/config',
           },
         ],
       },

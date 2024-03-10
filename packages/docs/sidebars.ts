@@ -4,10 +4,10 @@ const sidebars: SidebarsConfig = {
   guide: [
     {
       type: 'category',
-      label: '安装',
+      label: '安装 Chronocat',
       link: {
         type: 'doc',
-        id: 'install/index',
+        id: 'guide/install/shell/index',
       },
       items: [
         {
@@ -15,12 +15,25 @@ const sidebars: SidebarsConfig = {
           label: '本机安装',
           link: {
             type: 'doc',
-            id: 'install/native',
+            id: 'guide/install/shell/native/index',
           },
-          items: ['install/llqqnt-airgap'],
+          items: ['guide/install/shell/native/llqqnt-airgap'],
         },
-        'install/phone/index',
-        'install/trusted-installation',
+        'guide/install/shell/phone/index',
+        'guide/install/shell/trusted-installation',
+      ],
+    },
+    {
+      type: 'category',
+      label: '安装引擎',
+      link: {
+        type: 'doc',
+        id: 'guide/install/engine/index',
+      },
+      items: [
+        'guide/install/engine/chronocat-api',
+        'guide/install/engine/chronocat-event',
+        'guide/install/engine/poke',
       ],
     },
     {
@@ -28,13 +41,13 @@ const sidebars: SidebarsConfig = {
       label: '接入',
       link: {
         type: 'doc',
-        id: 'connect/index',
+        id: 'guide/connect/index',
       },
       items: [
-        'connect/koishi',
-        'connect/nonebot',
-        'connect/avilla',
-        'connect/kiramibot',
+        'guide/connect/koishi',
+        'guide/connect/nonebot',
+        'guide/connect/avilla',
+        'guide/connect/kiramibot',
       ],
     },
     {
@@ -42,9 +55,9 @@ const sidebars: SidebarsConfig = {
       label: '配置',
       link: {
         type: 'doc',
-        id: 'config/index',
+        id: 'guide/config/index',
       },
-      items: ['config/reference'],
+      items: ['guide/config/reference'],
     },
   ],
   developSatori: [

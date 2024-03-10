@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: Chronocat Satori
-  version: 0.0.50
+  version: 0.2.0
   description: |
     # Chronocat Satori OpenAPI 定义
 
