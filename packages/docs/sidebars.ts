@@ -19,31 +19,10 @@ const sidebars: SidebarsConfig = {
           },
           items: ['install/llqqnt-airgap'],
         },
-        {
-          type: 'category',
-          label: 'Docker',
-          link: {
-            type: 'doc',
-            id: 'install/docker/index',
-          },
-          items: [
-            {
-              type: 'category',
-              label: '官方镜像',
-              link: {
-                type: 'doc',
-                id: 'install/docker/official/index',
-              },
-              items: ['install/docker/official/reference'],
-            },
-            'install/docker/community',
-          ],
-        },
         'install/phone/index',
         'install/trusted-installation',
       ],
     },
-    'launch/index',
     {
       type: 'category',
       label: '接入',
