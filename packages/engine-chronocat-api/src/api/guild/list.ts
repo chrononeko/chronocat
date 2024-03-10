@@ -5,7 +5,7 @@ import { chronoEventEmitter, groupMap } from '../../globalVars'
 export const buildGuildList =
   (ctx: ChronocatContext) => async (): Promise<GuildListResponse> => {
     await new Promise<void>((res, rej) => {
-      chronoEventEmitter.once('buddyListChange', res)
+      chronoEventEmitter.once('groupListUpdate', res)
       setTimeout(rej, ctx.chronocat.timeout)
       void getGroupList()
     }).catch(() =>
