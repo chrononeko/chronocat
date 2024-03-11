@@ -1,5 +1,19 @@
 <div align="center">
 
+<a href="https://chronocat.vercel.app" target="_blank" rel="noopener noreferrer">
+<img src="https://chronocat.vercel.app/chronocat.svg" alt="Chronocat" width="200px"></img>
+</a>
+
+<a href="https://chronocat.vercel.app" target="_blank" rel="noopener noreferrer">
+<h1>Chronocat</h1>
+</a>
+<p>模块化的 Satori 框架</p>
+
+[![License](https://img.shields.io/github/license/chrononeko/chronocat?style=flat-square)](https://github.com/chrononeko/chronocat/blob/master/LICENSE)
+</div>
+
+## 相关项目
+
 <table>
 <tr>
   <td><a href="https://github.com/LagrangeDev/Lagrange.Core">Lagrange.Core</a></td>
@@ -14,22 +28,6 @@
   <td>基于 Electron 的、模块化的 Satori 框架（👈你在这里</td>
 </tr>
 </table>
-
-</div>
-
-<div align="center">
-
-<a href="https://chronocat.vercel.app" target="_blank" rel="noopener noreferrer">
-<img src="https://chronocat.vercel.app/chronocat.svg" alt="Chronocat" width="200px"></img>
-</a>
-
-<a href="https://chronocat.vercel.app" target="_blank" rel="noopener noreferrer">
-<h1>Chronocat</h1>
-</a>
-<p>模块化的 Satori 框架</p>
-
-[![License](https://img.shields.io/github/license/chrononeko/chronocat?style=flat-square)](https://github.com/chrononeko/chronocat/blob/master/LICENSE)
-</div>
 
 ## :warning: 需要注意 :warning:
 
