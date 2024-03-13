@@ -14,8 +14,14 @@
   "typings": "lib/index.d.ts",
   "exports": {
     ".": {
+      "default": "./lib/index.js",
       "import": "./lib/index.js",
       "types": "./lib/index.d.ts"
+    },
+    "./src": {
+      "default": "./src/index.ts",
+      "import": "./src/index.ts",
+      "types": "./src/index.ts"
     },
     "./package.json": "./package.json"
   },
