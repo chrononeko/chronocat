@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Red 编码器应当正确编码 纯文本消息 1`] = `
+[
+  [
+    {
+      "chatType": 2,
+      "guildId": "",
+      "peerUid": "9998",
+    },
+    [
+      {
+        "elementId": "",
+        "elementType": 1,
+        "textElement": {
+          "atNtUid": "",
+          "atTinyId": "",
+          "atType": 0,
+          "atUid": "",
+          "content": "xxx",
+        },
+      },
+    ],
+  ],
+]
+`;

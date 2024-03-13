@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Red 编码器应当正确编码 图片消息 1`] = `
+[
+  [
+    {
+      "chatType": 2,
+      "guildId": "",
+      "peerUid": "9998",
+    },
+    [
+      {
+        "elementId": "",
+        "elementType": 1,
+        "textElement": {
+          "atNtUid": "",
+          "atTinyId": "",
+          "atType": 0,
+          "atUid": "",
+          "content": "xxx",
+        },
+      },
+      {
+        "elementId": "",
+        "elementType": 2,
+        "extBufForUI": "",
+        "picElement": {
+          "fileName": "",
+          "fileSize": "0",
+          "fileSubId": "",
+          "fileUuid": "",
+          "md5HexStr": "",
+          "original": true,
+          "picHeight": 0,
+          "picSubType": 0,
+          "picType": 1001,
+          "picWidth": 0,
+          "sourcePath": "",
+          "summary": "",
+          "thumbFileSize": 0,
+        },
+      },
+      {
+        "elementId": "",
+        "elementType": 1,
+        "textElement": {
+          "atNtUid": "",
+          "atTinyId": "",
+          "atType": 0,
+          "atUid": "",
+          "content": "yyy",
+        },
+      },
+    ],
+  ],
+]
+`;
+
+exports[`Red 编码器应当正确编码 图片消息 2`] = `
+[
+  [
+    "file:///D:/Projects/chrononeko/chronocat02/packages/engine-chronocat-api/docs/static/chronocat.png",
+    {
+      "fileMime": undefined,
+      "fileName": undefined,
+    },
+  ],
+]
+`;
