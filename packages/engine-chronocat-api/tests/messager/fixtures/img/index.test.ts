@@ -34,5 +34,9 @@ test('Red 编码器应当正确编码 图片消息', async () => {
   const saveCalls = save.mock.calls.map((x) => (x as unknown[]).slice(1))
 
   expect(sendCalls).toMatchSnapshot()
-  expect(saveCalls).toMatchSnapshot()
+
+  expect(saveCalls[0]).toHaveLength(2)
+  expect((saveCalls[0] as [string])[0]).toMatch(
+    /\/docs\/static\/chronocat.png$/,
+  )
 })

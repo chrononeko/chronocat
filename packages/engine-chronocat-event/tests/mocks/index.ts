@@ -2,7 +2,6 @@ import type { ChronocatContext } from '@chronocat/shell'
 import h from '@satorijs/element'
 
 export const ctx: ChronocatContext = {
-  //@ts-expect-error aaa
   chronocat: {
     l: {
       info: jest.fn(),
@@ -11,7 +10,7 @@ export const ctx: ChronocatContext = {
       debug: jest.fn(),
     } as unknown as ChronocatContext['chronocat']['l'],
     h,
-  },
+  } as ChronocatContext['chronocat'],
 }
 
 export const satoriConfig = {

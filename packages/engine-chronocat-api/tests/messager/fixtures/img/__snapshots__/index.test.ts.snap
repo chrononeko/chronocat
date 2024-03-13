@@ -55,15 +55,3 @@ exports[`Red 编码器应当正确编码 图片消息 1`] = `
   ],
 ]
 `;
-
-exports[`Red 编码器应当正确编码 图片消息 2`] = `
-[
-  [
-    "file:///D:/Projects/chrononeko/chronocat02/packages/engine-chronocat-api/docs/static/chronocat.png",
-    {
-      "fileMime": undefined,
-      "fileName": undefined,
-    },
-  ],
-]
-`;
