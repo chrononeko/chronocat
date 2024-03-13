@@ -1,0 +1,34 @@
+name: test
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: test
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: 'false'
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.3.1'
+
+      - name: Test
+        run: |
+          yarn
+          yarn build
+          yarn test
+        shell: bash
+
+      - name: Upload Coverage Reports to Codecov
+        uses: codecov/codecov-action@v3

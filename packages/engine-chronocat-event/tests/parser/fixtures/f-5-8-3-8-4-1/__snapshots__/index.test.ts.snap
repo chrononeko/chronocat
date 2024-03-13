@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Red 解析器应当正确解析 群聊 新人自行入群消息 1`] = `
+{
+  "channel": {
+    "id": "100000000",
+    "name": "",
+    "type": 0,
+  },
+  "guild": {
+    "avatar": "https://p.qlogo.cn/gh/100000000/100000000/640",
+    "id": "100000000",
+    "name": "",
+  },
+  "id": undefined,
+  "member": {},
+  "message": {
+    "content": "",
+    "id": "1000000000000000000",
+  },
+  "operator": {
+    "id": "10001",
+    "name": undefined,
+  },
+  "platform": undefined,
+  "self_id": undefined,
+  "timestamp": 1000000000000,
+  "type": "guild-member-added",
+  "user": {
+    "avatar": "http://thirdqq.qlogo.cn/headimg_dl?dst_uin=10000&spec=640",
+    "id": "10000",
+    "name": "000",
+  },
+}
+`;

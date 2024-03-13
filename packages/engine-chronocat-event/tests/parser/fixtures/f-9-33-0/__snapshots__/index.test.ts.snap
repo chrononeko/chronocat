@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Red 解析器应当正确解析 群聊 引用消息 1`] = `
+{
+  "channel": {
+    "id": "100000000",
+    "name": "002",
+    "type": 0,
+  },
+  "guild": {
+    "avatar": "https://p.qlogo.cn/gh/100000000/100000000/640",
+    "id": "100000000",
+    "name": "002",
+  },
+  "id": undefined,
+  "member": {},
+  "message": {
+    "content": "<quote chronocat:seq="100000"><author id="10001" name="001" avatar="http://thirdqq.qlogo.cn/headimg_dl?dst_uin=10001&amp;spec=640"/>yyy</quote>xxx",
+    "id": "1000000000000000000",
+  },
+  "platform": undefined,
+  "self_id": undefined,
+  "timestamp": 1000000000000,
+  "type": "message-created",
+  "user": {
+    "avatar": "http://thirdqq.qlogo.cn/headimg_dl?dst_uin=10000&spec=640",
+    "id": "10000",
+    "name": "000",
+  },
+}
+`;

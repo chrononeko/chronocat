@@ -2,6 +2,7 @@
   "extends": "./tsconfig.base",
   "include": [
     "jest.config.ts",
+    "external",
     "packages",
     "scripts",
   ],
