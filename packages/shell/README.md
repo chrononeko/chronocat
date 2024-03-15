@@ -15,8 +15,9 @@
 
 
 [![](https://github.com/chrononeko/chronocat/assets/66859419/e91cf9a2-8f23-4fee-8965-f7bed82c8e95)](https://github.com/chrononeko/chronocat)  
-[![cc-la](https://github.com/chrononeko/chronocat/assets/66859419/f14fc6be-0e6c-4898-9a2b-88e79793795b)](https://github.com/LagrangeDev/Lagrange.Core)  
-[![cc-osr](https://github.com/chrononeko/chronocat/assets/66859419/f3294a70-a671-4896-9711-072f3bf5f972)](https://github.com/whitechi73/OpenShamrock)  
+[![cc-la](https://github.com/chrononeko/chronocat/assets/66859419/70bf0e1e-6934-46eb-b34a-05fd52d0cd21)
+](https://github.com/LagrangeDev/Lagrange.Core)  
+[![cc-osr](https://github.com/chrononeko/chronocat/assets/66859419/d0a4566d-452c-4df1-9142-3543a37afdd6)](https://github.com/whitechi73/OpenShamrock)  
 
 </div>
 
