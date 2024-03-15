@@ -10,24 +10,15 @@
 <p>模块化的 Satori 框架</p>
 
 [![License](https://img.shields.io/github/license/chrononeko/chronocat?style=flat-square)](https://github.com/chrononeko/chronocat/blob/master/LICENSE)
+
+<h4>相关项目</h4>
+
+
+[![](https://github.com/chrononeko/chronocat/assets/66859419/e91cf9a2-8f23-4fee-8965-f7bed82c8e95)](https://github.com/chrononeko/chronocat)  
+[![cc-la](https://github.com/chrononeko/chronocat/assets/66859419/f14fc6be-0e6c-4898-9a2b-88e79793795b)](https://github.com/LagrangeDev/Lagrange.Core)  
+[![cc-osr](https://github.com/chrononeko/chronocat/assets/66859419/f3294a70-a671-4896-9711-072f3bf5f972)](https://github.com/whitechi73/OpenShamrock)  
+
 </div>
-
-## 相关项目
-
-<table>
-<tr>
-  <td><a href="https://github.com/LagrangeDev/Lagrange.Core">Lagrange.Core</a></td>
-  <td>NTQQ 的协议实现</td>
-</tr>
-<tr>
-  <td><a href="https://github.com/whitechi73/OpenShamrock">OpenShamrock</a></td>
-  <td>基于 Lsposed 实现 OneBot 标准的机器人框架</td>
-</tr>
-<tr>
-  <td><a href="https://github.com/chrononeko/chronocat">Chronocat</a></td>
-  <td>基于 Electron 的、模块化的 Satori 框架（👈你在这里</td>
-</tr>
-</table>
 
 ## :warning: 需要注意 :warning:
 
