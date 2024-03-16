@@ -10,7 +10,9 @@ export interface MsgBoxActiv {
 export const msgBoxActiv = (ctx: ChronocatContext): MsgBoxActiv => {
   const activated: string[] = []
 
-  let activate: (peerUid: string) => void = () => {}
+  let activateIntl: (peerUid: string) => void = () => {}
+
+  const activate = (peerUid: string) => activateIntl(peerUid)
 
   void ctx.chronocat
     .whenReady()
@@ -33,7 +35,7 @@ export const msgBoxActiv = (ctx: ChronocatContext): MsgBoxActiv => {
         },
       }) as unknown as Promise<void>
 
-      activate = (peerUid: string) =>
+      activateIntl = (peerUid: string) =>
         void (task = task.then(async () => {
           await ctx.chronocat.sleep(500)
 
