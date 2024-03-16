@@ -204,6 +204,13 @@ const dispatcher = async (
 
     case 'nodeIKernelMsgListener/onMsgInfoListUpdate': {
       const { msgList } = payload as OnMsgInfoListUpdate
+
+      for (const msg of msgList) {
+        ctx.chronocat.uix.add(msg.senderUid, msg.senderUin)
+        if (msg.chatType === ChatType.Private)
+          ctx.chronocat.uix.add(msg.peerUid, msg.peerUin)
+      }
+
       for (const msg of msgList) {
         if (msg.sendStatus > 1) {
           sendCallbackMap[msg.msgId]?.(msg)

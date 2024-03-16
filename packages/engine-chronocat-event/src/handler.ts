@@ -218,6 +218,12 @@ const dispatcher = async (
     case 'nodeIKernelMsgListener/onMsgInfoListUpdate': {
       const { msgList } = payload as OnMsgInfoListUpdate
 
+      for (const msg of msgList) {
+        ctx.chronocat.uix.add(msg.senderUid, msg.senderUin)
+        if (msg.chatType === ChatType.Private)
+          ctx.chronocat.uix.add(msg.peerUid, msg.peerUin)
+      }
+
       const filteredPayload = await Promise.all(
         msgList
           .filter(
