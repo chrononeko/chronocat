@@ -1,4 +1,4 @@
-import type { Element, Peer } from '@chronocat/red'
+import type { Element, Peer, RedMessage } from '@chronocat/red'
 import type { O } from 'ts-toolbelt'
 import { define } from '../invoke'
 
@@ -112,3 +112,37 @@ export const getEmojiResourcePath = define<
     },
   ]
 >('ns-ntApi-2', 'nodeIKernelMsgService/getEmojiResourcePath')
+
+export const getAioFirstViewLatestMsgsAndAddActiveChat = define<
+  {
+    result: 0
+    errMsg: 'success'
+    msgList: RedMessage[]
+    needContinueGetMsg: boolean
+  },
+  [
+    {
+      peer: Peer
+      cnt: number // 20
+    },
+  ]
+>(
+  'ns-ntApi-2',
+  'nodeIKernelMsgService/getAioFirstViewLatestMsgsAndAddActiveChat',
+)
+
+export const getMsgsIncludeSelfAndAddActiveChat = define<
+  {
+    result: 0
+    errMsg: 'success'
+    msgList: RedMessage[]
+  },
+  [
+    {
+      peer: Peer
+      msgId: string // '0'
+      cnt: number // 20
+      queryOrder: boolean // true
+    },
+  ]
+>('ns-ntApi-2', 'nodeIKernelMsgService/getMsgsIncludeSelfAndAddActiveChat')

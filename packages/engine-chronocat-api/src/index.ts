@@ -25,6 +25,7 @@ import { buildMessageList } from './api/message/list'
 import { buildUserChannelCreate } from './api/user/channel/create'
 import { buildUserGet } from './api/user/get'
 import { buildHandler } from './handler'
+import { msgBoxActiv } from './services/msgBoxActiv'
 
 declare const __DEFINE_CHRONO_VERSION__: string
 
@@ -32,6 +33,10 @@ export const name = 'engine-chronocat-api'
 export const version = __DEFINE_CHRONO_VERSION__
 
 export const apply = async (ctx: ChronocatContext) => {
+  ctx.chronocatEngineChronocatApi = {
+    msgBoxActiv: msgBoxActiv(ctx),
+  }
+
   ipcMan<RedIpcArgs>({
     handler: buildHandler(ctx),
     getId: (p) => p?.[0]?.callbackId,

@@ -1,4 +1,5 @@
 import type {
+  ContactList,
   MsgsIncludeSelf,
   OnAddSendMsg,
   OnBuddyListChange,
@@ -14,7 +15,7 @@ import type {
   RedIpcDataEvent,
   RedIpcDataRequest,
 } from '@chronocat/red'
-import { ChatType } from '@chronocat/red'
+import { ChatType, ContactListType } from '@chronocat/red'
 import type { ChronocatContext } from '@chronocat/shell'
 import type { IpcManData } from 'ipcman'
 import {
@@ -169,16 +170,75 @@ const dispatcher = async (
       return
     }
 
+    case 'nodeIKernelRecentContactListener/onFirstScreenRecentContactListChanged': {
+      const { changedList } = payload as ContactList
+
+      // switch (listType) {
+      //   // case ContactListType.Normal: {
+      //   //   for (const contact of changedList)
+      //   //     if (contact.chatType === ChatType.MsgBox)
+      //   //       ctx.chronocatEngineChronocatApi.msgBoxActiv.activate(
+      //   //         contact.peerUid,
+      //   //       )
+
+      //   //   break
+      //   // }
+
+      //   case ContactListType.MsgBox: {
+      //     for (const contact of changedList)
+      //       if (contact.chatType === ChatType.Group)
+      //         ctx.chronocatEngineChronocatApi.msgBoxActiv.activate(
+      //           contact.peerUid,
+      //         )
+
+      //     break
+      //   }
+      // }
+
+      for (const contact of changedList) {
+        ctx.chronocat.uix.add(contact.senderUid, contact.senderUin)
+        if (contact.chatType === ChatType.Private)
+          ctx.chronocat.uix.add(contact.peerUid, contact.peerUin)
+      }
+
+      return
+    }
+
     case 'nodeIKernelRecentContactListener/onRecentContactListChangedVer2': {
       const { changedRecentContactLists } =
         payload as OnRecentContactListChangedVer2
 
-      for (const changedRecentContactList of changedRecentContactLists)
-        for (const contact of changedRecentContactList.changedList) {
+      for (const changedRecentContactList of changedRecentContactLists) {
+        const { listType, changedList } = changedRecentContactList
+
+        switch (listType) {
+          // case ContactListType.Normal: {
+          //   for (const contact of changedList)
+          //     if (contact.chatType === ChatType.MsgBox)
+          //       ctx.chronocatEngineChronocatApi.msgBoxActiv.activate(
+          //         contact.peerUid,
+          //       )
+
+          //   break
+          // }
+
+          case ContactListType.MsgBox: {
+            for (const contact of changedList)
+              if (contact.chatType === ChatType.Group)
+                ctx.chronocatEngineChronocatApi.msgBoxActiv.activate(
+                  contact.peerUid,
+                )
+
+            break
+          }
+        }
+
+        for (const contact of changedList) {
           ctx.chronocat.uix.add(contact.senderUid, contact.senderUin)
           if (contact.chatType === ChatType.Private)
             ctx.chronocat.uix.add(contact.peerUid, contact.peerUin)
         }
+      }
 
       return
     }

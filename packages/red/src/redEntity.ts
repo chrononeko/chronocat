@@ -148,6 +148,7 @@ export enum ChatType {
   Private = 1,
   Group = 2,
   Guild = 4,
+  MsgBox = 7,
 }
 
 export enum MsgType {
@@ -777,7 +778,7 @@ export interface SpecificEventTypeInfo {
 }
 
 export interface ContactList {
-  listType: number
+  listType: ContactListType
   sortedContactList: string[]
   changedList: Contact[]
   notificationType: 1
@@ -787,4 +788,9 @@ export interface ContactList {
   firstContactPos: string // '1'
   atTheTop: true
   atTheBottom: true
+}
+
+export enum ContactListType {
+  Normal = 1,
+  MsgBox = 2,
 }
