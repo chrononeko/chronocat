@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## v0.2.5 (2024-03-17)
+
+戳一戳引擎在 9.9.8/6.9.30/3.2.6 仍然适配，无需升级。Shell 和 Chronocat 系列引擎均需要同时升级至此版本。
+
+### shell
+
+- 新增 `receive_msgbox` 配置项（默认开启），用于控制是否接收群助手内群消息 (c1086a704f6c93727b9e9a9b223bffdf8f18daf1)
+
+### engine-chronocat-api
+
+- 修复了群助手内的群收不到聊天信息的问题 (07170f2b804310d2e5ccf9fe0c2d7be256654c3c)
+
+### engine-chronocat-event
+
+- 修复了收不到聊天信息的问题 (a55fb930ab4105f3002bc8f33a9c4bb934351ee8)
+
 ## v0.2.4 (2024-03-10)
 
 LiteLoaderQQNT 用户请安装前三个插件。此版本新增的「戳一戳引擎」可根据自身需求选择安装。
@@ -10,7 +26,7 @@ LiteLoaderQQNT 用户请安装前三个插件。此版本新增的「戳一戳�
 
 ### engine-chronocat-api
 
-- 修复了 `guild.get` 返回结果内没有群名称的问题 (1311e1b5d131a6ecd0493fe62ba274ac7b0ce9bc)
+- 修复了 `guild.get` 返回结果内没有群名称的问题 感谢群友发现问题 (1311e1b5d131a6ecd0493fe62ba274ac7b0ce9bc)
 - 修复了 `guild.list` 耗时较长且提示「获取群列表失败」，实际上正确获取了最新数据的问题 (2800c7c8e4685dd158ec1a0c6889caa4c779f2da)
 
 ### engine-poke
