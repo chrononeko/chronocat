@@ -58,6 +58,7 @@ const dispatcher = async (
   payload: unknown,
 ) => {
   switch (method) {
+    case 'nodeIKernelMsgListener/onRecvActiveMsg':
     case 'nodeIKernelMsgListener/onRecvMsg': {
       const { msgList } = payload as OnRecvMsg
 
