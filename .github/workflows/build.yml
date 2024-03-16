@@ -105,3 +105,29 @@ jobs:
           publish_dir: build/dist/llqqnt/LiteLoaderQQNT-Plugin-Chronocat
           enable_jekyll: true # Not to create .nojekyll since this is not a gh page
           commit_message: 'chore: publish ${{ github.sha }}'
+
+      - name: Publish LiteLoaderQQNT-Plugin-Chronocat-Engine-Chronocat-Api
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.DEPLOY_TOKEN }}
+          user_name: 'Il Harper'
+          user_email: 'hi@ilharper.com'
+          external_repository: chrononeko/LiteLoaderQQNT-Plugin-Chronocat-Engine-Chronocat-Api
+          publish_branch: master
+          publish_dir: build/dist/llqqnt-plugin-chronocat-engine-chronocat-api/LiteLoaderQQNT-Plugin-Chronocat-Engine-Chronocat-Api
+          enable_jekyll: true # Not to create .nojekyll since this is not a gh page
+          commit_message: 'chore: publish ${{ github.sha }}'
+
+      - name: Publish LiteLoaderQQNT-Plugin-Chronocat-Engine-Chronocat-Event
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.DEPLOY_TOKEN }}
+          user_name: 'Il Harper'
+          user_email: 'hi@ilharper.com'
+          external_repository: chrononeko/LiteLoaderQQNT-Plugin-Chronocat-Engine-Chronocat-Event
+          publish_branch: master
+          publish_dir: build/dist/llqqnt-plugin-chronocat-engine-chronocat-event/LiteLoaderQQNT-Plugin-Chronocat-Engine-Chronocat-Event
+          enable_jekyll: true # Not to create .nojekyll since this is not a gh page
+          commit_message: 'chore: publish ${{ github.sha }}'
