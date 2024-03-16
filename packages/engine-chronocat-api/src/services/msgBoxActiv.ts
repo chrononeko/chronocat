@@ -15,7 +15,10 @@ export const msgBoxActiv = (ctx: ChronocatContext): MsgBoxActiv => {
   void ctx.chronocat
     .whenReady()
     .then(() => ctx.chronocat.sleep(4000))
-    .then(() => {
+    .then(() => ctx.chronocat.getConfig())
+    .then((config) => {
+      if (!config.receive_msgbox) return
+
       let task = fetchAndSubscribeABatchOfRecentContact({
         fetchParam: {
           anchorPointContact: {

@@ -16,6 +16,17 @@ export interface ChronocatBaseConfig {
    * @default []
    */
   servers?: (ChronocatSatoriServerConfig | ChronocatSatoriWebHookConfig)[]
+
+  /**
+   * @title 接收群助手消息
+   *
+   * @description 是否接收群助手内群的消息。启用时，Chronocat
+   * 会在应用启动后主动向 QQ
+   * 申请推送群助手内所有群的消息。默认启用，关闭则默认不推送群助手内群的新消息。
+   *
+   * @default true
+   */
+  receive_msgbox?: boolean
 }
 
 export interface ChronocatConfig extends ChronocatBaseConfig {
