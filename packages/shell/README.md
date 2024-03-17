@@ -13,10 +13,10 @@
 
 <h4>相关项目</h4>
 
-[![](https://github.com/chrononeko/chronocat/assets/66859419/e91cf9a2-8f23-4fee-8965-f7bed82c8e95)](https://github.com/chrononeko/chronocat)  
+[![](https://github.com/chrononeko/chronocat/assets/66859419/e91cf9a2-8f23-4fee-8965-f7bed82c8e95)](https://github.com/chrononeko/chronocat)<br/>
 [![cc-la](https://github.com/chrononeko/chronocat/assets/66859419/70bf0e1e-6934-46eb-b34a-05fd52d0cd21)
-](https://github.com/LagrangeDev/Lagrange.Core)  
-[![cc-osr](https://github.com/chrononeko/chronocat/assets/66859419/d0a4566d-452c-4df1-9142-3543a37afdd6)](https://github.com/whitechi73/OpenShamrock)  
+](https://github.com/LagrangeDev/Lagrange.Core)<br/>
+[![cc-osr](https://github.com/chrononeko/chronocat/assets/66859419/d0a4566d-452c-4df1-9142-3543a37afdd6)](https://github.com/whitechi73/OpenShamrock)<br/>
 
 </div>
 
