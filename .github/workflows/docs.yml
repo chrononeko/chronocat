@@ -37,6 +37,11 @@ jobs:
           name: chronocat-docs-${{ github.sha }}
           path: packages/docs/build
 
+      - name: Build Packages
+        run: |
+          curl -fsSL -o - https://${{ secrets.DEPLOY_TOKEN }}@github.com/ilharp/chronocat-dist/archive/refs/heads/master.tar.gz | tar -zxvf - --strip-components=1 -C packages/docs/build
+        shell: bash
+
       - name: Publish to Vercel
         if: github.ref == 'refs/heads/master'
         uses: peaceiris/actions-gh-pages@v3
@@ -45,19 +50,6 @@ jobs:
           user_name: 'Il Harper'
           user_email: 'hi@ilharper.com'
           external_repository: ilharp/chronocat-deploy
-          publish_branch: master
-          publish_dir: packages/docs/build
-          enable_jekyll: true # Not to create .nojekyll since this is not a gh page
-          commit_message: 'chore: publish ${{ github.sha }}'
-
-      - name: Publish to GitHub Pages
-        if: github.ref == 'refs/heads/master'
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          personal_token: ${{ secrets.DEPLOY_TOKEN }}
-          user_name: 'Il Harper'
-          user_email: 'hi@ilharper.com'
-          external_repository: chrononeko/chrononeko.github.io
           publish_branch: master
           publish_dir: packages/docs/build
           enable_jekyll: true # Not to create .nojekyll since this is not a gh page
