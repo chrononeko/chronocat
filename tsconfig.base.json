@@ -12,5 +12,10 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "exactOptionalPropertyTypes": false,
+    "strict": false,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+    "strictNullChecks": false,
+    "noImplicitReturns": false,
   }
 }

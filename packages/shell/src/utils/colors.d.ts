@@ -1,0 +1,18 @@
+import type { ForegroundColor, BackgroundColor, Modifier } from 'ansi-styles';
+export declare const color: (color: keyof ForegroundColor) => (text: string) => string;
+export declare const bgColor: (color: keyof BackgroundColor) => (text: string) => string;
+export declare const modifier: (modifier: keyof Modifier) => (text: string) => string;
+export declare const bold: (text: string) => string;
+export declare const dim: (text: string) => string;
+export declare const italic: (text: string) => string;
+export declare const underline: (text: string) => string;
+export declare const overline: (text: string) => string;
+export declare const grey: (text: string) => string;
+export declare const red: (text: string) => string;
+export declare const green: (text: string) => string;
+export declare const yellow: (text: string) => string;
+export declare const blue: (text: string) => string;
+export declare const magenta: (text: string) => string;
+export declare const cyan: (text: string) => string;
+export declare const white: (text: string) => string;
+export type ColorFormatter = ReturnType<typeof color>;

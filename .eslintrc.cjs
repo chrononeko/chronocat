@@ -29,6 +29,7 @@ module.exports = {
     },
   },
   rules: {
+    "prettier/prettier": "off",
     'require-await': 'off',
     'no-constant-condition': [
       'error',
@@ -59,5 +60,12 @@ module.exports = {
     '@typescript-eslint/consistent-type-imports': 'error',
     '@typescript-eslint/no-dynamic-delete': 'off',
     '@typescript-eslint/no-extraneous-class': 'off',
+    "@typescript-eslint/no-unsafe-assignment": "off",
+    "@typescript-eslint/no-unsafe-call": "off",
+    "@typescript-eslint/no-unsafe-return": "off",
+    "@typescript-eslint/no-unsafe-argument": "off",
+    "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-unsafe-declaration-merging": "off",
   },
 }

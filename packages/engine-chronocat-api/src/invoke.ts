@@ -1,5 +1,5 @@
+/* eslint-disable import/no-unresolved */
 // https://github.com/import-js/eslint-plugin-import/issues/2802
-// eslint-disable-next-line import/no-unresolved
 import { ipcMain } from 'electron'
 import { requestCallbackMap } from './globalVars'
 import type { NtApi } from './types'

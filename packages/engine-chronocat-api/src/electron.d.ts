@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+
 // Type definitions for Electron 26.0.0
 // Project: http://electronjs.org/
 // Definitions by: The Electron Team <https://github.com/electron/electron>

@@ -27,21 +27,32 @@ import { buildUserGet } from './api/user/get'
 import { buildHandler } from './handler'
 import { msgBoxActiv } from './services/msgBoxActiv'
 
+// 使用一个全局常量__DEFINE_CHRONO_VERSION__来声明模块的版本。
+// 这个常量的值在构建过程中被定义。
 declare const __DEFINE_CHRONO_VERSION__: string
 
+// 定义模块的名称和版本。
 export const name = 'engine-chronocat-api'
 export const version = __DEFINE_CHRONO_VERSION__
 
+// apply函数用于配置和初始化模块。
+// 它接受一个上下文对象ctx，这个对象提供了与应用程序框架交互的能力。
 export const apply = async (ctx: ChronocatContext) => {
+  // 在ctx对象上配置一个特定的属性，用于存储消息盒子活动化的功能。
   ctx.chronocatEngineChronocatApi = {
     msgBoxActiv: msgBoxActiv(ctx),
   }
 
+  // 使用ipcMan函数来配置IPC（进程间通信）的处理逻辑。
+  // 它依赖于buildHandler函数来构建消息处理器，并使用getId函数来获取回调ID。
   ipcMan<RedIpcArgs>({
     handler: buildHandler(ctx),
     getId: (p) => p?.[0]?.callbackId,
   })
 
+  // 使用ctx.chronocat.api.register函数注册一系列的API处理器。
+  // 每个API处理器都是通过调用一个构建函数来创建的，这些构建函数接收上下文对象ctx。
+  // 这里注册了多种API，包括资产获取、频道列表/创建/静音等，用户和好友管理，消息创建/获取/删除等。
   const register = ctx.chronocat.api.register(name)
   register('chronocat.internal.assets.get', buildAssetsGet(ctx))
   register('channel.list', buildChannelList(ctx))
@@ -67,8 +78,10 @@ export const apply = async (ctx: ChronocatContext) => {
   register('friend.approve', buildFriendApprove(ctx))
   register('unsafe.friend.remove', buildFriendRemove(ctx))
 
+  // 等待ctx.chronocat对象变为就绪状态。
   await ctx.chronocat.whenReady()
 
+  // 注册更多内部使用的API，比如获取和列出表情等。
   register('chronocat.internal.qface.get', qfaceGet)
   register('chronocat.internal.qface.list', qfaceList)
 }
