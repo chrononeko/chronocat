@@ -39,11 +39,11 @@ tags:
     externalDocs:
       description: 概念介绍
       url: https://chronocat.vercel.app/develop/satori/fundamentals/resources
-  - name: ChannelMember
-    description: 「频道成员」——用户在特定频道内的信息。
-    externalDocs:
-      description: 概念介绍
-      url: https://chronocat.vercel.app/develop/satori/fundamentals/resources
+  # - name: ChannelMember
+  #   description: 「频道成员」——用户在特定频道内的信息。
+  #   externalDocs:
+  #     description: 概念介绍
+  #     url: https://chronocat.vercel.app/develop/satori/fundamentals/resources
   - name: Guild
     description: 「群组」——用户的集合。
     externalDocs:
@@ -163,24 +163,24 @@ paths:
         '500':
           $ref: '#/components/responses/500'
 
-  /unsafe.channel.member.mute:
-    post:
-      operationId: channelMemberMute
-      tags:
-        - ChannelMember
-      summary: 频道用户禁言
-      description: 频道用户禁言。
-      requestBody:
-        description: 要禁言的用户
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ChannelMemberMutePayload'
-      responses:
-        '200':
-          description: 禁言成功
-        '500':
-          $ref: '#/components/responses/500'
+  # /unsafe.channel.member.mute:
+  #   post:
+  #     operationId: channelMemberMute
+  #     tags:
+  #       - ChannelMember
+  #     summary: 频道用户禁言
+  #     description: 频道用户禁言。
+  #     requestBody:
+  #       description: 要禁言的用户
+  #       content:
+  #         application/json:
+  #           schema:
+  #             $ref: '#/components/schemas/ChannelMemberMutePayload'
+  #     responses:
+  #       '200':
+  #         description: 禁言成功
+  #       '500':
+  #         $ref: '#/components/responses/500'
 
   /guild.list:
     post:
@@ -265,6 +265,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GuildMemberListResponse'
+        '500':
+          $ref: '#/components/responses/500'
+
+  /guild.member.mute:
+    post:
+      operationId: guildMemberMute
+      tags:
+        - GuildMember
+      summary: 群组用户禁言
+      description: 群组用户禁言。
+      requestBody:
+        description: 用户禁言参数
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GuildMemberMutePayload'
+      responses:
+        '200':
+          description: 禁言成功
         '500':
           $ref: '#/components/responses/500'
 
