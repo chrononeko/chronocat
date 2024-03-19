@@ -15,6 +15,7 @@ export type {
   GuildMemberKickPayload,
   GuildMemberListPayload,
   GuildMemberListResponse,
+  GuildMemberMutePayload,
   GuildRemovePayload,
   MessageDeletePayload,
   MessageGetPayload,

@@ -102,6 +102,27 @@ export interface ChannelMemberMutePayload {
   duration: number
 }
 
+export interface GuildMemberMutePayload {
+  channel_id: string
+  user_id: string
+
+  /**
+   * @title 禁言时长
+   *
+   * @description 禁言的时长，单位为毫秒。0
+   * 表示解除禁言。应当小于 30 天（259,200,000
+   * 毫秒）。目前会对向下取整到秒。
+   */
+  duration: number
+
+  /**
+   * @title 说明信息
+   *
+   * @description 禁言群组成员的说明。目前会忽略此字段。
+   */
+  comment?: string
+}
+
 export interface ChannelListPayload extends Next {
   guild_id: string
 }

@@ -21,6 +21,7 @@ import type {
   GuildMemberKickPayload,
   GuildMemberListPayload,
   GuildMemberListResponse,
+  GuildMemberMutePayload,
   GuildRemovePayload,
   Login,
   Message,
@@ -113,6 +114,7 @@ export interface SatoriMethods {
   'guild.member.get': [[GuildMemberGetPayload], GuildMember]
   'guild.member.list': [[GuildMemberListPayload], GuildMemberListResponse]
   'guild.member.kick': [[GuildMemberKickPayload], Record<string, never>]
+  'guild.member.mute': [[GuildMemberMutePayload], Record<string, never>]
 
   'message.create': [
     [MessageCreatePayload, ChronocatSatoriServerConfig],
