@@ -11,6 +11,11 @@ export const ctx: ChronocatContext = {
     } as unknown as ChronocatContext['chronocat']['l'],
     h,
   } as ChronocatContext['chronocat'],
+  chronocatEngineChronocatApi: {
+    msgBoxActiv: {
+      activate: () => {},
+    },
+  },
 }
 
 export const satoriConfig = {
