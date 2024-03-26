@@ -90,7 +90,7 @@ export class Messager {
       case 'p': {
         // 文本段落
         // TODO: Do not append '\n' if the last element ends with '\n'
-        this.children.push('\n')
+        this.children.push(r.text('\n'))
         await this.render(children)
         return
       }
@@ -100,7 +100,7 @@ export class Messager {
         const url = attrs['href'] as string
         await this.render(children)
         if (url) {
-          this.children.push(`( ${url} )`)
+          this.children.push(r.text(`( ${url} )`))
         }
         return
       }
