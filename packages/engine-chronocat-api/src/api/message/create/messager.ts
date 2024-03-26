@@ -87,10 +87,21 @@ export class Messager {
         return
       }
 
+      case 'br': {
+        // 换行
+        this.children.push(r.text('\n'))
+        return
+      }
+
       case 'p': {
         // 文本段落
-        // TODO: Do not append '\n' if the last element ends with '\n'
-        this.children.push(r.text('\n'))
+        const lastMessage = this.children[this.children.length - 1]
+        if (
+          !lastMessage ||
+          !(lastMessage?.textElement?.content as string)?.endsWith?.('\n')
+        ) {
+          this.children.push(r.text('\n'))
+        }
         await this.render(children)
         return
       }
