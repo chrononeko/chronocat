@@ -89,10 +89,8 @@ export class Messager {
 
       case 'p': {
         // 文本段落
-        const lastMessage = this.children[this.children.length - 1]
-        if (r.type !== 'text' || !lastMessage?.textElement?.content?.endsWith?.('\n')) {
-          this.children.push('\n')
-        }
+        // TODO: Do not append '\n' if the last element ends with '\n'
+        this.children.push('\n')
         await this.render(children)
         return
       }
