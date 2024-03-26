@@ -134,7 +134,7 @@ export class Messager {
         const url = attrs['href'] as string
         await this.render(children)
         if (url) {
-          this.children.push(r.text(`( ${url} )`))
+          this.children.push(r.text(` ( ${url} )`))
         }
         this.isEndLine = false
         return
