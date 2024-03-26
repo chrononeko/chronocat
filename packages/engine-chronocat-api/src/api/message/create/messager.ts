@@ -75,12 +75,14 @@ export class Messager {
   }
 
   private normalize = () => {
-    this.children = this.children.reduce((acc, cur) => {
+    this.children = this.children.reduce<typeof this.children>((acc, cur) => {
       const last = acc[acc.length - 1]
       if (
         cur.textElement &&
+        cur.textElement?.content &&
         cur.textElement?.atType === AtType.None &&
         last?.textElement &&
+        last?.textElement?.content &&
         last?.textElement?.atType === AtType.None
       ) {
         last.textElement.content += cur.textElement.content
