@@ -90,7 +90,7 @@ export class Messager {
       case 'p': {
         // 文本段落
         const lastMessage = this.children[this.children.length - 1]
-        if (!lastMessage?.endsWith?.('\n') {
+        if (!lastMessage?.endsWith?.('\n')) {
           this.children.push('\n')
         }
         await this.render(children)
