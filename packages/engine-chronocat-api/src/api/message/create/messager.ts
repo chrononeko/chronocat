@@ -87,6 +87,26 @@ export class Messager {
         return
       }
 
+      case 'p': {
+        // 文本段落
+        const lastMessage = this.children[this.children.length - 1]
+        if (!lastMessage?.endsWith?.('\n') {
+          this.children.push('\n')
+        }
+        await this.render(children)
+        return
+      }
+
+      case 'a': {
+        // 超文本链接
+        const url = attrs['href'] as string
+        await this.render(children)
+        if (url) {
+          this.children.push(`( ${url} )`)
+        }
+        return
+      }
+
       case 'img': {
         // 图片消息
         const urlString = attrs['src'] as string
