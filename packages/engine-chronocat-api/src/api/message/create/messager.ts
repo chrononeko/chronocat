@@ -75,7 +75,7 @@ export class Messager {
   }
 
   private normalize = () => {
-    this.children = this.children.reduce<typeof this.children>((acc, cur) => {
+    this.children = this.children.reduce<O.Partial<RedElement, 'deep'>[]>((acc, cur) => {
       const last = acc[acc.length - 1]
       if (
         cur.textElement &&
