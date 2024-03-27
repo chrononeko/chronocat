@@ -75,22 +75,25 @@ export class Messager {
   }
 
   private normalize = () => {
-    this.children = this.children.reduce<O.Partial<RedElement, 'deep'>[]>((acc, cur) => {
-      const last = acc[acc.length - 1]
-      if (
-        cur.textElement &&
-        cur.textElement?.content &&
-        cur.textElement?.atType === AtType.None &&
-        last?.textElement &&
-        last?.textElement?.content &&
-        last?.textElement?.atType === AtType.None
-      ) {
-        last.textElement.content += cur.textElement.content
-      } else {
-        acc.push(cur)
-      }
-      return acc
-    }, [])
+    this.children = this.children.reduce<O.Partial<RedElement, 'deep'>[]>(
+      (acc, cur) => {
+        const last = acc[acc.length - 1]
+        if (
+          cur.textElement &&
+          cur.textElement?.content &&
+          cur.textElement?.atType === AtType.None &&
+          last?.textElement &&
+          last?.textElement?.content &&
+          last?.textElement?.atType === AtType.None
+        ) {
+          last.textElement.content += cur.textElement.content
+        } else {
+          acc.push(cur)
+        }
+        return acc
+      },
+      [],
+    )
 
     if (this.children[this.children.length - 1]?.textElement?.content === '\n')
       this.children.pop()
