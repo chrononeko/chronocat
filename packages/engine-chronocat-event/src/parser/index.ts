@@ -501,7 +501,8 @@ async function parseElements(
                 id: m.faceElement!.faceIndex,
                 name: `[${(await ctx.chronocat.api['chronocat.internal.qface.get'](`${m.faceElement!.faceIndex}`))!.QDes.slice(1)}]`,
                 platform: ctx.chronocat.platform,
-                'unsafe-super': m.faceElement!.faceType === FaceType.Super,
+                'unsafe-super':
+                  m.faceElement!.faceType === FaceType.Super ? true : undefined,
                 'unsafe-result-id': m.faceElement!.resultId,
                 'unsafe-chain-count': m.faceElement!.chainCount,
               }),
