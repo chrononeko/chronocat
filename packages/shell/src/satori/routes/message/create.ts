@@ -63,7 +63,9 @@ async function messageCreateUsingJson({
   let method:
     | 'message.create'
     | 'chronocat.internal.message.create.forward'
-    | 'chronocat.internal.message.create.forward.fake' = 'message.create'
+    | 'chronocat.internal.message.create.forward.fake'
+    | 'chronocat.internal.message.create.poke'
+    | 'chronocat.internal.message.create.markdown' = 'message.create'
 
   const forwards = cctx.chronocat.h
     .select(payloadRich.content, 'message')
@@ -103,6 +105,24 @@ async function messageCreateUsingJson({
     if (forward!.children.every((x) => x.attrs['id']))
       method = 'chronocat.internal.message.create.forward'
     else method = 'chronocat.internal.message.create.forward.fake'
+  }
+
+  const pokes = cctx.chronocat.h.select(
+    payloadRich.content,
+    `${cctx.chronocat.platform}:poke`,
+  )
+  if (pokes.length) {
+    // TODO: 如果单条消息内除了 poke 还有其他元素，打印警告
+    method = 'chronocat.internal.message.create.poke'
+  }
+
+  const markdowns = cctx.chronocat.h.select(
+    payloadRich.content,
+    `${cctx.chronocat.platform}:markdown`,
+  )
+  if (markdowns.length) {
+    // TODO: 如果单条消息内除了 markdown 还有其他元素，打印警告
+    method = 'chronocat.internal.message.create.markdown'
   }
 
   return await cctx.chronocat.api[method](payloadRich, config)

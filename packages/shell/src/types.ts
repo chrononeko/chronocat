@@ -144,6 +144,14 @@ export interface CCInternalMethods {
     [MessageCreatePayload, ChronocatSatoriServerConfig],
     Message[],
   ]
+  'chronocat.internal.message.create.poke': [
+    [MessageCreatePayload, ChronocatSatoriServerConfig],
+    Message[],
+  ]
+  'chronocat.internal.message.create.markdown': [
+    [MessageCreatePayload, ChronocatSatoriServerConfig],
+    Message[],
+  ]
 
   'chronocat.internal.red.message.parse': [
     [RedMessage, ChronocatSatoriServerConfig],
