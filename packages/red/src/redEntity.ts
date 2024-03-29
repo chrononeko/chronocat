@@ -354,10 +354,24 @@ export interface FaceElement {
 }
 
 export enum FaceType {
-  Normal = 2,
+  /**
+   * 小黄脸表情
+   */
+  Normal1 = 1,
 
+  /**
+   * 新小黄脸表情，QSid = IQLid = AQLid
+   */
+  Normal2 = 2,
+
+  /**
+   * 超级表情
+   */
   Super = 3,
 
+  /**
+   * PC 戳一戳（窗口抖动）
+   */
   PCPoke = 5,
 }
 

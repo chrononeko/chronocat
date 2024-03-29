@@ -493,7 +493,8 @@ async function parseElements(
             break
           }
 
-          case FaceType.Normal:
+          case FaceType.Normal1:
+          case FaceType.Normal2:
           case FaceType.Super: {
             elements.push(
               ctx.chronocat.h(`${ctx.chronocat.platform}:face`, {

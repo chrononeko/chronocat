@@ -191,12 +191,18 @@ export class Messager {
       }
 
       case `${this.ctx.chronocat.platform}:face`: {
+        const face = (await this.ctx.chronocat.api[
+          'chronocat.internal.qface.get'
+        ](`${attrs['id']}`))!
+
         this.children.push(
           r.face(
-            (await this.ctx.chronocat.api['chronocat.internal.qface.get'](
-              `${attrs['id']}`,
-            ))!,
-            attrs['unsafe-super'] ? FaceType.Super : FaceType.Normal,
+            face,
+            attrs['unsafe-super']
+              ? FaceType.Super
+              : face.QSid === face.IQLid && face.QSid === face.AQLid
+                ? FaceType.Normal2
+                : FaceType.Normal1,
           ),
         )
         return
