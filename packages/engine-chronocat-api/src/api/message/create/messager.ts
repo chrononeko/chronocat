@@ -215,7 +215,7 @@ export class Messager {
           r.reply(
             attrs['id'] as string | undefined,
             attrs['chronocat:seq'] as string | undefined,
-            (author?.attrs['user-id'] as string | undefined) || undefined,
+            (author?.attrs['id'] as string | undefined) || undefined,
           ),
         )
         return

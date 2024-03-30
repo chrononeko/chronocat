@@ -65,7 +65,7 @@ export class LogiriMessager {
 
       case 'quote': {
         const [author] = h.select(children, 'author')
-        const id = author?.attrs['user-id'] as string | undefined
+        const id = author?.attrs['id'] as string | undefined
 
         this.children.push(
           grey(
