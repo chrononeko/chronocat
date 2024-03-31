@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## v0.2.6 (2024-03-31)
+
+### shell
+
+- 支持发送 `poke`/`markdown` 消息 API 的类型定义 (caac694222018d88e65ea23659417b276b743b50)
+
+### engine-chronocat-api
+
+- 实现 `guild.member.mute` (94cbc0dfac02157d10b345203ecb61410a4624cb)
+- 适配 Satori 协议更改 (ad73ccd93a529a150f4e84168e61fc487058b5ed)
+
+### engine-chronocat-event
+
+- 修复了 QQ 一代原生表情无法解析的问题 (#56)
+- 修复了普通表情错误携带 `no-unsafe-super` 属性的问题 (a9781d2098c810f16a7d77f806af2cd3a92c97a6)
+
+### crychiccat
+
+- 首个版本
+
 ## v0.2.5 (2024-03-17)
 
 戳一戳引擎在 9.9.8/6.9.30/3.2.6 仍然适配，无需升级。Shell 和 Chronocat 系列引擎均需要同时升级至此版本。
