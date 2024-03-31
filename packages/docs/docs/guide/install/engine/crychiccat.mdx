@@ -1,0 +1,66 @@
+---
+title: crychiccat
+---
+
+import Link from '@docusaurus/Link'
+
+Crychiccat 引擎，使用 C++ 编写，旨在为 Chronocat 提供 Chronocat 引擎无法实现的各项功能。
+
+## 功能
+
+### 接收戳一戳
+
+「接收戳一戳」可用于接收手机 QQ 的戳一戳（双击头像）消息。只能识别戳一戳消息的来源聊天/来源群。群内触发的戳一戳消息无法得知发送者。可以用于触发随机文字/表情包等内容回复。接收消息的内容为
+`<chronocat:poke/>`。
+
+「接收戳一戳」功能与旧有 poke 引擎逻辑相同，限制也相同。Crychiccat 引擎会同时取代旧 poke 引擎。
+
+### 发送戳一戳
+
+「发送戳一戳」没有上面的类似限制，可以指定任何好友或群内用户。
+
+要向好友发送戳一戳，直接发送 `<chronocat:poke/>` 消息元素即可。要在群内发送戳一戳，发送的 poke 元素则类似
+`<chronocat:poke user-id="1000000" />`；其中 `1000000` 是用户的 QQ。
+
+更多 poke 消息元素的使用方法可以直接浏览「消息元素参考」页面：
+
+<Link
+  className="button button--secondary button--lg button--normal"
+  to="/develop/satori/reference/elements/#%E6%88%B3%E4%B8%80%E6%88%B3chronocat--v0059---"
+>
+  <span>消息元素</span>
+</Link>
+
+## 限制
+
+由于 Team Chrononeko 维护者的精力有限，Crychiccat 目前仅支持如下环境：
+
+- Windows x64
+- QQ 17xxx 及以上版本
+
+Crychiccat 理论上可以支持所有的架构和操作系统，不过目前 Team Chrononeko
+没有支持计划。未来时间充裕后，Crychiccat 会支持更多架构和系统。
+
+## 提醒
+
+调用 Crychiccat 引擎提供的 API 会增大使用风险，而不调用 API 则不会增加风险。如果你只需要使用 Crychiccat
+提供的事件相关功能，则可以正常安装 Crychiccat 引擎，但不使用其提供的 API。
+
+## 下载
+
+可从 LiteLoaderQQNT 插件商店搜索「Chronocat Engine：Crychiccat」直接安装，也可以在项目发布仓库下载。
+
+<Link
+  className="button button--secondary button--lg"
+  to="https://github.com/chrononeko/LiteLoaderQQNT-Plugin-Chronocat-Engine-Crychiccat"
+>
+  <span>LiteLoaderQQNT-Plugin-Chronocat-Engine-Crychiccat</span>
+</Link>
+
+## 提供
+
+Crychiccat 引擎为 Team Chrononeko 提供，但并不由 Chronocat 项目直接提供。最新版本以项目仓库提供的版本为准。
+
+## 源代码
+
+目前没有开放源代码的计划。

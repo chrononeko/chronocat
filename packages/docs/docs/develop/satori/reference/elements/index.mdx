@@ -194,4 +194,36 @@ Chronocat 尚未实现此功能。
 
 QQ 尚未具备此功能。
 
-## 戳一戳（chronocat:poke） <Badge type="chronocat" /> <Badge type="introduced">v0.0.59</Badge> <Badge type="experimental" /> <Badge type="recv" />
+## 戳一戳（chronocat:poke） <Badge type="chronocat" /> <Badge type="introduced">v0.0.59</Badge> <Badge type="experimental" /> <Badge type="recv" /> <Badge type="send" />
+
+| 属性    | 类型    | 范围                  | 描述       |
+| ------- | ------- | --------------------- | ---------- |
+| user-id | number? | <Badge type="send" /> | 要戳的用户 |
+
+<details>
+<summary>接收戳一戳</summary>
+
+只能识别戳一戳消息的来源聊天/来源群。群内触发的戳一戳消息无法得知发送者。
+
+```html
+<chronocat:poke />
+```
+
+</details>
+
+<details>
+<summary>发送戳一戳</summary>
+
+在私聊中发送戳一戳：
+
+```html
+<chronocat:poke />
+```
+
+在群聊中发送戳一戳：
+
+```html
+<chronocat:poke user-id="1000000" />
+```
+
+</details>

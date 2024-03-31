@@ -33,7 +33,7 @@ const sidebars: SidebarsConfig = {
       items: [
         'guide/install/engine/chronocat-api',
         'guide/install/engine/chronocat-event',
-        'guide/install/engine/poke',
+        'guide/install/engine/crychiccat',
       ],
     },
     {
