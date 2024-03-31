@@ -2,6 +2,9 @@
 
 ## v0.2.6 (2024-03-31)
 
+这个版本包含全新的 Crychiccat 引擎，请阅读 Team Chrononeko 的
+[最新博客](https://chronocat.vercel.app/blog/crychiccat) 以了解详情。
+
 ### shell
 
 - 支持发送 `poke`/`markdown` 消息 API 的类型定义 (caac694222018d88e65ea23659417b276b743b50)
