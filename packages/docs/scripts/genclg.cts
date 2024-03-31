@@ -32,6 +32,7 @@ const componentMap = {
   'engine-chronocat-event':
     'https://github.com/chrononeko/chronocat/tree/master/packages/engine-chronocat-event',
   'engine-poke': 'https://github.com/chrononeko/engine-poke/tree/master',
+  crychiccat: 'https://github.com/chrononeko/crychiccat/tree/master',
 } as const
 
 type Component = keyof typeof componentMap
