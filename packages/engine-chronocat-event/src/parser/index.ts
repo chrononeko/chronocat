@@ -384,6 +384,7 @@ async function parseElements(
             ctx.chronocat.uix.add(m.textElement!.atNtUid, m.textElement!.atUid)
 
             let id: string | undefined = m.textElement!.atUid
+            if (id === '0') id = undefined
             id ||= ctx.chronocat.uix.getUin(m.textElement!.atNtUid)
 
             const name = m.textElement!.content.slice(1)
