@@ -1,4 +1,3 @@
-import type { RedMessage } from '@chronocat/red'
 import type { ChronocatContext } from '@chronocat/shell'
 import h from '@satorijs/element'
 
@@ -55,11 +54,3 @@ export const saveResult = {
     hUnits: '1',
   },
 }
-
-export const commonSend = jest.fn(
-  async () => undefined as unknown as RedMessage,
-)
-export const commonSave = jest.fn(async () => saveResult)
-export const commonSendForward = jest.fn(
-  async () => undefined as unknown as RedMessage,
-)

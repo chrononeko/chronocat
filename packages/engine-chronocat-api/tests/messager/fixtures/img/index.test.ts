@@ -1,16 +1,16 @@
+import type { RedMessage } from '@chronocat/red'
 import h from '@satorijs/element'
 import { resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { Messager } from '../../../../src/api/message/create/messager'
-import {
-  commonSend,
-  commonSendForward,
-  ctx,
-  satoriConfig,
-  saveResult,
-} from '../../../mocks'
+import { ctx, satoriConfig, saveResult } from '../../../mocks'
 
 test('Red 编码器应当正确编码 图片消息', async () => {
+  const commonSend = jest.fn(async () => undefined as unknown as RedMessage)
+  const commonSendForward = jest.fn(
+    async () => undefined as unknown as RedMessage,
+  )
+
   const save = jest.fn().mockReturnValueOnce(saveResult)
 
   await new Messager(
