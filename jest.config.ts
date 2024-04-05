@@ -17,6 +17,23 @@ const config: JestConfigWithTsJest = {
   collectCoverage: true,
   coverageDirectory: 'coverage',
   coverageProvider: 'v8',
+
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        suiteName: 'Chronocat Unit Tests',
+        outputDirectory: 'coverage',
+        outputName: 'jest-junit.xml',
+        ancestorSeparator: ' › ',
+        uniqueOutputName: 'false',
+        suiteNameTemplate: '{filepath}',
+        classNameTemplate: '{classname}',
+        titleTemplate: '{title}',
+      },
+    ],
+  ],
 }
 
 // eslint-disable-next-line import/no-default-export

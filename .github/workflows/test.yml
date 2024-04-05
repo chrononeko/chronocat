@@ -5,6 +5,11 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+  actions: read
+  checks: write
+
 jobs:
   test:
     name: test
@@ -21,15 +26,27 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.3.1'
+          node-version: '20.12.0'
 
-      - name: Test
+      - name: Build Packages
         run: |
           corepack enable
           yarn install --immutable
           yarn build
+        shell: bash
+
+      - name: Test
+        run: |
           yarn test
         shell: bash
+
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: Chronocat Unit Tests
+          path: coverage/jest-junit.xml # Path to test results
+          reporter: jest-junit # Format of test results
 
       - name: Upload Coverage Reports to Codecov
         uses: codecov/codecov-action@v3
