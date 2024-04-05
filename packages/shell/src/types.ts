@@ -153,6 +153,27 @@ export interface CCInternalMethods {
     Message[],
   ]
 
+  'chronocat.internal.message.create2.normal': [
+    [MessageCreatePayload, ChronocatSatoriServerConfig],
+    Event[],
+  ]
+  'chronocat.internal.message.create2.forward': [
+    [MessageCreatePayload, ChronocatSatoriServerConfig],
+    Event[],
+  ]
+  'chronocat.internal.message.create2.forward.fake': [
+    [MessageCreatePayload, ChronocatSatoriServerConfig],
+    Event[],
+  ]
+  'chronocat.internal.message.create2.poke': [
+    [MessageCreatePayload, ChronocatSatoriServerConfig],
+    Event[],
+  ]
+  'chronocat.internal.message.create2.markdown': [
+    [MessageCreatePayload, ChronocatSatoriServerConfig],
+    Event[],
+  ]
+
   'chronocat.internal.red.message.parse': [
     [RedMessage, ChronocatSatoriServerConfig],
     Event[] | undefined,

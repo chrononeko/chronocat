@@ -58,8 +58,11 @@ export const apply = async (ctx: ChronocatContext) => {
   register('guild.member.list', buildGuildMemberList(ctx))
   register('guild.member.kick', buildGuildMemberKick(ctx))
   register('guild.member.mute', buildGuildMemberMute(ctx))
-  register('message.create', buildMessageCreate(ctx))
-  register('chronocat.internal.message.create.forward', buildMessageCreate(ctx))
+  register('chronocat.internal.message.create2.normal', buildMessageCreate(ctx))
+  register(
+    'chronocat.internal.message.create2.forward',
+    buildMessageCreate(ctx),
+  )
   register('message.get', buildMessageGet(ctx))
   register('message.delete', buildMessageDelete(ctx))
   register('message.list', buildMessageList(ctx))

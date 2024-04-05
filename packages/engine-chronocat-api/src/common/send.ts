@@ -49,7 +49,7 @@ const defaultSrcContact: Peer = {
 export let sendForwardMsgBuffer = Buffer.alloc(0)
 export let sendForwardCover = defaultSendForwardCover
 
-let task = Promise.resolve<unknown>(undefined)
+let task = Promise.resolve<RedMessage>(undefined as unknown as RedMessage)
 
 export const commonSendForward = async (
   ctx: ChronocatContext,
@@ -78,10 +78,10 @@ export const commonSendForward = async (
       : (peer as Peer)
 
   task = task
-    .then(() => ctx.chronocat.sleep(80))
+    .then(() => ctx.chronocat.sleep(80) as unknown as RedMessage)
     .then(
       () =>
-        new Promise((resolve, reject) => {
+        new Promise<RedMessage>((resolve, reject) => {
           sendForwardMsgBuffer = Buffer.alloc(0)
           sendForwardCover = defaultSendForwardCover
 
@@ -103,7 +103,7 @@ export const commonSendForward = async (
           }, ctx.chronocat.timeout)
         }),
     )
-    .catch((e) => console.log(e))
+    .catch((e) => console.log(e) as unknown as RedMessage)
 
   return task
 }

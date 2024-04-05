@@ -1,4 +1,13 @@
-import type { MessageCreatePayload as MessageCreatePayloadRich } from '../../types'
+import type { O } from 'ts-toolbelt'
+import type {
+  ChronocatLogCurrentConfig,
+  ChronocatSatoriEventsConfig,
+} from '../../../services/config/configEntity'
+import type { ChronocatContext, SatoriDispatchMessage } from '../../../types'
+import type {
+  Event,
+  MessageCreatePayload as MessageCreatePayloadRich,
+} from '../../types'
 import type { MessageCreatePayload as MessageCreatePayloadEntity } from '../../types/satoriPayloadEntity'
 import type { RouteContext } from '../types'
 
@@ -61,11 +70,12 @@ async function messageCreateUsingJson({
   }
 
   let method:
-    | 'message.create'
-    | 'chronocat.internal.message.create.forward'
-    | 'chronocat.internal.message.create.forward.fake'
-    | 'chronocat.internal.message.create.poke'
-    | 'chronocat.internal.message.create.markdown' = 'message.create'
+    | 'chronocat.internal.message.create2.normal'
+    | 'chronocat.internal.message.create2.forward'
+    | 'chronocat.internal.message.create2.forward.fake'
+    | 'chronocat.internal.message.create2.poke'
+    | 'chronocat.internal.message.create2.markdown' =
+    'chronocat.internal.message.create2.normal'
 
   const forwards = cctx.chronocat.h
     .select(payloadRich.content, 'message')
@@ -103,8 +113,8 @@ async function messageCreateUsingJson({
       return
 
     if (forward!.children.every((x) => x.attrs['id']))
-      method = 'chronocat.internal.message.create.forward'
-    else method = 'chronocat.internal.message.create.forward.fake'
+      method = 'chronocat.internal.message.create2.forward'
+    else method = 'chronocat.internal.message.create2.forward.fake'
   }
 
   const pokes = cctx.chronocat.h.select(
@@ -113,7 +123,7 @@ async function messageCreateUsingJson({
   )
   if (pokes.length) {
     // TODO: 如果单条消息内除了 poke 还有其他元素，打印警告
-    method = 'chronocat.internal.message.create.poke'
+    method = 'chronocat.internal.message.create2.poke'
   }
 
   const markdowns = cctx.chronocat.h.select(
@@ -122,8 +132,25 @@ async function messageCreateUsingJson({
   )
   if (markdowns.length) {
     // TODO: 如果单条消息内除了 markdown 还有其他元素，打印警告
-    method = 'chronocat.internal.message.create.markdown'
+    method = 'chronocat.internal.message.create2.markdown'
   }
 
-  return await cctx.chronocat.api[method](payloadRich, config)
+  const result = await cctx.chronocat.api[method](payloadRich, config)
+
+  cctx.chronocat.emit(new MessageCreatedDispatchMessage(result))
+
+  return result.map((x) => x.message).filter(Boolean)
+}
+
+export class MessageCreatedDispatchMessage implements SatoriDispatchMessage {
+  constructor(private events: Event[]) {}
+  type = 'satori' as const
+
+  toSatori = async (
+    _ctx: ChronocatContext,
+    _config: O.Intersect<
+      ChronocatLogCurrentConfig,
+      ChronocatSatoriEventsConfig
+    >,
+  ) => this.events
 }

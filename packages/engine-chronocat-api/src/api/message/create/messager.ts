@@ -1,9 +1,9 @@
-import type { Peer, Element as RedElement } from '@chronocat/red'
+import type { Peer, Element as RedElement, RedMessage } from '@chronocat/red'
 import { AtType, ChatType, FaceType } from '@chronocat/red'
 import type {
   ChronocatContext,
   ChronocatSatoriServerConfig,
-  Message,
+  Event,
 } from '@chronocat/shell'
 import type h from '@satorijs/element'
 import type { O } from 'ts-toolbelt'
@@ -36,7 +36,7 @@ export class Messager {
   peer: Partial<Peer>
 
   public errors: Error[] = []
-  public results: Message[] = []
+  public results: Event[] = []
 
   stack: State[] = [new State('message')]
   children: O.Partial<RedElement, 'deep'>[] = []
@@ -54,24 +54,27 @@ export class Messager {
     await this.flush()
 
     if (this.errors.length) throw this.errors
-    else return this.results.filter(Boolean) // .map(({ id }) => ({ id }))
+    else return this.results.filter(Boolean)
   }
 
   flush = async () => {
     if (!this.children.length) return
 
     this.normalize()
-    const result = await this.common.send(this.ctx, this.peer, this.children)
 
+    await this.pushResult(
+      await this.common.send(this.ctx, this.peer, this.children),
+    )
+
+    this.children = []
+  }
+
+  pushResult = async (result: RedMessage) => {
     const parsedEvents = await this.ctx.chronocat.api[
       'chronocat.internal.red.message.parse'
     ](result, this.config)
 
-    if (parsedEvents)
-      for (const parsedEvent of parsedEvents)
-        if (parsedEvent.message) this.results.push(parsedEvent.message)
-
-    this.children = []
+    if (parsedEvents) this.results.push(...parsedEvents)
   }
 
   private normalize = () => {
@@ -294,13 +297,15 @@ export class Messager {
             await this.render(children)
           } else if (children.every((x) => 'id' in x)) {
             // 普通合并转发消息
-            await this.common.sendForward(
-              this.ctx,
-              this.peer,
-              children.map((x) => ({
-                msgId: x.attrs['id'] as string,
-                senderShowName: 'QQ用户',
-              })),
+            await this.pushResult(
+              await this.common.sendForward(
+                this.ctx,
+                this.peer,
+                children.map((x) => ({
+                  msgId: x.attrs['id'] as string,
+                  senderShowName: 'QQ用户',
+                })),
+              ),
             )
           } else {
             //伪造合并转发消息。本引擎不支持，使用兜底行为
