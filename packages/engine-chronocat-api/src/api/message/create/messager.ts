@@ -1,5 +1,5 @@
 import type { Peer, Element as RedElement } from '@chronocat/red'
-import { ChatType, FaceType } from '@chronocat/red'
+import { AtType, ChatType, FaceType } from '@chronocat/red'
 import type {
   ChronocatContext,
   ChronocatSatoriServerConfig,
@@ -60,6 +60,7 @@ export class Messager {
   flush = async () => {
     if (!this.children.length) return
 
+    this.normalize()
     const result = await this.common.send(this.ctx, this.peer, this.children)
 
     const parsedEvents = await this.ctx.chronocat.api[
@@ -73,9 +74,33 @@ export class Messager {
     this.children = []
   }
 
-  // private normalize = () => {}
+  private normalize = () => {
+    this.children = this.children.reduce<O.Partial<RedElement, 'deep'>[]>(
+      (acc, cur) => {
+        const last = acc[acc.length - 1]
+        if (
+          cur.textElement &&
+          cur.textElement?.content &&
+          cur.textElement?.atType === AtType.None &&
+          last?.textElement &&
+          last?.textElement?.content &&
+          last?.textElement?.atType === AtType.None
+        ) {
+          last.textElement.content += cur.textElement.content
+        } else {
+          acc.push(cur)
+        }
+        return acc
+      },
+      [],
+    )
 
-  // private isEndLine = () => {}
+    if (this.children[this.children.length - 1]?.textElement?.content === '\n')
+      this.children.pop()
+    return this.children
+  }
+
+  private isEndLine = false
 
   visit = async (element: h) => {
     const { type, attrs, children } = element
@@ -84,6 +109,37 @@ export class Messager {
       case 'text': {
         // 文本消息
         this.children.push(r.text(attrs['content'] as string))
+        this.isEndLine = false
+        return
+      }
+
+      case 'br': {
+        // 换行
+        if (this.isEndLine) {
+          this.children.push(r.text('\n'))
+        }
+        this.isEndLine = false
+        return
+      }
+
+      case 'p': {
+        // 文本段落
+        if (this.isEndLine) {
+          this.children.push(r.text('\n'))
+        }
+        await this.render(children)
+        this.isEndLine = true
+        return
+      }
+
+      case 'a': {
+        // 超文本链接
+        const url = attrs['href'] as string
+        await this.render(children)
+        if (url) {
+          this.children.push(r.text(` ( ${url} )`))
+        }
+        this.isEndLine = false
         return
       }
 
@@ -123,6 +179,7 @@ export class Messager {
         }
 
         this.children.push(r.remoteImage(result, picType))
+        this.isEndLine = false
         return
       }
 
@@ -143,6 +200,7 @@ export class Messager {
           fileMime: attrs['chronocat:mime'] as string | undefined,
         })
         this.children.push(r.remoteAudio(result, 1))
+        this.isEndLine = false
         return
       }
 
@@ -163,6 +221,7 @@ export class Messager {
           fileMime: attrs['chronocat:mime'] as string | undefined,
         })
         this.children.push(r.remoteFile(result))
+        this.isEndLine = false
         return
       }
 
@@ -176,6 +235,7 @@ export class Messager {
           )
         }
 
+        this.isEndLine = false
         return
       }
 
@@ -205,6 +265,7 @@ export class Messager {
                 : FaceType.Normal1,
           ),
         )
+        this.isEndLine = false
         return
       }
 
@@ -218,6 +279,7 @@ export class Messager {
             (author?.attrs['id'] as string | undefined) || undefined,
           ),
         )
+        this.isEndLine = false
         return
       }
 
@@ -264,6 +326,7 @@ export class Messager {
       default: {
         // 兜底
         await this.render(children)
+        this.isEndLine = false
         return
       }
     }
