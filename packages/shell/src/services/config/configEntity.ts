@@ -101,6 +101,8 @@ export interface ChronocatSelfUrlConfig {
    * 服务与客户端框架位于不同的网络主机（如 Docker
    * 环境），那么你需要填写客户端访问 Satori 时的地址。
    *
+   * 地址应当以 `http://` 或 `https://` 开头。不要以斜杠结尾。
+   *
    * 举两个例子：
    *
    * - 当 Satori 服务与客户端分别位于局域网下的两台主机时，self_url
