@@ -1,5 +1,120 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Red 编码器应当正确编码 br 换行 1`] = `
+[
+  [
+    {
+      "chatType": 2,
+      "guildId": "",
+      "peerUid": "9998",
+    },
+    [
+      {
+        "elementId": "",
+        "elementType": 1,
+        "textElement": {
+          "atNtUid": "",
+          "atTinyId": "",
+          "atType": 0,
+          "atUid": "",
+          "content": "
+aaa
+bbb
+
+ccc
+
+
+ddd",
+        },
+      },
+    ],
+  ],
+]
+`;
+
+exports[`Red 编码器应当正确编码 br/p 混搭换行 1`] = `
+[
+  [
+    {
+      "chatType": 2,
+      "guildId": "",
+      "peerUid": "9998",
+    },
+    [
+      {
+        "elementId": "",
+        "elementType": 1,
+        "textElement": {
+          "atNtUid": "",
+          "atTinyId": "",
+          "atType": 0,
+          "atUid": "",
+          "content": "aaa
+bbb
+uuu
+
+ccc
+ddd
+
+eee
+
+vvv
+www
+fff
+ggg
+
+hhh
+iii
+
+xxx
+yyy
+
+
+zzz",
+        },
+      },
+    ],
+  ],
+]
+`;
+
+exports[`Red 编码器应当正确编码 p 换行 1`] = `
+[
+  [
+    {
+      "chatType": 2,
+      "guildId": "",
+      "peerUid": "9998",
+    },
+    [
+      {
+        "elementId": "",
+        "elementType": 1,
+        "textElement": {
+          "atNtUid": "",
+          "atTinyId": "",
+          "atType": 0,
+          "atUid": "",
+          "content": "aaa
+bbb
+
+ccc
+ddd
+
+eee
+
+fff
+ggg
+
+hhh
+iii",
+        },
+      },
+    ],
+  ],
+]
+`;
+
 exports[`Red 编码器应当正确编码 纯文本消息 1`] = `
 [
   [
@@ -18,6 +133,31 @@ exports[`Red 编码器应当正确编码 纯文本消息 1`] = `
           "atType": 0,
           "atUid": "",
           "content": "xxx",
+        },
+      },
+    ],
+  ],
+]
+`;
+
+exports[`Red 编码器应当正确编码 链接 1`] = `
+[
+  [
+    {
+      "chatType": 2,
+      "guildId": "",
+      "peerUid": "9998",
+    },
+    [
+      {
+        "elementId": "",
+        "elementType": 1,
+        "textElement": {
+          "atNtUid": "",
+          "atTinyId": "",
+          "atType": 0,
+          "atUid": "",
+          "content": "Chronocat ( https://chronocat.vercel.app )",
         },
       },
     ],
