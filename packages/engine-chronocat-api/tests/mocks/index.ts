@@ -60,4 +60,6 @@ export const commonSend = jest.fn(
   async () => undefined as unknown as RedMessage,
 )
 export const commonSave = jest.fn(async () => saveResult)
-export const commonSendForward = jest.fn(async () => {})
+export const commonSendForward = jest.fn(
+  async () => undefined as unknown as RedMessage,
+)
