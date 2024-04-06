@@ -8,6 +8,7 @@ import Heading from '@theme/Heading'
 // eslint-disable-next-line import/no-unresolved
 import Layout from '@theme/Layout'
 import { clsx } from 'clsx'
+import { HOS } from '../components/HOS'
 import styles from './index.module.css'
 
 const HomepageHeader = () => {
@@ -31,6 +32,7 @@ export default () => (
     <HomepageHeader />
     <main>
       <HomepageFeatures />
+      <HOS />
     </main>
   </Layout>
 )
