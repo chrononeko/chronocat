@@ -1,6 +1,7 @@
 import type {
   Element,
   MsgsIncludeSelf,
+  OnAddSendMsg,
   OnBuddyListChange,
   OnBuddyReqChange,
   OnMemberInfoChange,
@@ -18,7 +19,7 @@ import type {
 import { ChatType, MsgType, SendType } from '@chronocat/red'
 import type { ChronocatContext } from '@chronocat/shell'
 import type { IpcManData } from 'ipcman'
-import { emittedBuddyReqList, requestMethodMap } from './globalVars'
+import { emittedBuddyReqList, requestMethodMap, sendQueue } from './globalVars'
 import {
   FriendRequestDispatchMessage,
   MessageCreatedDispatchMessage,
@@ -216,6 +217,13 @@ const dispatcher = async (
       return
     }
 
+    case 'nodeIKernelMsgListener/onAddSendMsg': {
+      const { msgRecord } = payload as OnAddSendMsg
+      // msgRecord.sendStatus === 1, sending
+      sendQueue.push(msgRecord.msgId)
+      return
+    }
+
     case 'nodeIKernelMsgListener/onMsgInfoListUpdate': {
       const { msgList } = payload as OnMsgInfoListUpdate
 
@@ -224,6 +232,13 @@ const dispatcher = async (
         if (msg.chatType === ChatType.Private)
           ctx.chronocat.uix.add(msg.peerUid, msg.peerUin)
       }
+
+      msgList
+        .filter((x) => x.sendStatus > 1 && sendQueue.find((y) => x.msgId === y))
+        .forEach((x) => {
+          sendQueue.splice(sendQueue.indexOf(x.msgId), 1)
+          ctx.chronocat.emit(new MessageCreatedDispatchMessage([x]))
+        })
 
       const filteredPayload = await Promise.all(
         msgList

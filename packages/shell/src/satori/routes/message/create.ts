@@ -1,13 +1,4 @@
-import type { O } from 'ts-toolbelt'
-import type {
-  ChronocatLogCurrentConfig,
-  ChronocatSatoriEventsConfig,
-} from '../../../services/config/configEntity'
-import type { ChronocatContext, SatoriDispatchMessage } from '../../../types'
-import type {
-  Event,
-  MessageCreatePayload as MessageCreatePayloadRich,
-} from '../../types'
+import type { MessageCreatePayload as MessageCreatePayloadRich } from '../../types'
 import type { MessageCreatePayload as MessageCreatePayloadEntity } from '../../types/satoriPayloadEntity'
 import type { RouteContext } from '../types'
 
@@ -137,20 +128,20 @@ async function messageCreateUsingJson({
 
   const result = await cctx.chronocat.api[method](payloadRich, config)
 
-  cctx.chronocat.emit(new MessageCreatedDispatchMessage(result))
+  // cctx.chronocat.emit(new MessageCreatedDispatchMessage(result))
 
   return result.map((x) => x.message).filter(Boolean)
 }
 
-export class MessageCreatedDispatchMessage implements SatoriDispatchMessage {
-  constructor(private events: Event[]) {}
-  type = 'satori' as const
+// export class MessageCreatedDispatchMessage implements SatoriDispatchMessage {
+//   constructor(private events: Event[]) {}
+//   type = 'satori' as const
 
-  toSatori = async (
-    _ctx: ChronocatContext,
-    _config: O.Intersect<
-      ChronocatLogCurrentConfig,
-      ChronocatSatoriEventsConfig
-    >,
-  ) => this.events
-}
+//   toSatori = async (
+//     _ctx: ChronocatContext,
+//     _config: O.Intersect<
+//       ChronocatLogCurrentConfig,
+//       ChronocatSatoriEventsConfig
+//     >,
+//   ) => this.events
+// }
