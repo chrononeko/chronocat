@@ -146,3 +146,8 @@ export const getMsgsIncludeSelfAndAddActiveChat = define<
     },
   ]
 >('ns-ntApi-2', 'nodeIKernelMsgService/getMsgsIncludeSelfAndAddActiveChat')
+
+export const deleteActiveChatByUid = define<Record<string, never>, [string]>(
+  'ns-ntApi-2',
+  'nodeIKernelMsgService/deleteActiveChatByUid',
+)

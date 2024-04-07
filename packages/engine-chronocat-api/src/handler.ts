@@ -37,23 +37,32 @@ export const buildHandler = (ctx: ChronocatContext) => (data: IpcManData) => {
       if (!d.length) return
       const e = d[0]
       if (!e || !('cmdName' in e)) return
-      void dispatcher(ctx, e.cmdName, e.payload)
+      void responseDispatcher(ctx, e.cmdName, e.payload)
       return
     }
 
     case 'wrapped-request': {
-      requestMethodMap[data.id] = (data.args[1] as RedIpcDataRequest)[0]
+      const req = data.args[1] as RedIpcDataRequest
+      const method = req[0]
+      requestMethodMap[data.id] = method
+
+      void requestDispatcher(ctx, method, req.slice(1))
+
       return
     }
 
     case 'wrapped-response': {
-      const res = requestCallbackMap[data.id]
-      if (res) res(data.args[1] /* RedIpcDataResponse */)
+      const cb = requestCallbackMap[data.id]
+      if (cb) cb(data.args[1] /* RedIpcDataResponse */)
 
       const method = requestMethodMap[data.id]
       if (method) {
         delete requestMethodMap[data.id]
-        void dispatcher(ctx, method, data.args[1] /* RedIpcDataResponse */)
+        void responseDispatcher(
+          ctx,
+          method,
+          data.args[1] /* RedIpcDataResponse */,
+        )
       }
 
       return
@@ -61,7 +70,36 @@ export const buildHandler = (ctx: ChronocatContext) => (data: IpcManData) => {
   }
 }
 
-const dispatcher = async (
+const requestDispatcher = async (
+  ctx: ChronocatContext,
+  method: string,
+  payload: unknown,
+) => {
+  switch (method) {
+    case 'nodeIKernelMsgService/deleteActiveChatByUid': {
+      const [peerUid] = payload as [string]
+
+      if (!peerUid) return
+
+      setTimeout(() => {
+        ctx.chronocatEngineChronocatApi.msgBoxActiv.activate(
+          {
+            chatType: ctx.chronocat.uix.isUid(peerUid)
+              ? ChatType.Private
+              : ChatType.Group,
+            peerUid,
+            guildId: '',
+          },
+          true,
+        )
+      }, 100)
+
+      return
+    }
+  }
+}
+
+const responseDispatcher = async (
   ctx: ChronocatContext,
   method: string,
   payload: unknown,
@@ -151,6 +189,12 @@ const dispatcher = async (
         for (const buddy of category.buddyList) {
           ctx.chronocat.uix.add(buddy.uid, buddy.uin)
 
+          ctx.chronocatEngineChronocatApi.msgBoxActiv.activate({
+            chatType: ChatType.Private,
+            peerUid: buddy.uid,
+            guildId: '',
+          })
+
           // buddy.category = category.categoryName
           friendMap[buddy.uin] = buddy
         }
@@ -226,9 +270,11 @@ const dispatcher = async (
           case ContactListType.MsgBox: {
             for (const contact of changedList)
               if (contact.chatType === ChatType.Group)
-                ctx.chronocatEngineChronocatApi.msgBoxActiv.activate(
-                  contact.peerUid,
-                )
+                ctx.chronocatEngineChronocatApi.msgBoxActiv.activate({
+                  chatType: contact.chatType,
+                  peerUid: contact.peerUid,
+                  guildId: '',
+                })
 
             break
           }

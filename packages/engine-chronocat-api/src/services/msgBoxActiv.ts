@@ -1,18 +1,21 @@
-import { ChatType, ContactListType } from '@chronocat/red'
+import type { Peer } from '@chronocat/red'
+import { ContactListType } from '@chronocat/red'
 import type { ChronocatContext } from '@chronocat/shell'
-import { getAioFirstViewLatestMsgsAndAddActiveChat } from '../definitions/msgService'
+import type { F } from 'ts-toolbelt'
+import { getMsgsIncludeSelfAndAddActiveChat } from '../definitions/msgService'
+import { getBuddyList } from '../definitions/nodeStore'
 import { fetchAndSubscribeABatchOfRecentContact } from '../definitions/recentContactService'
 
 export interface MsgBoxActiv {
-  activate: (peerUid: string) => void
+  activate: <T>(peer: F.Exact<T, Peer>, force?: boolean) => void
 }
 
 export const msgBoxActiv = (ctx: ChronocatContext): MsgBoxActiv => {
   const activated: string[] = []
 
-  let activateIntl: (peerUid: string) => void = () => {}
+  let activateIntl: (peer: Peer, force?: boolean) => void = () => {}
 
-  const activate = (peerUid: string) => activateIntl(peerUid)
+  const activate = (peer: Peer, force?: boolean) => activateIntl(peer, force)
 
   void ctx.chronocat
     .whenReady()
@@ -21,7 +24,29 @@ export const msgBoxActiv = (ctx: ChronocatContext): MsgBoxActiv => {
     .then((config) => {
       if (!config.receive_msgbox) return
 
-      let task = fetchAndSubscribeABatchOfRecentContact({
+      let task = Promise.resolve()
+
+      activateIntl = (peer: Peer, force?: boolean) =>
+        void (task = task.then(async () => {
+          await ctx.chronocat.sleep(500)
+
+          if (!peer || !peer.peerUid) return
+
+          // 使用 isUid 即可判断群聊/私聊，无需携带 peer.chatType
+          if (!force && activated.includes(peer.peerUid)) return
+          activated.push(peer.peerUid)
+
+          void getMsgsIncludeSelfAndAddActiveChat({
+            peer,
+            msgId: '0',
+            cnt: 1,
+            queryOrder: true,
+          })
+        }))
+
+      void getBuddyList()
+
+      void fetchAndSubscribeABatchOfRecentContact({
         fetchParam: {
           anchorPointContact: {
             contactId: '',
@@ -33,27 +58,7 @@ export const msgBoxActiv = (ctx: ChronocatContext): MsgBoxActiv => {
           count: 200,
           fetchOld: true,
         },
-      }) as unknown as Promise<void>
-
-      activateIntl = (peerUid: string) =>
-        void (task = task.then(async () => {
-          await ctx.chronocat.sleep(500)
-
-          if (!peerUid) return
-
-          if (activated.includes(peerUid)) return
-
-          activated.push(peerUid)
-
-          void getAioFirstViewLatestMsgsAndAddActiveChat({
-            peer: {
-              chatType: ChatType.Group,
-              peerUid,
-              guildId: '',
-            },
-            cnt: 20,
-          })
-        }))
+      })
     })
 
   return {
