@@ -200,6 +200,8 @@ const responseDispatcher = async (
         }
       }
 
+      chronoEventEmitter.emitBuddyListChange()
+
       return
     }
 
