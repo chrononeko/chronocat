@@ -120,7 +120,7 @@ export interface ChronocatSelfUrlConfig {
    * 从客户端所在的网络环境直接访问此地址，应当看到
    * Satori 返回的「恭喜」的 HTML 页面。
    *
-   * @TJS-pattern ^https?:\/\/[A-Za-z0-9:.]+$
+   * @TJS-pattern ^https?:\/\/[A-Za-z0-9:.\[\]]+$
    * @default "https://chronocat.vercel.app"
    */
   self_url?: string
