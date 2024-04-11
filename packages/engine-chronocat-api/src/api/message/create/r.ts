@@ -103,6 +103,17 @@ const b = () => {
             },
           },
 
+    marketEmoticon: (faceIndex: number): O.Partial<Element, 'deep'> => ({
+      elementType: 6,
+      elementId: '',
+      faceElement: {
+        faceIndex,
+        faceText: '\n',
+        faceType: FaceType.MarketEmoticon,
+        imageType: 1,
+      },
+    }),
+
     pcPoke: (pokeType: number): O.Partial<Element, 'deep'> => ({
       elementId: '0',
       elementType: 6,

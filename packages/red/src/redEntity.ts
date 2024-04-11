@@ -370,6 +370,16 @@ export enum FaceType {
   Super = 3,
 
   /**
+   * MarketEmoticon
+   *
+   * faceIndex 为 uint32
+   *
+   * - epId (Emoticon Pack ID) : faceIndex >> 16
+   * - eId (Emoticon ID) : faceIndex & 0xFFFF
+   */
+  MarketEmoticon = 4,
+
+  /**
    * PC 戳一戳（窗口抖动）
    */
   PCPoke = 5,

@@ -510,6 +510,17 @@ async function parseElements(
             )
             break
           }
+
+          case FaceType.MarketEmoticon: {
+            elements.push(
+              ctx.chronocat.h(`${ctx.chronocat.platform}:face`, {
+                id: m.faceElement!.faceIndex,
+                platform: ctx.chronocat.platform,
+                'unsafe-market-emoticon': true,
+              }),
+            )
+            break
+          }
         }
         break
       }

@@ -254,20 +254,25 @@ export class Messager {
       }
 
       case `${this.ctx.chronocat.platform}:face`: {
-        const face = (await this.ctx.chronocat.api[
-          'chronocat.internal.qface.get'
-        ](`${attrs['id']}`))!
+        if (attrs['unsafeMarketEmoticon']) {
+          this.children.push(r.marketEmoticon(Number(attrs['id'])))
+        } else {
+          const face = (await this.ctx.chronocat.api[
+            'chronocat.internal.qface.get'
+          ](`${attrs['id']}`))!
 
-        this.children.push(
-          r.face(
-            face,
-            attrs['unsafeSuper']
-              ? FaceType.Super
-              : face.QSid === face.IQLid && face.QSid === face.AQLid
-                ? FaceType.Normal2
-                : FaceType.Normal1,
-          ),
-        )
+          this.children.push(
+            r.face(
+              face,
+              attrs['unsafeSuper']
+                ? FaceType.Super
+                : face.QSid === face.IQLid && face.QSid === face.AQLid
+                  ? FaceType.Normal2
+                  : FaceType.Normal1,
+            ),
+          )
+        }
+
         this.isEndLine = false
         return
       }
