@@ -261,7 +261,7 @@ export class Messager {
         this.children.push(
           r.face(
             face,
-            attrs['unsafe-super']
+            attrs['unsafeSuper']
               ? FaceType.Super
               : face.QSid === face.IQLid && face.QSid === face.AQLid
                 ? FaceType.Normal2
