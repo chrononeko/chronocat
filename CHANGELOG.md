@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## v0.2.7 (2024-04-11)
+
+### shell
+
+- 修复了配置文件 `self_url` 配置项无法使用 IPv6 URL 的问题 (df007281efc045fe881914f6a67762b6d051bc34)
+
+### engine-chronocat-api
+
+- 初步实现 `a`、`br` 和 `p` 元素 @MaikoTan (#37) (373ebf191f7b59b9d74c65c5ab798d084cb9d55a)
+- 上报自身消息 (312b01acff2ca041074a9f8101b449e9070b89b6)
+- 修复了无法接收部分聊天消息的问题 (fa44222dd5e79c3fa8a699dd8d8506192dd683c6)
+- 修复了 API `friend.list` 运行缓慢但仍然正确返回数据的问题 (dd66a2e0bdf5b196f5835389a5e81010935b5a69)
+- 上报自身消息中包括非 Chronocat 消息 (cc5de2b05c8d08c45e563f6f3db4f4503696e67d)
+
+### engine-chronocat-event
+
+- 修复了群成员使用 PCQQ @人时 QQ 号始终为 0 的问题 感谢群友发现问题 (db639d23140704ba4badbec5e97f5b0a1bdf10aa)
+- 修复了自身消息事件中 `event.channel` 错误的问题 (3c57ec6a4f8208ef87e660629c809d3831218d5e)
+
+### crychiccat
+
+- 适配新的消息发送逻辑 (2fe0c6661d6d3ad4d0372a6e0a5b2817b812b69e)
+
 ## v0.2.6 (2024-03-31)
 
 这个版本包含全新的 Crychiccat 引擎，请阅读 Team Chrononeko 的
