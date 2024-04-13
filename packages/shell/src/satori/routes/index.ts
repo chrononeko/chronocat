@@ -12,6 +12,7 @@ import { guildMemberGet } from './guild/member/get'
 import { guildMemberKick } from './guild/member/kick'
 import { guildMemberList } from './guild/member/list'
 import { guildMemberMute } from './guild/member/mute'
+import { guildMemberTitleSet } from './guild/member/title/set'
 import { guildRemove } from './guild/remove'
 import { loginGet } from './login/get'
 import { messageCreate } from './message/create'
@@ -43,6 +44,7 @@ const routesIntl = {
   'guild.member.mute': guildMemberMute,
   'guild.member.role.set': notImplemented,
   'guild.member.role.unset': notImplemented,
+  'chronocat.guild.member.title.set': guildMemberTitleSet,
   'guild.role.list': notImplemented,
   'guild.role.create': notImplemented,
   'guild.role.update': notImplemented,

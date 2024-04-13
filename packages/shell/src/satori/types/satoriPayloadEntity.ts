@@ -153,3 +153,15 @@ export interface GuildMemberKickPayload {
   user_id: string
   permanent?: boolean
 }
+
+export interface GuildMemberTitleSetPayload {
+  guild_id: string
+  user_id: string
+
+  /**
+   * @title 专属头衔
+   *
+   * @description 要设置的专属头衔。
+   */
+  title?: string
+}
