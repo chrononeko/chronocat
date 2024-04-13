@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## v0.2.8 (2024-04-13)
+
+- 添加「设置专属头衔」（`chronocat.guild.member.title.set`）API 定义 (b97bb65151aa9bfd66f647fb473238367320892a)
+
+### engine-chronocat-api
+
+- 修复了消息元素属性读取错误的问题 (6f9df7e801a13bac55d4a6f3d3b0bf5d34b395b4)
+- 支持发送商城颜文字 (0791221f36c85856a934da9a3f14cf4b077149ba)
+
+### engine-chronocat-event
+
+- 支持接收商城颜文字 (0791221f36c85856a934da9a3f14cf4b077149ba)
+
+### crychiccat
+
+- 实现顺序发包逻辑 (866c7eebd3873cce89214b6a4f0b032264530105)
+- 移动构造发送队列 (720cdc82050c0b23317f963be14f82642885d08f)
+- 实现「设置专属头衔」（`chronocat.guild.member.title.set`）API @Linwenxuan05 (f006b83f0b8e2a20539fcd4a3d1dcc45e496b806)
+
 ## v0.2.7 (2024-04-11)
 
 ### shell
