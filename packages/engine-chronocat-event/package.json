@@ -1,7 +1,7 @@
 {
   "name": "@chronocat/engine-chronocat-event",
   "description": "Chronocat 事件引擎",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "license": "AGPL-3.0",
   "author": {
     "name": "Il Harper",
