@@ -375,7 +375,13 @@ async function parseElements(
         switch (m.textElement!.atType) {
           case AtType.None: {
             // 纯文本消息
-            elements.push(ctx.chronocat.h.text(m.textElement?.content))
+            elements.push(
+              ctx.chronocat.h.text(
+                m
+                  .textElement!.content.replaceAll('\r\n', '\n')
+                  .replaceAll('\r', '\n'),
+              ),
+            )
             break
           }
 
