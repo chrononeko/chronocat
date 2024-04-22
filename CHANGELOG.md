@@ -1,6 +1,25 @@
 # CHANGELOG
 
+## v0.2.9 (2024-04-23)
+
+### engine-chronocat-event
+
+- 文本消息换行符统一至 `LF`  感谢群友发现问题 (fa64f9dca96cd6d98698a388214eb5097bcad1c2)
+
+### crychiccat
+
+感谢 @Linwenxuan05 的大力支持。
+
+- 使用新发包逻辑 (8bf899a2778ff4609a7f87045323c2004b032931)
+- 实现 Markdown 上传 (7eeaa90e8786b41181bbe47304800e14661a425d)
+- 实现 Markdown 发送 (4f8ea22a03512c0993ce930fd7aa91df6b98e676)
+- 实现新 Markdown 发送 (586a1bb05317a9b1449e0bf408f82b5e388033fd)
+- 回退旧版发包逻辑 (9341670fe724a8c7648cc130bac69f97d136c0b3)
+- 修复了 Markdown 内容被错误转义的问题 (f5c95d42049e0000c35706370c0c9b563af1ae91)
+
 ## v0.2.8 (2024-04-13)
+
+### shell
 
 - 添加「设置专属头衔」（`chronocat.guild.member.title.set`）API 定义 (b97bb65151aa9bfd66f647fb473238367320892a)
 
