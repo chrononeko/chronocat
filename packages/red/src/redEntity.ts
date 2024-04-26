@@ -272,9 +272,9 @@ export interface Element {
   fileElement?: FileElement
   giphyElement?: unknown
   grayTipElement?: GrayTipElement
-  inlineKeyboardElement?: unknown
+  inlineKeyboardElement?: InlineKeyboardElement
   liveGiftElement?: unknown
-  markdownElement?: unknown
+  markdownElement?: MarkdownElement
   marketFaceElement?: unknown
   multiForwardMsgElement?: unknown
   pttElement?: PttElement
@@ -651,6 +651,115 @@ export interface Media {
   elementId: string
   thumbSize: number
   downloadType: number
+}
+
+export interface InlineKeyboardElement {
+  rows: InlineKeyboardRow[]
+}
+
+export interface InlineKeyboardRow {
+  buttons: InlineKeyboardButton[]
+}
+
+export interface InlineKeyboardButton {
+  /**
+   * 按钮 ID，选填。在同一个 InlineKeyboard 内，按钮 ID 需要唯一。
+   */
+  id: string
+
+  /**
+   * 文字，必填。
+   */
+  label: string
+
+  /**
+   * 点击后的文字，必填。
+   */
+  visitedLabel: string
+
+  /**
+   * 按钮样式，必填。
+   */
+  style: InlineKeyboardButtonStyle
+
+  /**
+   * 按钮类型，必填。
+   */
+  type: InlineKeyboardButtonType
+
+  /**
+   * 可操作点击的次数。已弃用。
+   *
+   * @deprecated
+   */
+  clickLimit: number
+
+  /**
+   * 客户端不支持按钮时显示的文案，必填。
+   */
+  unsupportTips: string
+
+  data: string
+
+  /**
+   * 对指令按钮，弹出子频道选择器。已弃用。
+   *
+   * @deprecated
+   */
+  atBotShowChannelList: boolean
+
+  permissionType: number
+
+  specifyRoleIds: string[]
+
+  specifyTinyids: string[]
+
+  isReply: boolean
+
+  anchor: number
+
+  enter: boolean
+
+  subscribeDataTemplateIds: unknown[]
+
+  feedBackData: InlineKeyboardButtonFeedbackData
+}
+
+export enum InlineKeyboardButtonStyle {
+  /**
+   * 灰色线框
+   */
+  Value0 = 0,
+
+  /**
+   * 蓝色线框
+   */
+  Value1 = 1,
+}
+
+export enum InlineKeyboardButtonType {
+  /**
+   * 跳转按钮，跳转 http 或 mqqapi 等 URL Scheme
+   */
+  Value0 = 0,
+
+  /**
+   * 回调按钮
+   */
+  Value1 = 1,
+
+  /**
+   * 指令按钮，自动在消息框内输入文本或发送
+   */
+  Value2 = 2,
+}
+
+export interface InlineKeyboardButtonFeedbackData {
+  opt: number // 0
+}
+
+export interface MarkdownElement {
+  content: string
 }
 
 export interface ArkElement {
