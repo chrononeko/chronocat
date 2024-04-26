@@ -6,8 +6,9 @@ import { blue, cyan, grey } from '../../utils/colors'
 export const logiriMessageCreated = async (data: object) => {
   const d = data as Event
   if (d.type !== 'message-created') return
-  const messages = await new LogiriMessager().send(d.message?.content)
-  return messages.map(
+  const rawMessage = await new LogiriMessager().send(d.message?.content)
+  const message = rawMessage.join('').replace(/\r/g, '').replace(/\n/g, ' ')
+  return [message].map(
     (x) =>
       `${blue(
         link(
