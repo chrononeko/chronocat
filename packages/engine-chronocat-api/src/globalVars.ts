@@ -11,6 +11,7 @@ export const groupMap: Record<string, Group> = {}
 export const roleMap: Record<string, Record<string, number>> = {}
 export const friendMap: Record<string, Profile> = {}
 export const richMediaDownloadMap: Record<string, (path: string) => void> = {}
+export const emojiDownloadMap: Record<string, (path: string) => void> = {}
 
 export const sendQueue: ((msg: RedMessage) => void)[] = []
 export const sendCallbackMap: Record<string, (msg: RedMessage) => void> = {}

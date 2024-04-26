@@ -275,7 +275,7 @@ export interface Element {
   inlineKeyboardElement?: InlineKeyboardElement
   liveGiftElement?: unknown
   markdownElement?: MarkdownElement
-  marketFaceElement?: unknown
+  marketFaceElement?: MarketFaceElement
   multiForwardMsgElement?: unknown
   pttElement?: PttElement
   replyElement?: ReplyElement
@@ -653,6 +653,17 @@ export interface Media {
   downloadType: number
 }
 
+export interface MarketFaceAssetRequest {
+  type: 'marketface'
+  tabId: number
+  faceId: string
+  key: string
+  name: string
+  filePath: string
+}
+
+export type AssetRequest = MarketFaceAssetRequest | Media
+
 export interface InlineKeyboardElement {
   rows: InlineKeyboardRow[]
 }
@@ -760,6 +771,41 @@ export interface InlineKeyboardButtonFeedbackData {
 
 export interface MarkdownElement {
   content: string
+}
+
+export interface MarketFaceElement {
+  itemType: 6
+  faceInfo: 1
+  emojiPackageId: number // 235125
+  subType: 3
+  mediaType: 0
+  imageWidth: number // 200
+  imageHeight: number // 200
+  faceName: string // '[好耶]'
+  emojiId: string // 'e6e7817c449efdea0be5ceeef3a40c06'
+  key: string // 'ea4dc6c26b6f9c31'
+  param: unknown
+  mobileParam: unknown
+  sourceType: 0
+  startTime: 0
+  endTime: 0
+  emojiType: 1
+  hasIpProduct: 0
+  voiceItemHeightArr: unknown
+  sourceName: unknown
+  sourceJumpUrl: unknown
+  sourceTypeName: string // ''
+  backColor: unknown
+  volumeColor: unknown
+  staticFacePath: string
+  dynamicFacePath: string
+  supportSize: MarketFaceElementSupportSize[]
+  apngSupportSize: unknown
+}
+
+export interface MarketFaceElementSupportSize {
+  width: number // 300
+  height: number // 300
 }
 
 export interface ArkElement {

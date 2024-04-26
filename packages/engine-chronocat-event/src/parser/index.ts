@@ -552,6 +552,34 @@ async function parseElements(
         break
       }
 
+      case 11: {
+        elements.push(
+          ctx.chronocat.h(
+            `${ctx.chronocat.platform}:marketface`,
+            {
+              tabId: m.marketFaceElement!.emojiPackageId,
+              faceId: m.marketFaceElement!.emojiId,
+              key: m.marketFaceElement!.key,
+            },
+            [
+              ctx.chronocat.h('img', {
+                src: `${config.self_url}/v1/assets/${Buffer.from(
+                  JSON.stringify({
+                    type: 'marketface',
+                    tabId: m.marketFaceElement!.emojiPackageId,
+                    faceId: m.marketFaceElement!.emojiId,
+                    key: m.marketFaceElement!.key,
+                    name: m.marketFaceElement!.faceName,
+                    filePath: m.marketFaceElement!.staticFacePath,
+                  }),
+                ).toString('base64url')}`,
+              }),
+            ],
+          ),
+        )
+        break
+      }
+
       default:
         break
     }

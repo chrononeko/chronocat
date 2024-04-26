@@ -3,6 +3,7 @@ import type {
   MsgsIncludeSelf,
   OnAddSendMsg,
   OnBuddyListChange,
+  OnEmojiDownloadComplete,
   OnGroupListUpdate,
   OnMemberInfoChange,
   OnMemberListChange,
@@ -20,6 +21,7 @@ import type { ChronocatContext } from '@chronocat/shell'
 import type { IpcManData } from 'ipcman'
 import {
   chronoEventEmitter,
+  emojiDownloadMap,
   friendMap,
   groupMap,
   requestCallbackMap,
@@ -126,6 +128,19 @@ const responseDispatcher = async (
       if (notifyInfo.fileDownType === 1 && richMediaDownloadMap[downloadId]) {
         richMediaDownloadMap[downloadId]!(notifyInfo.filePath)
         delete richMediaDownloadMap[downloadId]
+      }
+
+      return
+    }
+
+    case 'nodeIKernelMsgListener/onEmojiDownloadComplete': {
+      const { notifyInfo } = payload as OnEmojiDownloadComplete
+
+      const downloadId = `${notifyInfo.emojiPackageId}::${notifyInfo.emojiId}`
+
+      if (notifyInfo.downloadType === 0 && emojiDownloadMap[downloadId]) {
+        emojiDownloadMap[downloadId]!(notifyInfo.path)
+        delete emojiDownloadMap[downloadId]
       }
 
       return

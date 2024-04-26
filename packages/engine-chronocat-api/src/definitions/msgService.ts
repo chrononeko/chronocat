@@ -151,3 +151,22 @@ export const deleteActiveChatByUid = define<Record<string, never>, [string]>(
   'ns-ntApi-2',
   'nodeIKernelMsgService/deleteActiveChatByUid',
 )
+
+export const fetchMarketEmoticonAioImage = define<
+  never,
+  [
+    {
+      marketEmoticonAioImageReq: {
+        eId: string // '94c8ffa6977fd17e8b180b312cdddc28'
+        epId: number // 235125
+        name: string // '[抱抱]'
+        width: 200
+        height: 200
+        jobType: 0
+        encryptKey: string // 'ea4dc6c26b6f9c31'
+        filePath: string
+        downloadType: 3 | 4
+      }
+    },
+  ]
+>('ns-ntApi-2', 'nodeIKernelMsgService/fetchMarketEmoticonAioImage')

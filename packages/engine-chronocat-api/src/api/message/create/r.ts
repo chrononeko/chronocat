@@ -114,6 +114,28 @@ const b = () => {
       },
     }),
 
+    marketFace: (
+      tabId: number,
+      faceId: string,
+      key: string,
+    ): O.Partial<Element, 'deep'> => ({
+      elementType: 11,
+      elementId: '',
+      marketFaceElement: {
+        itemType: 6,
+        faceInfo: 1,
+        emojiPackageId: tabId,
+        subType: 3,
+        mediaType: 0,
+        imageWidth: 200,
+        imageHeight: 200,
+        faceName: '[动画表情]',
+        emojiId: faceId,
+        key: key,
+        emojiType: 1,
+      },
+    }),
+
     pcPoke: (pokeType: number): O.Partial<Element, 'deep'> => ({
       elementId: '0',
       elementType: 6,

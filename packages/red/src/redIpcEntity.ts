@@ -75,6 +75,27 @@ export interface OnRichMediaDownloadComplete {
   }
 }
 
+export interface OnEmojiDownloadComplete {
+  notifyInfo: {
+    result: 0
+    errMsg: string // ''
+    emojiType: 0
+    md5: string // ''
+    resId: string // ''
+    path: string
+    extraData: Record<string, never>
+    emojiId: string // '94c8ffa6977fd17e8b180b312cdddc28'
+    emojiPackageId: string // '235125'
+
+    /**
+     * 下载富媒体的类型。发送时 3 为 PNG，4 为动图；接收时 0 为 PNG，4 为动图。
+     */
+    downloadType: 0 | 4
+
+    dynamicFacePath: string // ''
+  }
+}
+
 export interface OnGroupListUpdate {
   updateType: 1
   groupList: Group[]

@@ -277,6 +277,19 @@ export class Messager {
         return
       }
 
+      case `${this.ctx.chronocat.platform}:marketface`: {
+        this.children.push(
+          r.marketFace(
+            Number(attrs['tabId']),
+            attrs['faceId'] as string,
+            attrs['key'] as string,
+          ),
+        )
+
+        this.isEndLine = false
+        return
+      }
+
       case 'quote': {
         const [author] = this.ctx.chronocat.h.select(children, 'author')
 
