@@ -2,72 +2,59 @@ import h from '@satorijs/element'
 import { link } from 'logiri'
 import { grey } from '../../utils/colors'
 
-export class LogiriMessager {
-  private children: string[] = []
-  private results: string[] = []
+type DisplayComponent = string
 
+export class LogiriMessager {
   prepare = async () => {}
 
-  render = async (elements: h[], flush?: boolean) => {
-    for (const element of elements) await this.visit(element)
-    if (flush) await this.flush()
+  render = async (elements: h[]): Promise<DisplayComponent[] | false> => {
+    if (!elements.length) return ['空消息']
+    const result = await Promise.all(elements.map(this.visit))
+    if (result.every((x) => x === false)) return false
+    return result.flatMap((x) => (x === false ? ['[不支持的消息]'] : x))
   }
 
-  send = async (content: string | null | undefined) => {
-    if (!content) return []
+  send = async (
+    content: string | null | undefined,
+  ): Promise<DisplayComponent[]> => {
+    if (!content) return ['空消息']
     await this.prepare()
     const elements = h.normalize(content)
-    await this.render(elements)
-    await this.flush()
-    return this.results.filter(Boolean)
+    let result = await this.render(elements)
+    if (result === false) result = ['[不支持的消息]']
+    return result
   }
 
-  flush = async () => {
-    if (!this.children.length) return
-    this.results.push(
-      this.children.join('').replace(/\r/g, '').replace(/\n/g, ' '),
-    )
-    this.children = []
-  }
-
-  visit = async (element: h) => {
+  visit = async (element: h): Promise<DisplayComponent[] | false> => {
     const { type, attrs, children } = element
 
     switch (type) {
       case 'text': {
-        this.children.push(attrs['content'] as string)
-        return
+        return [attrs['content'] as string]
       }
 
       case 'img': {
-        this.children.push(link('[图片]', attrs['src'] as string))
-        return
+        return [link('[图片]', attrs['src'] as string)]
       }
 
       case 'audio': {
-        this.children.push(link('[语音]', attrs['src'] as string))
-        return
+        return [link('[语音]', attrs['src'] as string)]
       }
 
       case 'file': {
-        this.children.push(link('[文件]', attrs['src'] as string))
-        return
+        return [link('[文件]', attrs['src'] as string)]
       }
 
       case 'at': {
-        if (attrs['type'] === 'all') this.children.push('@全体成员 ')
-        else
-          this.children.push(
-            `@${attrs['name'] as string}(${attrs['id'] as string}) `,
-          )
-        return
+        if (attrs['type'] === 'all') return ['@全体成员 ']
+        else return [`@${attrs['name'] as string}(${attrs['id'] as string}) `]
       }
 
       case 'quote': {
         const [author] = h.select(children, 'author')
         const id = author?.attrs['id'] as string | undefined
 
-        this.children.push(
+        return [
           grey(
             id
               ? `${link(
@@ -76,38 +63,33 @@ export class LogiriMessager {
                 )} `
               : `[回复] `,
           ),
-        )
-        return
+        ]
       }
 
       case 'chronocat:poke': {
-        this.children.push('[戳一戳]')
-        return
+        return ['[戳一戳]']
       }
 
       case 'message': {
-        // 前面的消息直接发送，开始一条新消息
-        await this.flush()
-
         if ('forward' in attrs) {
           if ('id' in attrs) {
-            this.children.push('[单条转发消息]')
+            return ['[单条转发消息]']
           } else if (children.every((x) => 'id' in x)) {
-            this.children.push('[普通合并转发消息]')
+            return ['[普通合并转发消息]']
           } else {
-            this.children.push('[伪造合并转发消息]')
+            return ['[伪造合并转发消息]']
           }
         } else {
           // 普通切割消息
-          await this.render(children, true)
+          const result = await this.render(children)
+          if (result) return ['[切割消息]', ...result]
+          else return ['[切割消息]']
         }
-        return
       }
 
       default: {
         // 兜底
-        await this.render(children)
-        return
+        return await this.render(children)
       }
     }
   }
