@@ -336,7 +336,7 @@ function buildRouteCtx(
 
   const string = () => buffer().then((b) => b.toString('utf-8'))
 
-  const json = () => string().then((s) => JSON.parse(s) as unknown)
+  const json = () => string().then((s) => (s ? (JSON.parse(s) as unknown) : {}))
 
   return {
     cctx,
