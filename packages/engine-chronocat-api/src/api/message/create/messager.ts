@@ -290,6 +290,18 @@ export class Messager {
         return
       }
 
+      case `${this.ctx.chronocat.platform}:facebubble`: {
+        this.children.push(
+          r.faceBubble(
+            Number(attrs['id']),
+            Number(attrs['count']),
+            attrs['name'] as string,
+            attrs['content'] as string,
+          ),
+        )
+        return
+      }
+
       case 'quote': {
         const [author] = this.ctx.chronocat.h.select(children, 'author')
 

@@ -284,11 +284,11 @@ export interface Element {
   videoElement?: VideoElement
   walletElement?: unknown
   yoloGameResultElement?: unknown
-  structMsgElement: unknown
-  faceBubbleElement: unknown
-  shareLocationElement: unknown
-  tofuRecordElement: unknown
-  taskTopMsgElement: unknown
+  structMsgElement?: unknown
+  faceBubbleElement?: FaceBubbleElement
+  shareLocationElement?: unknown
+  tofuRecordElement?: unknown
+  taskTopMsgElement?: unknown
 }
 
 export interface PicElement {
@@ -398,6 +398,39 @@ export interface QFace {
   AniStickerId?: string // '1'
   QHide?: '1'
   Input: string[]
+}
+
+export interface FaceBubbleElement {
+  faceType: FaceBubbleType
+  faceCount: number
+  faceSummary: string // '平底锅'
+  faceFlag: number // 0
+  content: string // '[平底锅]x1'
+  oldVersionStr: string // ''
+  others: unknown
+  yellowFaceInfo: unknown
+}
+
+export enum FaceBubbleType {
+  /**
+   * 榴莲
+   */
+  Liulian = 9,
+
+  /**
+   * 略略略
+   */
+  LveLveLve = 10,
+
+  /**
+   * 平底锅
+   */
+  Pingdiguo = 11,
+
+  /**
+   * 钞票
+   */
+  Chaopiao = 12,
 }
 
 export interface FileElement {

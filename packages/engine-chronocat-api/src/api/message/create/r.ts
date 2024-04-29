@@ -1,4 +1,4 @@
-import type { Element, Peer, QFace } from '@chronocat/red'
+import type { Element, FaceBubbleType, Peer, QFace } from '@chronocat/red'
 import { AtType, FaceType } from '@chronocat/red'
 import type { ChronocatContext } from '@chronocat/shell'
 import type { O } from 'ts-toolbelt'
@@ -133,6 +133,24 @@ const b = () => {
         emojiId: faceId,
         key: key,
         emojiType: 1,
+      },
+    }),
+
+    faceBubble: (
+      id: FaceBubbleType,
+      count?: number,
+      summary?: string,
+      content?: string,
+    ): O.Partial<Element, 'deep'> => ({
+      elementType: 27,
+      elementId: '',
+      faceBubbleElement: {
+        faceType: id,
+        faceCount: count || 1,
+        faceSummary: summary || '',
+        faceFlag: 0,
+        content: content || `[${summary}]x${count}`,
+        oldVersionStr: '',
       },
     }),
 

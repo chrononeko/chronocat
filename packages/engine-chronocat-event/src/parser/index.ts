@@ -580,6 +580,18 @@ async function parseElements(
         break
       }
 
+      case 27: {
+        elements.push(
+          ctx.chronocat.h(`${ctx.chronocat.platform}:facebubble`, {
+            id: m.faceBubbleElement!.faceType,
+            count: m.faceBubbleElement!.faceCount,
+            name: m.faceBubbleElement!.faceSummary,
+            content: m.faceBubbleElement!.content,
+          }),
+        )
+        break
+      }
+
       default:
         break
     }
