@@ -2,7 +2,7 @@ import type { FC } from 'react'
 
 export const HOS: FC = () => (
   <section>
-    <div className="container">
+    {/* <div className="container">
       <h2>2024-04-06</h2>
       <p>我们发现 B 站有人在售卖低版本的 Chronocat 服务。</p>
       <img
@@ -40,6 +40,6 @@ export const HOS: FC = () => (
           </a>
         </li>
       </ul>
-    </div>
+    </div> */}
   </section>
 )
