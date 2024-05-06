@@ -103,7 +103,7 @@ export interface ChannelMemberMutePayload {
 }
 
 export interface GuildMemberMutePayload {
-  channel_id: string
+  guild_id: string
   user_id: string
 
   /**

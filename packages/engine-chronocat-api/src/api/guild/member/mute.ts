@@ -3,9 +3,9 @@ import { setMemberShutUp } from '../../../definitions/groupService'
 
 export const buildGuildMemberMute =
   (ctx: ChronocatContext) =>
-  async ({ channel_id, user_id, duration }: GuildMemberMutePayload) => {
+  async ({ guild_id, user_id, duration }: GuildMemberMutePayload) => {
     await setMemberShutUp({
-      groupCode: channel_id,
+      groupCode: guild_id,
 
       memList: [
         {
