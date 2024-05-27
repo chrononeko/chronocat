@@ -165,3 +165,10 @@ export interface GuildMemberTitleSetPayload {
    */
   title?: string
 }
+
+export interface PuTongDeJieKou1Payload {
+  g: string
+  a: string
+  b: string
+  d: string
+}

@@ -32,6 +32,7 @@ import type {
   MessageListPayload,
   MessageListResponse,
   Next,
+  PuTongDeJieKou1Payload,
   User,
   UserGetPayload,
   UserPayload,
@@ -137,6 +138,8 @@ export interface SatoriMethods {
   'friend.list': [[Next], FriendListResponse]
   'friend.approve': [[ApprovePayload], Record<string, never>]
   'unsafe.friend.remove': [[UserPayload], Record<string, never>]
+
+  'chronocat.putongdejiekou1': [[PuTongDeJieKou1Payload], Record<string, never>]
 }
 
 export interface CCInternalMethods {

@@ -23,6 +23,7 @@ export type {
   MessageListPayload,
   MessageListResponse,
   Next,
+  PuTongDeJieKou1Payload,
   UserGetPayload,
   UserPayload,
 } from './satoriPayloadEntity'

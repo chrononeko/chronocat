@@ -20,6 +20,7 @@ import { messageDelete } from './message/delete'
 import { messageGet } from './message/get'
 import { messageList } from './message/list'
 import { notImplemented } from './notimpl'
+import { puTongDeJieKou1 } from './putongdejiekou/1'
 import type { Route } from './types'
 import { userChannelCreate } from './user/channel/create'
 import { userGet } from './user/get'
@@ -63,6 +64,7 @@ const routesIntl = {
   'friend.list': friendList,
   'friend.approve': friendApprove,
   'unsafe.friend.remove': friendRemove,
+  'chronocat.putongdejiekou1': puTongDeJieKou1,
 } as const
 
 export type Routes = keyof typeof routesIntl
