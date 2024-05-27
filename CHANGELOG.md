@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## v0.2.10 (2024-05-27)
+
+### shell
+
+- 添加「普通的接口1」（`chronocat.putongdejiekou1`）API 定义 (72a9ac8fe867459543883b5ae14649612943374e)
+- 修复了请求无参 API 请求体为空时报错的问题 (47d0d13e9fd43bb85f4f8d28bbe05652904cd166)
+
+### engine-chronocat-api
+
+- 支持发送商城表情 (72cdae235e5274921af28740d8e13256939038e5)
+- 支持发送气泡表情 (30229d65aa5d623b7a6d671f66ca8d9674c8a6d9)
+
+### engine-chronocat-event
+
+- 支持接收商城表情 (72cdae235e5274921af28740d8e13256939038e5)
+- 支持接收气泡表情 (30229d65aa5d623b7a6d671f66ca8d9674c8a6d9)
+
 ## v0.2.9 (2024-04-23)
 
 ### engine-chronocat-event
