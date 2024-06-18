@@ -1,4 +1,4 @@
-import type { RedMessage } from '@chronocat/red'
+import type { MarketFaceAssetRequest, Media, RedMessage } from '@chronocat/red'
 import { AtType, ChatType, FaceType, MsgType, SendType } from '@chronocat/red'
 import type {
   Channel,
@@ -422,12 +422,13 @@ async function parseElements(
           ctx.chronocat.h('img', {
             src: `${config.self_url}/v1/assets/${Buffer.from(
               JSON.stringify({
+                type: 'mediav1',
                 msgId: message.msgId,
                 chatType: message.chatType,
                 peerUid: message.peerUid,
                 elementId: m.elementId,
                 thumbSize: m.picElement!.thumbFileSize,
-              }),
+              } satisfies Media),
             ).toString('base64url')}`,
           }),
         )
@@ -440,12 +441,13 @@ async function parseElements(
           ctx.chronocat.h('file', {
             src: `${config.self_url}/v1/assets/${Buffer.from(
               JSON.stringify({
+                type: 'mediav1',
                 msgId: message.msgId,
                 chatType: message.chatType,
                 peerUid: message.peerUid,
                 elementId: m.elementId,
                 thumbSize: m.fileElement!.thumbFileSize,
-              }),
+              } satisfies Media),
             ).toString('base64url')}`,
           }),
         )
@@ -458,12 +460,13 @@ async function parseElements(
           ctx.chronocat.h('audio', {
             src: `${config.self_url}/v1/assets/${Buffer.from(
               JSON.stringify({
+                type: 'mediav1',
                 msgId: message.msgId,
                 chatType: message.chatType,
                 peerUid: message.peerUid,
                 elementId: m.elementId,
                 thumbSize: 0,
-              }),
+              } satisfies Media),
             ).toString('base64url')}`,
           }),
         )
@@ -476,12 +479,13 @@ async function parseElements(
           ctx.chronocat.h('video', {
             src: `${config.self_url}/v1/assets/${Buffer.from(
               JSON.stringify({
+                type: 'mediav1',
                 msgId: message.msgId,
                 chatType: message.chatType,
                 peerUid: message.peerUid,
                 elementId: m.elementId,
                 thumbSize: m.videoElement!.thumbSize,
-              }),
+              } satisfies Media),
             ).toString('base64url')}`,
           }),
         )
@@ -565,13 +569,13 @@ async function parseElements(
               ctx.chronocat.h('img', {
                 src: `${config.self_url}/v1/assets/${Buffer.from(
                   JSON.stringify({
-                    type: 'marketface',
+                    type: 'mfacev1',
                     tabId: m.marketFaceElement!.emojiPackageId,
                     faceId: m.marketFaceElement!.emojiId,
                     key: m.marketFaceElement!.key,
                     name: m.marketFaceElement!.faceName,
                     filePath: m.marketFaceElement!.staticFacePath,
-                  }),
+                  } satisfies MarketFaceAssetRequest),
                 ).toString('base64url')}`,
               }),
             ],

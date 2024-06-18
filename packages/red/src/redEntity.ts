@@ -678,16 +678,16 @@ export interface RoleInfo {
 }
 
 export interface Media {
+  type: 'mediav1'
   msgId: string
   chatType: ChatType
   peerUid: string
   elementId: string
   thumbSize: number
-  downloadType: number
 }
 
 export interface MarketFaceAssetRequest {
-  type: 'marketface'
+  type: 'mfacev1'
   tabId: number
   faceId: string
   key: string
