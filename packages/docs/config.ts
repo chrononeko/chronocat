@@ -208,14 +208,14 @@ const themeConfig: ThemeConfig = {
     darkTheme: require('prism-react-renderer/themes/palenight'),
   },
 
-  announcementBar: {
-    id: 'do_not_promote',
-    content:
-      '为了避免此前的事件再次发生，请勿在任何公众平台分享或宣传 Chronocat。',
-    textColor: 'var(--ifm-heading-color)',
-    backgroundColor: 'var(--ifm-background-color)',
-    isCloseable: false,
-  },
+  // announcementBar: {
+  //   id: 'do_not_promote',
+  //   content:
+  //     '为了避免此前的事件再次发生，请勿在任何公众平台分享或宣传 Chronocat。',
+  //   textColor: 'var(--ifm-heading-color)',
+  //   backgroundColor: 'var(--ifm-background-color)',
+  //   isCloseable: false,
+  // },
 }
 
 export const config: Config = {
