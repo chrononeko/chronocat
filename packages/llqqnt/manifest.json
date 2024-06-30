@@ -4,7 +4,7 @@
   "name": "Chronocat",
   "slug": "chronocat",
   "description": "模块化的 Satori 框架",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "thumbnail": "./chronocat.png",
   "authors": [
     {
