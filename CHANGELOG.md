@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v0.2.11 (2024-06-30)
+
+### engine-chronocat-api
+
+- 资源请求链接内携带类型 (ec0103d5273a6eea59579f5fc33496bbfb03917c)
+
+### engine-chronocat-event
+
+- 资源请求链接内携带类型 (ec0103d5273a6eea59579f5fc33496bbfb03917c)
+
 ## v0.2.10 (2024-05-27)
 
 ### shell
