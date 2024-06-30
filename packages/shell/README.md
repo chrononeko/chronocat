@@ -20,12 +20,6 @@
 
 </div>
 
-## :warning: 需要注意 :warning:
-
-为了避免此前的事件再次发生，请勿在任何公众平台分享或宣传 Chronocat。如果 Chronocat 被大范围推广，Team Chrononeko 将随时存档或私有此项目。
-
-同时，也请勿在无关的群组中提到 Chronocat。Chronocat 不相关的群组里不会有 Chronocat 用户，提出问题也不会得到解答。
-
 ## :construction: WIP :construction:
 
 此项目正处于其 v0.x 时期。在创建一个 Pull Request 之前，请务必先在 Bugtracker 上 [创建一个 Issue](https://github.com/chrononeko/bugtracker/issues/new/choose)。
