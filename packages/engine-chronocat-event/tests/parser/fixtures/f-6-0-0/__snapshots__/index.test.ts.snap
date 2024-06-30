@@ -15,7 +15,7 @@ exports[`Red 解析器应当正确解析 群聊 语音消息 1`] = `
   "id": undefined,
   "member": {},
   "message": {
-    "content": "<audio src="https://chronocat.vercel.app/v1/assets/eyJtc2dJZCI6IjEwMDAwMDAwMDAwMDAwMDAwMDAiLCJjaGF0VHlwZSI6MiwicGVlclVpZCI6IjEwMDAwMDAwMCIsImVsZW1lbnRJZCI6IjEwMDAwMDAwMDAwMDAwMDAwMDAiLCJ0aHVtYlNpemUiOjB9"/>",
+    "content": "<audio src="https://chronocat.vercel.app/v1/assets/eyJ0eXBlIjoibWVkaWF2MSIsIm1zZ0lkIjoiMTAwMDAwMDAwMDAwMDAwMDAwMCIsImNoYXRUeXBlIjoyLCJwZWVyVWlkIjoiMTAwMDAwMDAwIiwiZWxlbWVudElkIjoiMTAwMDAwMDAwMDAwMDAwMDAwMCIsInRodW1iU2l6ZSI6MH0"/>",
     "id": "1000000000000000000",
   },
   "platform": undefined,
