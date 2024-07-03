@@ -39,7 +39,7 @@ export const buildHandler = (ctx: ChronocatContext) => (data: IpcManData) => {
       if (!d.length) return
       const e = d[0]
       if (!e || !('cmdName' in e)) return
-      void responseDispatcher(ctx, e.cmdName, e.payload)
+      void responseDispatcher(ctx, data.channel, e.cmdName, e.payload)
       return
     }
 
@@ -48,7 +48,7 @@ export const buildHandler = (ctx: ChronocatContext) => (data: IpcManData) => {
       const method = req[0]
       requestMethodMap[data.id] = method
 
-      void requestDispatcher(ctx, method, req.slice(1))
+      void requestDispatcher(ctx, data.channel, method, req.slice(1))
 
       return
     }
@@ -62,6 +62,7 @@ export const buildHandler = (ctx: ChronocatContext) => (data: IpcManData) => {
         delete requestMethodMap[data.id]
         void responseDispatcher(
           ctx,
+          data.channel,
           method,
           data.args[1] /* RedIpcDataResponse */,
         )
@@ -74,6 +75,7 @@ export const buildHandler = (ctx: ChronocatContext) => (data: IpcManData) => {
 
 const requestDispatcher = async (
   ctx: ChronocatContext,
+  _channel: string,
   method: string,
   payload: unknown,
 ) => {
@@ -103,6 +105,7 @@ const requestDispatcher = async (
 
 const responseDispatcher = async (
   ctx: ChronocatContext,
+  _channel: string,
   method: string,
   payload: unknown,
 ) => {

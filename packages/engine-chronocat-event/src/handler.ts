@@ -34,7 +34,7 @@ export const buildHandler = (ctx: ChronocatContext) => (data: IpcManData) => {
       if (!d.length) return
       const e = d[0]
       if (!e || !('cmdName' in e)) return
-      void dispatcher(ctx, e.cmdName, e.payload)
+      void dispatcher(ctx, data.channel, e.cmdName, e.payload)
       return
     }
 
@@ -47,7 +47,12 @@ export const buildHandler = (ctx: ChronocatContext) => (data: IpcManData) => {
       const method = requestMethodMap[data.id]
       if (!method) return
       delete requestMethodMap[data.id]
-      void dispatcher(ctx, method, data.args[1] /* RedIpcDataResponse */)
+      void dispatcher(
+        ctx,
+        data.channel,
+        method,
+        data.args[1] /* RedIpcDataResponse */,
+      )
       return
     }
   }
@@ -55,12 +60,15 @@ export const buildHandler = (ctx: ChronocatContext) => (data: IpcManData) => {
 
 const dispatcher = async (
   ctx: ChronocatContext,
+  channel: string,
   method: string,
   payload: unknown,
 ) => {
   switch (method) {
     case 'nodeIKernelMsgListener/onRecvActiveMsg':
     case 'nodeIKernelMsgListener/onRecvMsg': {
+      if (channel !== 'IPC_DOWN_2') return
+
       const { msgList } = payload as OnRecvMsg
 
       for (const msg of msgList) {
@@ -198,6 +206,8 @@ const dispatcher = async (
     }
 
     case 'nodeIKernelBuddyListener/onBuddyReqChange': {
+      if (channel !== 'IPC_DOWN_2') return
+
       const { buddyReqs } = payload as OnBuddyReqChange
 
       buddyReqs.forEach((x) => {
@@ -232,6 +242,8 @@ const dispatcher = async (
         if (msg.chatType === ChatType.Private)
           ctx.chronocat.uix.add(msg.peerUid, msg.peerUin)
       }
+
+      if (channel !== 'IPC_DOWN_2') return
 
       msgList
         .filter((x) => x.sendStatus > 1 && sendQueue.find((y) => x.msgId === y))
