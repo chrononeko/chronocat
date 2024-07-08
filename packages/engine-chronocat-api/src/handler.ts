@@ -192,7 +192,15 @@ const responseDispatcher = async (
     case 'nodeIKernelGroupListener/onGroupListUpdate': {
       const { groupList } = payload as OnGroupListUpdate
 
-      for (const group of groupList) groupMap[group.groupCode] = group
+      for (const group of groupList) {
+        ctx.chronocatEngineChronocatApi.msgBoxActiv.activate({
+          chatType: ChatType.Group,
+          peerUid: group.groupCode,
+          guildId: '',
+        })
+
+        groupMap[group.groupCode] = group
+      }
 
       chronoEventEmitter.emitGroupListUpdate()
 
@@ -277,15 +285,17 @@ const responseDispatcher = async (
         const { listType, changedList } = changedRecentContactList
 
         switch (listType) {
-          // case ContactListType.Normal: {
-          //   for (const contact of changedList)
-          //     if (contact.chatType === ChatType.MsgBox)
-          //       ctx.chronocatEngineChronocatApi.msgBoxActiv.activate(
-          //         contact.peerUid,
-          //       )
+          case ContactListType.Normal: {
+            for (const contact of changedList)
+              if (contact.chatType === ChatType.MsgBox)
+                ctx.chronocatEngineChronocatApi.msgBoxActiv.activate({
+                  chatType: contact.chatType,
+                  peerUid: contact.peerUid,
+                  guildId: '',
+                })
 
-          //   break
-          // }
+            break
+          }
 
           case ContactListType.MsgBox: {
             for (const contact of changedList)

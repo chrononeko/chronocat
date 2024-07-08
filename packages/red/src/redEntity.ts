@@ -1005,4 +1005,5 @@ export interface ContactList {
 export enum ContactListType {
   Normal = 1,
   MsgBox = 2,
+  Value14 = 14,
 }
