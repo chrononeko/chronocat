@@ -254,6 +254,17 @@ export interface RedMessage {
   clientSeq: string
   nameType: number
   avatarFlag: number
+  freqLimitInfo: unknown
+  clientIdentityInfo: unknown
+  fileGroupSize: unknown
+  foldingInfo: unknown
+  multiTransInfo: unknown
+  msgAttrs: Record<string, unknown>
+  anonymousExtInfo: unknown
+  extInfoForUI: unknown
+  personalMedal: unknown
+  categoryManage: number
+  msgEventInfo: unknown
 
   senderUin: string
   peerUin: string
@@ -289,6 +300,8 @@ export interface Element {
   shareLocationElement?: unknown
   tofuRecordElement?: unknown
   taskTopMsgElement?: unknown
+  recommendedMsgElement?: unknown
+  actionBarElement?: unknown
 }
 
 export interface PicElement {
@@ -476,12 +489,57 @@ export interface GrayTipElement {
   blockGrayTipElement?: unknown
   aioOpGrayTipElement?: unknown
   jsonGrayTipElement?: JsonGrayTipElement
+  walletGrayTipElement?: unknown
 }
 
 export interface JsonGrayTipElement {
   busiId: string
   jsonStr: string
+  recentAbstract: string
   isServer: boolean
+  xmlToJsonParam: JsonGrayTipElementXmlToJsonParam
+}
+
+export interface JsonGrayTipElementXmlToJsonParam {
+  busiType: string
+  busiId: string
+  c2cType: number
+  serviceType: number
+  ctrlFlag: number
+  content: string
+  templId: string
+  seqId: string
+  templParam: Record<string, unknown>
+  pbReserv: unknown
+  members: Record<string, unknown>
+}
+
+export interface JsonGrayTipBusi1061 {
+  align: 'center'
+  items: JsonGrayTipBusi1061Item[]
+}
+
+export type JsonGrayTipBusi1061Item =
+  | JsonGrayTipBusi1061ItemNormal
+  | JsonGrayTipBusi1061ItemQq
+  | JsonGrayTipBusi1061ItemImage
+
+export interface JsonGrayTipBusi1061ItemNormal {
+  type: 'nor'
+  txt: string
+}
+
+export interface JsonGrayTipBusi1061ItemQq {
+  type: 'qq'
+  col: string // '1'
+  nm: string // ''
+  uid: string // 'u_0000000000000000000000'
+}
+
+export interface JsonGrayTipBusi1061ItemImage {
+  type: 'img'
+  jp: string // 'https://zb.vip.qq.com/v2/pages/nudgeMall?_wv=2&actionId=0'
+  src: string // 'http://tianquan.gtimg.cn/nudgeaction/item/0/expression.jpg'
 }
 
 export interface PttElement {

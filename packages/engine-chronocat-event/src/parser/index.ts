@@ -1,4 +1,10 @@
-import type { MarketFaceAssetRequest, Media, RedMessage } from '@chronocat/red'
+import type {
+  JsonGrayTipBusi1061,
+  JsonGrayTipBusi1061ItemQq,
+  MarketFaceAssetRequest,
+  Media,
+  RedMessage,
+} from '@chronocat/red'
 import { AtType, ChatType, FaceType, MsgType, SendType } from '@chronocat/red'
 import type {
   Channel,
@@ -190,6 +196,15 @@ export const parseMessage = async (
     // 群主禁止群内临时通话
     // 群主禁止群内发起新的群聊
     return undefined
+  else if (
+    ntMsgTypes.msgType === MsgType.System && // 5
+    message.subMsgType === 12 && // 12
+    ntMsgTypes.sendType === SendType.System && // 3
+    message.elements[0]!.elementType === 8 && // 8
+    message.elements[0]!.grayTipElement!.subElementType === 17 && // 17
+    message.elements[0]!.grayTipElement!.jsonGrayTipElement!.busiId === '1061' // 1061
+  )
+    return await parsePokeMessage(ctx, config, event, message)
 
   return undefined
 }
@@ -353,6 +368,30 @@ async function parseGuildMemberAddedLegacyInviteMessage(
   if (!event2.member) event2.member = {}
 
   return [event2, ...extraEvents]
+}
+
+async function parsePokeMessage(
+  ctx: ChronocatContext,
+  _config: O.Intersect<ChronocatLogCurrentConfig, ChronocatSatoriEventsConfig>,
+  event: Event,
+  message: RedMessage,
+) {
+  const json = JSON.parse(
+    message.elements[0]!.grayTipElement!.jsonGrayTipElement!.jsonStr,
+  ) as JsonGrayTipBusi1061
+
+  const [operator, user] = json.items.filter((x) => x.type == 'qq') as [
+    JsonGrayTipBusi1061ItemQq,
+    JsonGrayTipBusi1061ItemQq,
+  ]
+
+  event.type = 'message-created'
+  event.message = {
+    id: message.msgId,
+    content: `<${ctx.chronocat.platform}:poke user-id="${ctx.chronocat.uix.getUin(user.uid)}" operator-id="${ctx.chronocat.uix.getUin(operator.uid)}"/>`,
+  }
+
+  return [event]
 }
 
 /**
