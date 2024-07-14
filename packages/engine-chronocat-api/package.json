@@ -1,7 +1,7 @@
 {
   "name": "@chronocat/engine-chronocat-api",
   "description": "Chronocat API 引擎",
-  "version": "0.2.11",
+  "version": "0.2.12",
   "license": "AGPL-3.0",
   "author": {
     "name": "Il Harper",
