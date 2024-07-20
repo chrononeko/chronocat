@@ -1,7 +1,7 @@
 {
   "name": "@chronocat/shell",
   "description": "模块化的 Satori 框架",
-  "version": "0.2.12",
+  "version": "0.2.13",
   "license": "AGPL-3.0",
   "author": {
     "name": "Il Harper",
