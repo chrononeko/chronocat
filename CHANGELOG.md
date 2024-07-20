@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v0.2.13 (2024-07-20)
+
+### engine-chronocat-event
+
+- 修复了群名称过长时会被截断的问题 感谢群友发现问题 (#74)
+
+### crychiccat
+
+- 移除已过时的逻辑 (3732241b7ceae3ad27970253c3db534aa35995c4)
+
 ## v0.2.12 (2024-07-15)
 
 ### engine-chronocat-api
