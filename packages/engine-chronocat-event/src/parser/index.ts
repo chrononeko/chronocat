@@ -19,6 +19,7 @@ import type h from '@satorijs/element'
 import { Buffer } from 'node:buffer'
 import type { O } from 'ts-toolbelt'
 import { parseMsgTypes } from './msgt'
+import { groupMap } from '../globalVars'
 
 export const buildParser =
   (
@@ -111,7 +112,8 @@ export const parseMessage = async (
 
       event.channel.type = 0 // ChannelType.TEXT
       event.channel.id = event.guild.id = message.peerUid
-      event.channel.name = event.guild.name = message.peerName
+      event.channel.name = event.guild.name =
+        groupMap[message.peerUid]!.groupName // message.peerName
       event.guild.avatar = `https://p.qlogo.cn/gh/${message.peerUid}/${message.peerUid}/640`
       break
   }

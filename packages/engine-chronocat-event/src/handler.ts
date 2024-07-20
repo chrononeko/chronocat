@@ -4,6 +4,7 @@ import type {
   OnAddSendMsg,
   OnBuddyListChange,
   OnBuddyReqChange,
+  OnGroupListUpdate,
   OnMemberInfoChange,
   OnMemberListChange,
   OnMsgInfoListUpdate,
@@ -19,7 +20,13 @@ import type {
 import { ChatType, MsgType, SendType } from '@chronocat/red'
 import type { ChronocatContext } from '@chronocat/shell'
 import type { IpcManData } from 'ipcman'
-import { emittedBuddyReqList, requestMethodMap, sendQueue } from './globalVars'
+import {
+  emittedBuddyReqList,
+  friendMap,
+  groupMap,
+  requestMethodMap,
+  sendQueue,
+} from './globalVars'
 import {
   FriendRequestDispatchMessage,
   MessageCreatedDispatchMessage,
@@ -192,6 +199,15 @@ const dispatcher = async (
       return
     }
 
+    case 'onGroupListUpdate':
+    case 'nodeIKernelGroupListener/onGroupListUpdate': {
+      const { groupList } = payload as OnGroupListUpdate
+
+      for (const group of groupList) groupMap[group.groupCode] = group
+
+      return
+    }
+
     case 'onBuddyListChange':
     case 'nodeIKernelBuddyListener/onBuddyListChange': {
       const { data } = payload as OnBuddyListChange
@@ -199,6 +215,9 @@ const dispatcher = async (
       for (const category of data) {
         for (const buddy of category.buddyList) {
           ctx.chronocat.uix.add(buddy.uid, buddy.uin)
+
+          // buddy.category = category.categoryName
+          friendMap[buddy.uin] = buddy
         }
       }
 
