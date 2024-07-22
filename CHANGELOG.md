@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v0.2.14 (2024-07-23)
+
+### crychiccat
+
+- 支持新版 QQ (14d563c94e964111560065da0a2f61d7006eed74)
+
+Crychiccat 使用 xtd 实现了新版/旧版 QQ 的同时支持。遇到问题请创建新的 Issue。
+
+- 移除已过时的逻辑 (4372d30bb21209f251559e4ae2f5cc515998a03c)
+
 ## v0.2.13 (2024-07-20)
 
 ### engine-chronocat-event
