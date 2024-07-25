@@ -120,14 +120,16 @@ async function messageCreateUsingJson({
     method = 'chronocat.internal.message.create2.poke'
   }
 
-  const markdowns = cctx.chronocat.h.select(
-    payloadRich.content,
-    `${cctx.chronocat.platform}:markdown`,
-  )
-  if (markdowns.length) {
-    // TODO: 如果单条消息内除了 markdown 还有其他元素，打印警告
-    method = 'chronocat.internal.message.create2.markdown'
-  }
+  // Markdown 现在不走此 API 发送
+  //
+  // const markdowns = cctx.chronocat.h.select(
+  //   payloadRich.content,
+  //   `${cctx.chronocat.platform}:markdown`,
+  // )
+  // if (markdowns.length) {
+  //   // TODO: 如果单条消息内除了 markdown 还有其他元素，打印警告
+  //   method = 'chronocat.internal.message.create2.markdown'
+  // }
 
   const result = await cctx.chronocat.api[method](payloadRich, config)
 
