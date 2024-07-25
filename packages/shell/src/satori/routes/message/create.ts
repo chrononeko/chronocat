@@ -99,6 +99,7 @@ async function messageCreateUsingJson({
       return
     }
 
+    // FIXME: 这里是否应该改成 if (!forward!.children?.length)
     if (!forward!.children)
       // 空转发消息
       return
