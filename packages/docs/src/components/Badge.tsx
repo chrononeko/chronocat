@@ -35,6 +35,10 @@ export const badgeType = {
     children: '发',
     class: 'badge--success',
   },
+  forward: {
+    children: '合并转发',
+    class: 'badge--success',
+  },
   info: {
     children: '',
     class: 'badge--info',
