@@ -68,13 +68,15 @@ async function messageCreateUsingJson({
     | 'chronocat.internal.message.create2.markdown' =
     'chronocat.internal.message.create2.normal'
 
-  const forwards = cctx.chronocat.h
-    .select(payloadRich.content, 'message')
-    .filter((x) => x.attrs['forward'])
+  const forwards =
+    // cctx.chronocat.h.select(payloadRich.content, 'message')
+    payloadRich.content
+      .filter((x) => x.type === 'message') // 直接子代而非所有子代
+      .filter((x) => x.attrs['forward'])
 
   if (forwards.length) {
     if (forwards.length > 1) {
-      const err = `尚未支持单次请求发送多条「逐条转发」消息。来自 ${req.socket.remoteAddress}`
+      const err = `尚未支持单次请求发送多条转发消息。来自 ${req.socket.remoteAddress}`
 
       cctx.chronocat.l.error(err, {
         code: 501,
