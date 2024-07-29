@@ -1,4 +1,5 @@
 import h from '@satorijs/element'
+import { app } from 'electron'
 import { initServers } from './server'
 import { api } from './services/api'
 import { getAuthData } from './services/authData'
@@ -27,6 +28,11 @@ export const chronocat = () => {
   l.write(STARTUP_TEXT)
   l.info(`${cyan('Chronocat')} ${bold(__DEFINE_CHRONO_VERSION__)}`)
   l.info(grey('当左侧错误指示灯亮起时，点击错误码以检查说明。'))
+
+  if (app.commandLine.hasSwitch('loadapp')) {
+    l.warn('启动的应用并非 QQ，Chronocat 不会启用。', { code: 2151 })
+    return
+  }
 
   let ready: () => void
   const readyPromise = new Promise<void>((res) => {
