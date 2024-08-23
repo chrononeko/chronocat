@@ -32,7 +32,7 @@ export const buildAssetsGet =
               code: 2152,
               throw: true,
             })
-            return Promise.resolve()
+            return Promise.resolve<string>(undefined as unknown as string)
           }
 
           data.peerUid = peerUid
