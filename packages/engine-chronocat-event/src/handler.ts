@@ -125,13 +125,16 @@ const dispatcher = async (
     case 'nodeIKernelGroupService/getNextMemberList': {
       // const authData = await ctx.chronocat.getAuthData()
 
-      const { profiles, infos } = payload as OnProfileChanged
+      const { profiles, infos, info } = payload as OnProfileChanged
 
       // if (profiles.get(authData.uid))
       //   selfProfile.value = profiles.get(authData.uid)
 
+      if (info) ctx.chronocat.uix.add(info.uid, info.uin)
+
       const profile = profiles ?? infos
-      for (const [uid, { uin }] of profile) ctx.chronocat.uix.add(uid, uin)
+      if (profile)
+        for (const [uid, { uin }] of profile) ctx.chronocat.uix.add(uid, uin)
 
       return
     }

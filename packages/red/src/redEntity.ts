@@ -1,23 +1,60 @@
 export interface Profile {
   uid: string
+
+  /**
+   * 无情况下为空字符串
+   */
   qid: string
+
   uin: string
+
   nick: string
+
+  /**
+   * 无情况下为空字符串
+   */
   remark: string
+
+  /**
+   * 无情况下为空字符串
+   */
   longNick: string
+
+  /**
+   * 一般为空字符串
+   */
   avatarUrl: string
+
+  /**
+   * 不显示情况下为 0
+   */
   birthday_year: number
+
+  /**
+   * 不显示情况下为 0
+   */
   birthday_month: number
+
+  /**
+   * 不显示情况下为 0
+   */
   birthday_day: number
-  sex: number
-  topTime: string
+
+  sex: number // 255
+
+  topTime: string // '0'
+
+  /**
+   * 是否拉黑
+   */
   isBlock: boolean
+
   isMsgDisturb: boolean
   isSpecialCareOpen: boolean
   isSpecialCareZone: boolean
   ringId: string
-  status: number
-  extStatus: number
+  status: number // 10
+  extStatus: number // 0
   categoryId: number
   onlyChat: boolean
   qzoneNotWatch: boolean
@@ -26,8 +63,6 @@ export interface Profile {
   yearVipFlag: boolean
   svipFlag: boolean
   vipLevel: number
-
-  // 以下为 >9.9.1 添加
   qidianMasterFlag: number
   qidianCrewFlag: number
   qidianCrewFlag2: number
@@ -35,6 +70,44 @@ export interface Profile {
   zplanCoupleSceneId: number
   teenagerFlag: number
   studyFlag: number
+  constellation: number // 0
+  shengXiao: number // 0
+  kBloodType: number // 0
+  homeTown: string // ''
+  makeFriendCareer: number // 0
+  pos: string // ''
+  eMail: string // ''
+  phoneNum: string // ''
+  college: string // ''
+  country: string // ''
+  province: string // ''
+  city: string // ''
+  postCode: string // ''
+  address: string // ''
+  regTime: number // 0
+  interest: string // ''
+  termType: number // 65793
+  labels: unknown[]
+  qqLevel: {
+    crownNum: number // 0
+    sunNum: number // 0
+    moonNum: number // 0
+    starNum: number // 0
+  }
+  isHideQQLevel: number // 0
+  privilegeIcon: {
+    jumpUrl: string // ''
+    openIconList: unknown[]
+    closeIconList: unknown[]
+  }
+  isHidePrivilegeIcon: number // 0
+  photoWall: {
+    picList: unknown[]
+  }
+  recommendImgFlag: number // 0
+  disableEmojiShortCuts: number // 0
+  pendantId: string // '0'
+  vipNameColorId: string // '0'
 }
 
 export interface Member {

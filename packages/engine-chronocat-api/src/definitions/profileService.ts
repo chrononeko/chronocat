@@ -9,3 +9,13 @@ export const getUserSimpleInfo = define<
     },
   ]
 >('ns-ntApi-2', 'nodeIKernelProfileService/getUserSimpleInfo')
+
+export const getUserDetailInfoWithBizInfo = define<
+  unknown,
+  [
+    {
+      uid: string
+      keys: [0]
+    },
+  ]
+>('ns-ntApi-2', 'nodeIKernelProfileService/getUserDetailInfoWithBizInfo')

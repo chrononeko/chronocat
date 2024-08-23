@@ -25,12 +25,15 @@ export interface OnProfileChanged {
   ][] & {
     get: (uid: string) => Profile
   }
+
   infos: [
     string,
     {
       uin: string
     },
   ][]
+
+  info: Profile
 }
 
 export interface OnMemberInfoChange {
