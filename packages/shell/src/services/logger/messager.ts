@@ -1,6 +1,7 @@
 import h from '@satorijs/element'
 import { link } from 'logiri'
 import { grey } from '../../utils/colors'
+import { PLATFORM } from '../../utils/consts'
 
 type DisplayComponent = string
 
@@ -40,6 +41,10 @@ const visit = async (element: h): Promise<DisplayComponent[] | false> => {
       return [link('[语音]', attrs['src'] as string)]
     }
 
+    case 'video': {
+      return [link('[视频]', attrs['src'] as string)]
+    }
+
     case 'file': {
       return [link('[文件]', attrs['src'] as string)]
     }
@@ -65,8 +70,49 @@ const visit = async (element: h): Promise<DisplayComponent[] | false> => {
       ]
     }
 
-    case 'chronocat:poke': {
+    case `${PLATFORM}:poke`: {
       return ['[戳一戳]']
+    }
+
+    case `${PLATFORM}:pcpoke`: {
+      return ['[窗口抖动]']
+    }
+
+    case `${PLATFORM}:face`: {
+      let result = ''
+
+      let description = '表情'
+      if (attrs['unsafe-super']) description = '超级表情'
+      if (attrs['unsafe-market-emoticon']) description = 'Emoticon 表情'
+
+      result = link(
+        `[${description}]`,
+        h.select(children, 'img')?.[0]?.attrs['src'] as string | undefined,
+      )
+
+      if (attrs['unsafe-result-id'])
+        result += ` 掷骰结果：${attrs['unsafe-result-id']}`
+      if (attrs['unsafe-chain-count'])
+        result += ` 接龙个数：${attrs['unsafe-chain-count']}`
+      return [result]
+    }
+
+    case `${PLATFORM}:marketface`: {
+      return [
+        link(
+          `[商城表情]`,
+          h.select(children, 'img')?.[0]?.attrs['src'] as string | undefined,
+        ),
+      ]
+    }
+
+    case `${PLATFORM}:facebubble`: {
+      return [
+        link(
+          `[气泡表情]`,
+          h.select(children, 'img')?.[0]?.attrs['src'] as string | undefined,
+        ),
+      ]
     }
 
     case 'message': {

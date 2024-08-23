@@ -5,15 +5,23 @@ import { mkdir, open, rm, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { env, platform } from 'node:process'
 import type { Event } from '../../satori/types'
+import type { ColorFormatter } from '../../utils/colors'
+import { grey, red, yellow } from '../../utils/colors'
 import { exists } from '../../utils/fs'
 import { formatTimeforFilename, p2, p4 } from '../../utils/string'
 import { timeout } from '../../utils/time'
 import { getAuthData } from '../authData'
 import { baseDir } from '../baseDir'
 import { getConfig } from '../config'
-import { logiriMessageCreated } from './logiri'
-import type { ColorFormatter } from '../../utils/colors'
-import { grey, red, yellow } from '../../utils/colors'
+import {
+  logiriFriendRequest,
+  logiriGuildMemberAdded,
+  logiriGuildRequest,
+  logiriMessageCreated,
+  logiriMessageDeleted,
+  logiriUnsafeGuildMute,
+  logiriUnsafeGuildUnmute,
+} from './logiri'
 
 interface LogOptions {
   code?: number
@@ -43,6 +51,12 @@ class ChronocatLogger {
   constructor() {
     this.logiri = new Logiri()
     this.logiri.register(logiriMessageCreated)
+    this.logiri.register(logiriMessageDeleted)
+    this.logiri.register(logiriGuildRequest)
+    this.logiri.register(logiriFriendRequest)
+    this.logiri.register(logiriGuildMemberAdded)
+    this.logiri.register(logiriUnsafeGuildMute)
+    this.logiri.register(logiriUnsafeGuildUnmute)
 
     this.init = (async () => {
       const dir = join(baseDir, 'logs')
