@@ -25,8 +25,18 @@ export const buildAssetsGet =
         if (
           data.chatType === ChatType.Private &&
           !data.peerUid.startsWith('u_')
-        )
-          data.peerUid = ctx.chronocat.uix.getUid(data.peerUid)!
+        ) {
+          const peerUid = await ctx.chronocat.uix.getUid2(data.peerUid)
+          if (!peerUid) {
+            ctx.chronocat.l.error('内部错误', {
+              code: 2152,
+              throw: true,
+            })
+            return Promise.resolve()
+          }
+
+          data.peerUid = peerUid
+        }
 
         await downloadRichMedia({
           getReq: {

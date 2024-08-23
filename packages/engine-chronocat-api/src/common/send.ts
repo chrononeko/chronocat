@@ -10,6 +10,15 @@ export const commonSend = async (
   peer: Partial<Peer>,
   elements: O.Partial<Element, 'deep'>[],
 ) => {
+  const privatePeerUid = await ctx.chronocat.uix.getUid2(peer.peerUid!)
+  if (!privatePeerUid) {
+    ctx.chronocat.l.error('内部错误', {
+      code: 2152,
+      throw: true,
+    })
+    return Promise.resolve<RedMessage>(undefined as unknown as RedMessage)
+  }
+
   const param = {
     msgId: '0',
     msgAttributeInfos: new Map(),
@@ -17,7 +26,7 @@ export const commonSend = async (
       peer.chatType === ChatType.Private
         ? {
             chatType: ChatType.Private,
-            peerUid: ctx.chronocat.uix.getUid(peer.peerUid!)!,
+            peerUid: privatePeerUid,
           }
         : (peer as Peer),
     msgElements: elements,
@@ -60,11 +69,22 @@ export const commonSendForward = async (
   }[],
   source?: Partial<Peer> | undefined,
 ) => {
+  const srcPeerUid = await ctx.chronocat.uix.getUid2(source!.peerUid!)
+  const dstPeerUid = await ctx.chronocat.uix.getUid2(peer.peerUid!)
+
+  if (!srcPeerUid || !dstPeerUid) {
+    ctx.chronocat.l.error('内部错误', {
+      code: 2152,
+      throw: true,
+    })
+    return task
+  }
+
   const srcContact = source
     ? source.chatType === ChatType.Private
       ? {
           chatType: ChatType.Private,
-          peerUid: ctx.chronocat.uix.getUid(source.peerUid!)!,
+          peerUid: srcPeerUid,
         }
       : (source as Peer)
     : defaultSrcContact
@@ -73,7 +93,7 @@ export const commonSendForward = async (
     peer.chatType === ChatType.Private
       ? {
           chatType: ChatType.Private,
-          peerUid: ctx.chronocat.uix.getUid(peer.peerUid!)!,
+          peerUid: dstPeerUid,
         }
       : (peer as Peer)
 

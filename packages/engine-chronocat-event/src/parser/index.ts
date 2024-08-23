@@ -223,7 +223,12 @@ async function parseChatMessage(
   event: Event,
   message: RedMessage,
 ) {
-  const [elements, extraEvents] = await parseElements(ctx, config, message)
+  const [elements, extraEvents] = await parseElements(
+    ctx,
+    config,
+    event,
+    message,
+  )
   event.type = 'message-created'
   event.message = {
     id: message.msgId,
@@ -390,7 +395,7 @@ async function parsePokeMessage(
   event.type = 'message-created'
   event.message = {
     id: message.msgId,
-    content: `<${ctx.chronocat.platform}:poke user-id="${ctx.chronocat.uix.getUin(user.uid)}" operator-id="${ctx.chronocat.uix.getUin(operator.uid)}"/>`,
+    content: `<${ctx.chronocat.platform}:poke user-id="${await ctx.chronocat.uix.getUin2(user.uid, event.guild?.id)}" operator-id="${await ctx.chronocat.uix.getUin2(operator.uid, event.guild?.id)}"/>`,
   }
 
   return [event]
@@ -402,6 +407,7 @@ async function parsePokeMessage(
 async function parseElements(
   ctx: ChronocatContext,
   config: O.Intersect<ChronocatLogCurrentConfig, ChronocatSatoriEventsConfig>,
+  event: Event,
   message: RedMessage,
 ) {
   const l = ctx.chronocat.l
@@ -432,7 +438,10 @@ async function parseElements(
 
             let id: string | undefined = m.textElement!.atUid
             if (id === '0') id = undefined
-            id ||= ctx.chronocat.uix.getUin(m.textElement!.atNtUid)
+            id ||= await ctx.chronocat.uix.getUin2(
+              m.textElement!.atNtUid,
+              event.guild?.id,
+            )
 
             const name = m.textElement!.content.slice(1)
 
@@ -590,7 +599,7 @@ async function parseElements(
             },
             [
               await parseAuthor(ctx, source),
-              ...(await parseElements(ctx, config, source))[0],
+              ...(await parseElements(ctx, config, event, source))[0],
             ],
           ),
         )

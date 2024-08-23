@@ -218,8 +218,11 @@ const dispatcher = async (
       const { notifies } = payload as OnGroupSingleScreenNotifies
 
       for (const notify of notifies) {
-        const uin = ctx.chronocat.uix.getUin(notify.user1.uid)
-        if (!uin) return
+        const uin = await ctx.chronocat.uix.getUin2(notify.user1.uid) // 此时用户刚刚申请入群，不在群里，不能带 group 场景
+        if (!uin) {
+          ctx.chronocat.l.error('内部错误', { code: 2152 })
+          return
+        }
 
         const key = `${notify.group.groupCode}:${uin}:${notify.seq}`
         if (emittedGroupReqList.includes(key)) return
@@ -251,11 +254,15 @@ const dispatcher = async (
     case 'nodeIKernelBuddyListener/onBuddyReqChange': {
       const { buddyReqs } = payload as OnBuddyReqChange
 
-      buddyReqs.forEach((x) => {
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+      buddyReqs.forEach(async (x) => {
         if (x.reqType !== 1 || x.reqSubType !== 1) return
 
-        const uin = ctx.chronocat.uix.getUin(x.friendUid)
-        if (!uin) return
+        const uin = await ctx.chronocat.uix.getUin2(x.friendUid)
+        if (!uin) {
+          ctx.chronocat.l.error('内部错误', { code: 2152 })
+          return
+        }
 
         const key = `${uin}:${x.reqTime}`
         if (emittedBuddyReqList.includes(key)) return

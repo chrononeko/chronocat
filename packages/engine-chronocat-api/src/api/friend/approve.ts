@@ -14,9 +14,18 @@ export const buildFriendApprove =
 
     const [uin, reqTime] = message_id.split(':') as [string, string]
 
+    const friendUid = await ctx.chronocat.uix.getUid2(uin)
+    if (!friendUid) {
+      ctx.chronocat.l.error('内部错误', {
+        code: 2152,
+        throw: true,
+      })
+      return {}
+    }
+
     await approvalFriendRequest({
       approvalInfo: {
-        friendUid: ctx.chronocat.uix.getUid(uin)!,
+        friendUid,
         reqTime,
         accept: approve,
       },
