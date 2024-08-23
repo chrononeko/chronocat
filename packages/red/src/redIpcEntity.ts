@@ -219,9 +219,9 @@ export interface OnGroupSingleScreenNotifies {
 export interface GroupNotify {
   seq: string // '1716209619000000'
 
-  type: number // 7
+  type: number // 7 申请入群，11 已退群
 
-  status: number // 1
+  status: number // 0 无需操作，1 未操作，2 已操作
 
   group: {
     groupCode: string

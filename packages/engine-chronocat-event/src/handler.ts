@@ -217,20 +217,23 @@ const dispatcher = async (
     case 'nodeIKernelGroupListener/onGroupSingleScreenNotifies': {
       const { notifies } = payload as OnGroupSingleScreenNotifies
 
-      for (const notify of notifies) {
-        const uin = await ctx.chronocat.uix.getUin2(notify.user1.uid) // 此时用户刚刚申请入群，不在群里，不能带 group 场景
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+      notifies.forEach(async (x) => {
+        if (x.type !== 7 || x.status !== 1) return
+
+        const uin = await ctx.chronocat.uix.getUin2(x.user1.uid) // 此时用户刚刚申请入群，不在群里，不能带 group 场景
         if (!uin) {
           ctx.chronocat.l.error('内部错误', { code: 2152 })
           return
         }
 
-        const key = `${notify.group.groupCode}:${uin}:${notify.seq}`
+        const key = `${x.group.groupCode}:${uin}:${x.seq}`
         if (emittedGroupReqList.includes(key)) return
 
         emittedGroupReqList.push(key)
 
-        ctx.chronocat.emit(new GuildRequestDispatchMessage(notify, uin))
-      }
+        ctx.chronocat.emit(new GuildRequestDispatchMessage(x, uin))
+      })
 
       return
     }
