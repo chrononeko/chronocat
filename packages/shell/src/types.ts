@@ -192,6 +192,9 @@ export interface CCInternalMethods {
 
   'chronocat.internal.qface.get': [[string], QFace | undefined]
   'chronocat.internal.qface.list': [[], QFace[] | undefined]
+
+  'chronocat.internal.uix.uin.get': [[string], string | undefined]
+  'chronocat.internal.uix.uin.get.group': [[string, string], string | undefined]
 }
 
 export type Methods = SatoriMethods & CCInternalMethods
