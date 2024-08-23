@@ -2,6 +2,7 @@ import type { Group, Profile } from '@chronocat/red'
 
 export const requestMethodMap: Record<string, string> = {}
 export const emittedBuddyReqList: string[] = []
+export const emittedGroupReqList: string[] = []
 
 export const sendQueue: string[] = []
 

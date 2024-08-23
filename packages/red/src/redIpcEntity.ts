@@ -180,3 +180,80 @@ export interface MsgsIncludeSelf {
 export interface OnOpenParamChange {
   data: Contact[]
 }
+
+export interface OnGroupNotifiesUnreadCountUpdated {
+  /**
+   * 是否有过滤消息
+   */
+  doubt: boolean
+
+  /**
+   * 最旧未读消息 ID
+   */
+  oldestUnreadSeq: string // '1716209619000000'
+
+  /**
+   *
+   * 未读消息数
+   */
+  unreadCount: number
+}
+
+export interface OnGroupSingleScreenNotifies {
+  /**
+   * 是否是过滤消息列表
+   */
+  doubt: false
+
+  /**
+   * 分页 ID
+   */
+  nextStartSeq: '0'
+
+  notifies: GroupNotify[]
+}
+
+export interface GroupNotify {
+  seq: string // '1716209619000000'
+
+  type: number // 7
+
+  status: number // 1
+
+  group: {
+    groupCode: string
+    groupName: string
+  }
+
+  user1: {
+    uid: string
+    nickName: string
+  }
+
+  user2: {
+    uid: string
+    nickName: string
+  }
+
+  actionUser: {
+    uid: string
+    nickName: string
+  }
+
+  actionTime: string // '0'
+
+  invitationExt: {
+    srcType: number // 0
+    groupCode: string // '0'
+    waitStatus: number // 0
+  }
+
+  /**
+   * 验证消息
+   */
+  postscript: string
+
+  repeatSeqs: []
+
+  warningTips: string // '该账号存在风险，请谨慎操作'
+}

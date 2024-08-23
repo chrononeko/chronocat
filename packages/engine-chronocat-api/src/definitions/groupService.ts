@@ -139,6 +139,17 @@ export const quitGroup = define<
   ]
 >('ns-ntApi-2', 'nodeIKernelGroupService/quitGroup')
 
+export const getSingleScreenNotifies = define<
+  unknown,
+  [
+    {
+      doubt: boolean
+      startSeq: string // '1716209619000000'
+      number: number // 16
+    },
+  ]
+>('ns-ntApi-2', 'nodeIKernelGroupService/getSingleScreenNotifies')
+
 export const operateSysNotify = define<
   unknown,
   [

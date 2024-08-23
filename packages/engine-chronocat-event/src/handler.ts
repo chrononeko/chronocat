@@ -5,6 +5,7 @@ import type {
   OnBuddyListChange,
   OnBuddyReqChange,
   OnGroupListUpdate,
+  OnGroupSingleScreenNotifies,
   OnMemberInfoChange,
   OnMemberListChange,
   OnMsgInfoListUpdate,
@@ -22,6 +23,7 @@ import type { ChronocatContext } from '@chronocat/shell'
 import type { IpcManData } from 'ipcman'
 import {
   emittedBuddyReqList,
+  emittedGroupReqList,
   friendMap,
   groupMap,
   requestMethodMap,
@@ -29,6 +31,7 @@ import {
 } from './globalVars'
 import {
   FriendRequestDispatchMessage,
+  GuildRequestDispatchMessage,
   MessageCreatedDispatchMessage,
   MessageDeletedDispatchMessage,
 } from './messages'
@@ -208,6 +211,30 @@ const dispatcher = async (
       return
     }
 
+    case 'nodeIKernelGroupListener/onGroupNotifiesUnreadCountUpdated': {
+      // const {} = payload as OnGroupNotifiesUnreadCountUpdated
+
+      return
+    }
+
+    case 'nodeIKernelGroupListener/onGroupSingleScreenNotifies': {
+      const { notifies } = payload as OnGroupSingleScreenNotifies
+
+      for (const notify of notifies) {
+        const uin = ctx.chronocat.uix.getUin(notify.user1.uid)
+        if (!uin) return
+
+        const key = `${notify.group.groupCode}:${uin}:${notify.seq}`
+        if (emittedGroupReqList.includes(key)) return
+
+        emittedGroupReqList.push(key)
+
+        ctx.chronocat.emit(new GuildRequestDispatchMessage(notify, uin))
+      }
+
+      return
+    }
+
     case 'onBuddyListChange':
     case 'nodeIKernelBuddyListener/onBuddyListChange': {
       const { data } = payload as OnBuddyListChange
@@ -225,8 +252,6 @@ const dispatcher = async (
     }
 
     case 'nodeIKernelBuddyListener/onBuddyReqChange': {
-      if (channel !== 'IPC_DOWN_2') return
-
       const { buddyReqs } = payload as OnBuddyReqChange
 
       buddyReqs.forEach((x) => {
