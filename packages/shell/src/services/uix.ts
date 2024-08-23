@@ -66,7 +66,7 @@ export class Uix extends UixEventEmitter {
     return uin
   }
 
-  getUin2 = async (uid: string, group: string | number | undefined) => {
+  getUin2 = async (uid: string, group?: string | number) => {
     if (!isUid(uid)) return undefined
     let uin: string | undefined
     if (group) {
@@ -99,7 +99,7 @@ export class Uix extends UixEventEmitter {
     return uid
   }
 
-  getUid2 = async (uin: string, _group: string | number | undefined) => {
+  getUid2 = async (uin: string, _group?: string | number) => {
     if (!isUin(uin)) return undefined
     // if (group) {
     //   if (!isGroup(group)) return undefined
