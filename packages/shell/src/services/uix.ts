@@ -1,5 +1,34 @@
+/* eslint-disable @typescript-eslint/no-unsafe-declaration-merging */
+
 import { EventEmitter } from 'node:events'
 import { api } from './api'
+
+interface UixEventEmitter {
+  /**
+   * 监听某键的获得。
+   *
+   * @param key 键。
+   * @param listener 值的监听器。
+   */
+  on(key: string, listener: (value: string) => void): this
+
+  /**
+   * 等待某键的获得。
+   * @param key 键。
+   * @param listener 值的监听器。
+   */
+  once(key: string, listener: (value: string) => void): this
+
+  /**
+   * 通知某键的值已获得。
+   *
+   * @param key 键。
+   * @param value 值。
+   */
+  emit(key: string, value: string): boolean
+}
+
+class UixEventEmitter extends EventEmitter {}
 
 const uinRegex = /\d+/
 
@@ -12,7 +41,7 @@ const isUid = (uid: unknown) =>
 
 const isGroup = isUin
 
-export class Uix extends EventEmitter {
+export class Uix extends UixEventEmitter {
   map: Record<string, string> = {}
 
   isUin = isUin
