@@ -159,6 +159,16 @@ export interface Login {
    * 在线状态
    */
   status: LoginStatus
+
+  /**
+   * 平台特性列表
+   */
+  features: string[]
+
+  /**
+   * 代理路由列表
+   */
+  proxy_urls: string[]
 }
 
 export enum LoginStatus {
