@@ -18,6 +18,7 @@ import { buildGuildMemberMute } from './api/guild/member/mute'
 import { buildGuildRemove } from './api/guild/remove'
 import { buildAssetsGet } from './api/internal/assets/get'
 import { qfaceGet, qfaceList } from './api/internal/qface'
+import { buildGetUin, buildGetUinWithGroup } from './api/internal/uix'
 import { buildLoginGet } from './api/login/get'
 import { buildMessageCreate } from './api/message/create'
 import { buildMessageDelete } from './api/message/delete'
@@ -71,6 +72,9 @@ export const apply = async (ctx: ChronocatContext) => {
   register('friend.list', buildFriendList(ctx))
   register('friend.approve', buildFriendApprove(ctx))
   register('unsafe.friend.remove', buildFriendRemove(ctx))
+
+  register('chronocat.internal.uix.uin.get', buildGetUin(ctx))
+  register('chronocat.internal.uix.uin.get.group', buildGetUinWithGroup(ctx))
 
   await ctx.chronocat.whenReady()
 

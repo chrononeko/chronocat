@@ -8,7 +8,7 @@ export const getMemberInfo = define<
   [
     {
       forceUpdate: boolean
-      groupCode: number
+      groupCode: string
       uids: string[]
     },
   ]
