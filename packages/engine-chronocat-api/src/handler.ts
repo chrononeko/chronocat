@@ -210,6 +210,14 @@ const responseDispatcher = async (
       return
     }
 
+    case 'nodeIKernelGroupListener/onGroupNotifiesUnreadCountUpdated': {
+      // const {} = payload as OnGroupNotifiesUnreadCountUpdated
+
+      void ctx.chronocatEngineChronocatApi.groupNotify.refresh()
+
+      return
+    }
+
     case 'onBuddyListChange':
     case 'nodeIKernelBuddyListener/onBuddyListChange': {
       const { data } = payload as OnBuddyListChange

@@ -27,6 +27,7 @@ import { buildMessageList } from './api/message/list'
 import { buildUserChannelCreate } from './api/user/channel/create'
 import { buildUserGet } from './api/user/get'
 import { buildHandler } from './handler'
+import { groupNotify } from './services/groupNotify'
 import { msgBoxActiv } from './services/msgBoxActiv'
 
 declare const __DEFINE_CHRONO_VERSION__: string
@@ -37,6 +38,7 @@ export const version = __DEFINE_CHRONO_VERSION__
 export const apply = async (ctx: ChronocatContext) => {
   ctx.chronocatEngineChronocatApi = {
     msgBoxActiv: msgBoxActiv(ctx),
+    groupNotify,
   }
 
   ipcMan<RedIpcArgs>({

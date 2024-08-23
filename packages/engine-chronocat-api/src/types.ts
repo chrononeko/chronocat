@@ -1,9 +1,11 @@
+import type { groupNotify } from './services/groupNotify'
 import type { MsgBoxActiv } from './services/msgBoxActiv'
 
 declare module '@chronocat/shell' {
   interface ChronocatContext {
     chronocatEngineChronocatApi: {
       msgBoxActiv: MsgBoxActiv
+      groupNotify: typeof groupNotify
     }
   }
 }

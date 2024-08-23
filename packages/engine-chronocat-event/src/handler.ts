@@ -214,12 +214,6 @@ const dispatcher = async (
       return
     }
 
-    case 'nodeIKernelGroupListener/onGroupNotifiesUnreadCountUpdated': {
-      // const {} = payload as OnGroupNotifiesUnreadCountUpdated
-
-      return
-    }
-
     case 'nodeIKernelGroupListener/onGroupSingleScreenNotifies': {
       const { notifies } = payload as OnGroupSingleScreenNotifies
 
