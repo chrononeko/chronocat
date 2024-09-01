@@ -10,13 +10,17 @@ export const commonSend = async (
   peer: Partial<Peer>,
   elements: O.Partial<Element, 'deep'>[],
 ) => {
-  const privatePeerUid = await ctx.chronocat.uix.getUid2(peer.peerUid!)
-  if (!privatePeerUid) {
-    ctx.chronocat.l.error('内部错误', {
-      code: 2152,
-      throw: true,
-    })
-    return Promise.resolve<RedMessage>(undefined as unknown as RedMessage)
+  let privatePeerUid: string | undefined = undefined
+
+  if (peer.chatType === ChatType.Private) {
+    privatePeerUid = await ctx.chronocat.uix.getUid2(peer.peerUid!)
+    if (!privatePeerUid) {
+      ctx.chronocat.l.error('内部错误', {
+        code: 2152,
+        throw: true,
+      })
+      return Promise.resolve<RedMessage>(undefined as unknown as RedMessage)
+    }
   }
 
   const param = {
@@ -26,7 +30,7 @@ export const commonSend = async (
       peer.chatType === ChatType.Private
         ? {
             chatType: ChatType.Private,
-            peerUid: privatePeerUid,
+            peerUid: privatePeerUid!,
           }
         : (peer as Peer),
     msgElements: elements,
