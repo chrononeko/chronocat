@@ -1,0 +1,28 @@
+{
+  "name": "@chronocat/engine-media",
+  "description": "Chronocat 媒体引擎",
+  "version": "0.2.16",
+  "license": "AGPL-3.0",
+  "author": {
+    "name": "Il Harper",
+    "email": "hi@ilharper.com",
+    "url": "https://ilharper.com"
+  },
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "node -r esbuild-register ../../scripts/runOnChanged.cts ./src concurrently -n cjs,dts yarn:build:cjs yarn:build:dts",
+    "build:cjs": "node -r esbuild-register ../../scripts/build.cts",
+    "build:dts": "tsc -p tsconfig.json"
+  },
+  "devDependencies": {
+    "@chronocat/shell": "workspace:packages/shell",
+    "concurrently": "^8.2.1",
+    "esbuild-register": "^3.5.0",
+    "ts-toolbelt": "^9.6.0",
+    "typescript": "~5.1.0"
+  }
+}

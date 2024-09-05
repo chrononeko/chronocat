@@ -1807,6 +1807,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@chronocat/engine-media@workspace:packages/engine-media":
+  version: 0.0.0-use.local
+  resolution: "@chronocat/engine-media@workspace:packages/engine-media"
+  dependencies:
+    "@chronocat/shell": "workspace:packages/shell"
+    concurrently: "npm:^8.2.1"
+    esbuild-register: "npm:^3.5.0"
+    ts-toolbelt: "npm:^9.6.0"
+    typescript: "npm:~5.1.0"
+  languageName: unknown
+  linkType: soft
+
 "@chronocat/plugin-iife@workspace:packages/iife":
   version: 0.0.0-use.local
   resolution: "@chronocat/plugin-iife@workspace:packages/iife"
