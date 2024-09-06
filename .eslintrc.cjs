@@ -1,5 +1,3 @@
-const { resolve } = require('node:path')
-
 module.exports = {
   root: true,
   env: {
@@ -18,6 +16,7 @@ module.exports = {
   plugins: ['@typescript-eslint', 'import', 'prettier'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
+    projectService: true,
     project: [resolve(__dirname, 'tsconfig.json')],
   },
   settings: {
