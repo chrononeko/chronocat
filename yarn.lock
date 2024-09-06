@@ -1780,7 +1780,6 @@ __metadata:
     "@chronocat/red": "workspace:packages/red"
     "@chronocat/shell": "workspace:packages/shell"
     "@satorijs/element": "npm:^2.5.1"
-    "@types/mime": "npm:^3.0.1"
     concurrently: "npm:^8.2.1"
     esbuild-register: "npm:^3.5.0"
     ipcman: "npm:^0.1.3"
@@ -4649,7 +4648,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mime@npm:*, @types/mime@npm:^3.0.1":
+"@types/mime@npm:*":
   version: 3.0.4
   resolution: "@types/mime@npm:3.0.4"
   checksum: 10c0/db478bc0f99e40f7b3e01d356a9bdf7817060808a294978111340317bcd80ca35382855578c5b60fbc84ae449674bd9bb38427b18417e1f8f19e4f72f8b242cd

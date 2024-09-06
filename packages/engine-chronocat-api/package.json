@@ -22,7 +22,6 @@
     "@chronocat/red": "workspace:packages/red",
     "@chronocat/shell": "workspace:packages/shell",
     "@satorijs/element": "^2.5.1",
-    "@types/mime": "^3.0.1",
     "concurrently": "^8.2.1",
     "esbuild-register": "^3.5.0",
     "ipcman": "^0.1.3",
