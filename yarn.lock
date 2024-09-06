@@ -1784,7 +1784,7 @@ __metadata:
     concurrently: "npm:^8.2.1"
     esbuild-register: "npm:^3.5.0"
     ipcman: "npm:^0.1.3"
-    mime: "npm:^3.0.0"
+    mime: "npm:^4.0.4"
     node-fetch: "npm:^3.3.2"
     ts-toolbelt: "npm:^9.6.0"
     typescript: "npm:~5.1.0"
@@ -12768,12 +12768,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mime@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "mime@npm:3.0.0"
+"mime@npm:^4.0.4":
+  version: 4.0.4
+  resolution: "mime@npm:4.0.4"
   bin:
-    mime: cli.js
-  checksum: 10c0/402e792a8df1b2cc41cb77f0dcc46472b7944b7ec29cb5bbcd398624b6b97096728f1239766d3fdeb20551dd8d94738344c195a6ea10c4f906eb0356323b0531
+    mime: bin/cli.js
+  checksum: 10c0/3046e425ed616613af8c7f4b268ff33ab564baeb24a117ef00475cbb23fbae91369ff2d9918cc6408162b0016bde34ea8cc4041b830fc2c45a8ecaf5b7e3e26f
   languageName: node
   linkType: hard
 
