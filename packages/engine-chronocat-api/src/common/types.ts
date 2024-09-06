@@ -1,5 +1,4 @@
-export interface CommonSaveResult {
-  filePath: string
+interface CommonFileInfo {
   fileSize: number
   fileName: string
   fileMime: string
@@ -14,4 +13,15 @@ export interface CommonSaveResult {
         hUnits: string // px
       }
     | undefined
+}
+
+export interface CommonSaveResult extends CommonFileInfo {
+  filePath: string
+}
+
+export interface CommonFileResult extends CommonFileInfo {
+  srcPath: string
+  destPath: string
+  commit: () => Promise<void>
+  cancel: () => void
 }
