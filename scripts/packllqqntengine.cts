@@ -4,7 +4,10 @@ import { join, resolve } from 'node:path'
 void Promise.all(
   ['engine-chronocat-api', 'engine-chronocat-event', 'engine-media'].map(
     async (x) => {
-      const upper = `${x[0]!.toUpperCase()}${x.slice(1, 7)}${x[7]!.toUpperCase()}${x.slice(8, 17)}${x[17]!.toUpperCase()}${x.slice(18)}`
+      const upper = x
+        .split('-')
+        .map((y) => y[0]!.toUpperCase() + y.slice(1))
+        .join('-')
       const distName = `LiteLoaderQQNT-Plugin-Chronocat-${upper}`
 
       const corePath = resolve(__dirname, `../packages/${x}/lib/index.js`)
@@ -38,7 +41,7 @@ void Promise.all(
       const manifest = {
         manifest_version: 4,
         type: 'extension',
-        name: `Chronocat Engine: ${x[7]!.toUpperCase()}${x.slice(8, 17)}${x[17]!.toUpperCase()}${x.slice(18)}`,
+        name: `Chronocat Engine: ${upper.slice(7)}`,
         slug: `chronocat-${x}`,
         description,
         version,
