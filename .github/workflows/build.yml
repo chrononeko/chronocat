@@ -48,6 +48,12 @@ jobs:
           name: chronocat-llqqnt-engine-chronocat-event-${{ github.sha }}
           path: build/dist/llqqnt-plugin-chronocat-engine-chronocat-event
 
+      - name: Upload engine-media LiteLoaderQQNT Plugin
+        uses: actions/upload-artifact@v3
+        with:
+          name: chronocat-llqqnt-engine-media-${{ github.sha }}
+          path: build/dist/llqqnt-plugin-chronocat-engine-media
+
       # - name: Upload engine-chronocat-api
       #   uses: actions/upload-artifact@v3
       #   with:
@@ -59,6 +65,12 @@ jobs:
       #   with:
       #     name: engine-chronocat-event-${{ github.sha }}
       #     path: build/dist/engine-chronocat-event
+
+      # - name: Upload engine-chronocat-event
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: engine-media-${{ github.sha }}
+      #     path: build/dist/engine-media
 
       # - name: Upload IIFE
       #   uses: actions/upload-artifact@v3
@@ -129,5 +141,18 @@ jobs:
           external_repository: chrononeko/LiteLoaderQQNT-Plugin-Chronocat-Engine-Chronocat-Event
           publish_branch: master
           publish_dir: build/dist/llqqnt-plugin-chronocat-engine-chronocat-event/LiteLoaderQQNT-Plugin-Chronocat-Engine-Chronocat-Event
+          enable_jekyll: true # Not to create .nojekyll since this is not a gh page
+          commit_message: 'chore: publish ${{ github.sha }}'
+
+      - name: Publish LiteLoaderQQNT-Plugin-Chronocat-Engine-Media
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.DEPLOY_TOKEN }}
+          user_name: 'Il Harper'
+          user_email: 'hi@ilharper.com'
+          external_repository: chrononeko/LiteLoaderQQNT-Plugin-Chronocat-Engine-Media
+          publish_branch: master
+          publish_dir: build/dist/llqqnt-plugin-chronocat-engine-media/LiteLoaderQQNT-Plugin-Chronocat-Engine-Media
           enable_jekyll: true # Not to create .nojekyll since this is not a gh page
           commit_message: 'chore: publish ${{ github.sha }}'
