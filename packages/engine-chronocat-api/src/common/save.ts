@@ -15,7 +15,7 @@ export const commonSave = async (
   await parsedFile.commit()
 
   return {
-    filePath: parsedFile.destPath,
+    filePath: parsedFile.dstPath,
     fileSize: parsedFile.fileSize,
     fileName: parsedFile.fileName,
     fileMime: parsedFile.fileMime,

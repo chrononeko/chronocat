@@ -157,7 +157,7 @@ export const commonFile = async (
 
   return {
     srcPath: filePath,
-    destPath: richMediaPath,
+    dstPath: richMediaPath,
     fileSize,
     fileName,
     fileMime,

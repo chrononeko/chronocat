@@ -21,7 +21,7 @@ export interface CommonSaveResult extends CommonFileInfo {
 
 export interface CommonFileResult extends CommonFileInfo {
   srcPath: string
-  destPath: string
+  dstPath: string
   commit: () => Promise<void>
   cancel: () => void
 }
