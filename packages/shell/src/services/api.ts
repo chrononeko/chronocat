@@ -21,6 +21,8 @@ export type Api = {
     method: M,
     impl: (...args: Methods[M][0]) => Promise<Methods[M][1]>,
   ) => void
+
+  has: <M extends keyof Methods>(method: M) => boolean
 }
 
 const buildNotimpl = (name: string) => {
@@ -74,3 +76,5 @@ api.register =
     api[method].engine = engine
     api[method].priority = newPriority
   }
+
+api.has = <M extends keyof Methods>(method: M) => !api[method].notimpl
