@@ -177,7 +177,7 @@ async function saveFile(
   },
   fileName: string,
 ) {
-  const filePath = await generateFilePath(ctx, fileName)
+  const filePath = await commonGenerateUploadPath(ctx, fileName)
   await finished(file.pipe(createWriteStream(filePath)))
   return filePath
 }
@@ -187,12 +187,15 @@ async function saveBuffer(
   buffer: Buffer,
   fileName: string,
 ) {
-  const filePath = await generateFilePath(ctx, fileName)
+  const filePath = await commonGenerateUploadPath(ctx, fileName)
   await writeFile(filePath, buffer)
   return filePath
 }
 
-async function generateFilePath(ctx: ChronocatContext, fileName: string) {
+export async function commonGenerateUploadPath(
+  ctx: ChronocatContext,
+  fileName: string,
+) {
   const dir = join(ctx.chronocat.baseDir, 'tmp/upload')
   await mkdir(dir, {
     recursive: true,
