@@ -284,7 +284,9 @@ export class Messager {
               this.children.push(
                 r.remoteAudio(
                   amrFile,
-                  encodeResult.duration ? Math.ceil(encodeResult.duration) : 1,
+                  encodeResult.duration
+                    ? Math.ceil(encodeResult.duration / 100)
+                    : 1,
                   encodeResult.waveAmplitudes,
                 ),
               )
