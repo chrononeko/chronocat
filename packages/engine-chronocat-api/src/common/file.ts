@@ -1,5 +1,4 @@
 import type { ChronocatContext } from '@chronocat/shell'
-import mime from 'mime/lite'
 import fetch from 'node-fetch'
 import { createReadStream, createWriteStream } from 'node:fs'
 import { copyFile, mkdir, unlink, writeFile } from 'node:fs/promises'
@@ -66,7 +65,7 @@ export const commonFile = async (
       // 从 Content-Type 获得 MIME
       fileMime ||= response.headers.get('Content-Type') || undefined
       if (fileMime && !fileName.includes('.')) {
-        const ext = mime.getExtension(fileMime)
+        const ext = ctx.chronocat.mime.getExtension(fileMime)
         fileName += ext ? '.' + ext : ''
       }
 
@@ -85,7 +84,7 @@ export const commonFile = async (
       if (capture) {
         fileMime ||= capture[1]!
         const base64 = capture[2]!
-        const ext = mime.getExtension(fileMime)
+        const ext = ctx.chronocat.mime.getExtension(fileMime)
         fileName ||= generateToken16() + (ext ? '.' + ext : '')
         filePath = await saveBuffer(
           ctx,
