@@ -229,7 +229,7 @@ const b = () => {
     remoteAudio: (
       saveResult: CommonSaveResult,
       duration: number,
-      waveAmplitudes?: number[],
+      waveAmplitudes?: number[] | undefined,
     ): O.Partial<Element, 'deep'> => ({
       elementId: '',
       elementType: 4,

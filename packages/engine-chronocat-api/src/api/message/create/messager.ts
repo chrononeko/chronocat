@@ -6,9 +6,12 @@ import type {
   Event,
 } from '@chronocat/shell'
 import type h from '@satorijs/element'
+import { basename } from 'node:path'
+import { pathToFileURL } from 'node:url'
 import type { O } from 'ts-toolbelt'
 import type { Common } from '../../../common'
 import { r } from './r'
+import { unlink } from 'node:fs/promises'
 
 class State {
   constructor(public type: 'message') {}
@@ -198,13 +201,135 @@ export class Messager {
           )
           return
         }
-        const result = await this.common.save(this.ctx, urlString, {
+
+        const file = await this.common.file(this.ctx, urlString, {
           fileName: attrs['chronocat:filename'] as string | undefined,
           fileMime: attrs['chronocat:mime'] as string | undefined,
         })
-        this.children.push(r.remoteAudio(result, 1))
-        this.isEndLine = false
-        return
+
+        if (file.fileMime === 'audio/silk') {
+          // SILK 直接发送
+          // 即使用户传的 SILK 并非 NTSilk 也直接发送，不做特殊处理了
+          await file.commit()
+
+          if (
+            this.ctx.chronocat.api.has('chronocat.internal.media.ntsilk.encode')
+          ) {
+            // TODO: 获取媒体信息
+
+            this.children.push(
+              r.remoteAudio(
+                {
+                  ...file,
+                  filePath: file.dstPath,
+                },
+                1,
+              ),
+            )
+            this.isEndLine = false
+
+            return
+          } else {
+            this.ctx.chronocat.l.warn(
+              '未加载 media 引擎，无法获取音频信息。此问题不影响音频发送。',
+              {
+                code: 2161,
+              },
+            )
+
+            this.children.push(
+              r.remoteAudio(
+                {
+                  ...file,
+                  filePath: file.dstPath,
+                },
+                1,
+              ),
+            )
+            this.isEndLine = false
+
+            return
+          }
+        } else {
+          if (
+            this.ctx.chronocat.api.has('chronocat.internal.media.ntsilk.encode')
+          ) {
+            const dstPath = await this.common.generateUploadPath(
+              this.ctx,
+              '.ntsilk',
+            )
+
+            try {
+              const encodeResult = await this.ctx.chronocat.api[
+                'chronocat.internal.media.ntsilk.encode'
+              ]({
+                srcPath: file.srcPath,
+                dstPath,
+              })
+
+              // 删除源文件
+              file.cancel()
+
+              const amrFile = await this.common.save(
+                this.ctx,
+                pathToFileURL(dstPath).toString(),
+                {
+                  fileName: `${basename(dstPath)}.amr`,
+                  fileMime: 'audio/amr',
+                },
+              )
+
+              void unlink(dstPath)
+
+              this.children.push(
+                r.remoteAudio(
+                  amrFile,
+                  encodeResult.duration ? Math.ceil(encodeResult.duration) : 1,
+                  encodeResult.waveAmplitudes,
+                ),
+              )
+              this.isEndLine = false
+
+              return
+            } catch (cause) {
+              this.ctx.chronocat.l.warn(
+                new Error('音频转码失败。将跳过音频发送。', {
+                  cause,
+                }),
+                {
+                  code: 2163,
+                },
+              )
+
+              // 清理未转码文件
+              file.cancel()
+
+              return
+            }
+          } else {
+            this.ctx.chronocat.l.warn(
+              '未加载 media 引擎，无法进行音频转码。将仍然尝试直接发送。',
+              {
+                code: 2161,
+              },
+            )
+
+            await file.commit()
+
+            this.children.push(
+              r.remoteAudio(
+                {
+                  ...file,
+                  filePath: file.dstPath,
+                },
+                1,
+              ),
+            )
+            this.isEndLine = false
+
+            return
+          }
+        }
       }
 
       case 'file': {
