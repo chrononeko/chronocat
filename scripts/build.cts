@@ -23,6 +23,7 @@ void (async () => {
       '.yml': 'text',
       '.html': 'text',
       '.txt': 'text',
+      '.zip': 'binary',
     },
 
     platform: 'node',
