@@ -8,6 +8,7 @@ import { getConfig } from './services/config'
 import type { ChronocatLogCurrentConfig } from './services/config/configEntity'
 import { emitter } from './services/emitter'
 import { l } from './services/logger'
+import { mime } from './services/mime'
 import { getSelfProfile, setSelfProfile } from './services/selfProfile'
 import { uix } from './services/uix'
 import { validate } from './services/validate'
@@ -50,6 +51,7 @@ export const chronocat = () => {
       getSelfProfile,
       h,
       l,
+      mime,
       platform: PLATFORM,
       sleep,
       timeout,

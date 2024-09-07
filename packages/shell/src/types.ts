@@ -47,6 +47,7 @@ import type {
   ChronocatSatoriServerConfig,
 } from './services/config/configEntity'
 import type { l } from './services/logger'
+import type { mime } from './services/mime'
 import type { getSelfProfile } from './services/selfProfile'
 import type { uix } from './services/uix'
 import type { validate } from './services/validate'
@@ -65,6 +66,7 @@ export interface ChronocatContext {
     getSelfProfile: typeof getSelfProfile
     h: typeof h
     l: typeof l
+    mime: typeof mime
     platform: typeof PLATFORM
     sleep: typeof sleep
     timeout: typeof timeout
