@@ -101,6 +101,16 @@ export interface SelfProfileDispatchMessage {
   }>
 }
 
+export interface InternalMediaNtsilkEncodePayload {
+  srcPath: string
+  dstPath: string
+}
+
+export interface InternalMediaNtsilkEncodeResponse {
+  duration: number | undefined
+  waveAmplitudes: number[] | undefined
+}
+
 export interface SatoriMethods {
   'channel.get': [[ChannelGetPayload], Channel]
   'channel.list': [[ChannelListPayload], ChannelListResponse]
@@ -197,6 +207,11 @@ export interface CCInternalMethods {
 
   'chronocat.internal.uix.uin.get': [[string], string | undefined]
   'chronocat.internal.uix.uin.get.group': [[string, string], string | undefined]
+
+  'chronocat.internal.media.ntsilk.encode': [
+    [InternalMediaNtsilkEncodePayload],
+    InternalMediaNtsilkEncodeResponse,
+  ]
 }
 
 export type Methods = SatoriMethods & CCInternalMethods
