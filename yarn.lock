@@ -1811,6 +1811,8 @@ __metadata:
   resolution: "@chronocat/engine-media@workspace:packages/engine-media"
   dependencies:
     "@chronocat/shell": "workspace:packages/shell"
+    "@types/adm-zip": "npm:^0.5.0"
+    adm-zip: "npm:^0.5.10"
     concurrently: "npm:^8.2.1"
     esbuild-register: "npm:^3.5.0"
     ts-toolbelt: "npm:^9.6.0"
@@ -4337,6 +4339,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/adm-zip@npm:^0.5.0":
+  version: 0.5.5
+  resolution: "@types/adm-zip@npm:0.5.5"
+  dependencies:
+    "@types/node": "npm:*"
+  checksum: 10c0/4976dc61e33534ecfb7eee87e8a587db06420a4eb9f34eee9425aece82e9fdd01ddd22677ff6430c582f4d9735c7d714c71adb8f149e3511bc189501b4113631
+  languageName: node
+  linkType: hard
+
 "@types/babel__core@npm:^7.1.14":
   version: 7.20.5
   resolution: "@types/babel__core@npm:7.20.5"
@@ -5260,6 +5271,13 @@ __metadata:
   version: 1.2.2
   resolution: "address@npm:1.2.2"
   checksum: 10c0/1c8056b77fb124456997b78ed682ecc19d2fd7ea8bd5850a2aa8c3e3134c913847c57bcae418622efd32ba858fa1e242a40a251ac31da0515664fc0ac03a047d
+  languageName: node
+  linkType: hard
+
+"adm-zip@npm:^0.5.10":
+  version: 0.5.16
+  resolution: "adm-zip@npm:0.5.16"
+  checksum: 10c0/6f10119d4570c7ba76dcf428abb8d3f69e63f92e51f700a542b43d4c0130373dd2ddfc8f85059f12d4a843703a90c3970cfd17876844b4f3f48bf042bfa6b49f
   languageName: node
   linkType: hard
 
