@@ -14,12 +14,15 @@
     "lib"
   ],
   "scripts": {
-    "build": "node -r esbuild-register ../../scripts/runOnChanged.cts ./src concurrently -n cjs,dts yarn:build:cjs yarn:build:dts",
+    "prepare": "node -r esbuild-register scripts/prepare.cts",
+    "build": "yarn prepare && node -r esbuild-register ../../scripts/runOnChanged.cts ./src concurrently -n cjs,dts yarn:build:cjs yarn:build:dts",
     "build:cjs": "node -r esbuild-register ../../scripts/build.cts",
     "build:dts": "tsc -p tsconfig.json"
   },
   "devDependencies": {
     "@chronocat/shell": "workspace:packages/shell",
+    "@types/adm-zip": "^0.5.0",
+    "adm-zip": "^0.5.10",
     "concurrently": "^8.2.1",
     "esbuild-register": "^3.5.0",
     "ts-toolbelt": "^9.6.0",
