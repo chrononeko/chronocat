@@ -1,4 +1,3 @@
-import { getType } from 'mime/lite'
 import { createReadStream } from 'node:fs'
 import type { RouteContext } from './types'
 
@@ -30,7 +29,7 @@ export const assets = async ({
   }
 
   res.statusCode = 200
-  res.setHeader('Content-Type', getType(path)!)
+  res.setHeader('Content-Type', cctx.chronocat.mime.getType(path)!)
 
   const readStream = createReadStream(path)
   await new Promise((resolve, reject) =>
