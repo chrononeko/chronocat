@@ -72,6 +72,11 @@ export class GuildRequestDispatchMessage implements SatoriDispatchMessage {
         name: this.notify.user1.nickName,
         avatar: `http://thirdqq.qlogo.cn/headimg_dl?dst_uin=${this.uin}&spec=640`,
       },
+
+      message: {
+        id: undefined as unknown as string,
+        content: this.notify.postscript,
+      },
     }
 
     return [event]
