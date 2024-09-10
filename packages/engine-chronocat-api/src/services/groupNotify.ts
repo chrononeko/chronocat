@@ -1,13 +1,7 @@
+import { debounce } from 'lodash-es'
 import { getSingleScreenNotifies } from '../definitions/groupService'
 
-let t = new Date().getTime()
-
-const refresh = async () => {
-  const nt = new Date().getTime()
-
-  if (nt - t < 10000) return
-  t = nt
-
+const refreshIntl2 = async () => {
   void getSingleScreenNotifies({
     doubt: false,
     startSeq: '',
@@ -19,6 +13,12 @@ const refresh = async () => {
     number: 16,
   })
 }
+
+const refreshIntl1 = debounce(refreshIntl2, 2000, {
+  maxWait: 2000,
+})
+
+const refresh = () => setTimeout(refreshIntl1, 2000)
 
 export const groupNotify = {
   refresh,
