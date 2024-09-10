@@ -219,7 +219,7 @@ const dispatcher = async (
 
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       notifies.forEach(async (x) => {
-        if (x.type !== 7 || x.status !== 1) return
+        if ((x.type !== 1 && x.type !== 7) || x.status !== 1) return
 
         const uin = await ctx.chronocat.uix.getUin2(x.user1.uid) // 此时用户刚刚申请入群，不在群里，不能带 group 场景
         if (!uin) {
