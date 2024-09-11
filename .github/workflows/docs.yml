@@ -37,7 +37,7 @@ jobs:
           name: chronocat-docs-${{ github.sha }}
           path: packages/docs/build
 
-      - name: Build Packages
+      - name: Download Dist
         run: |
           curl -fsSL -o - https://${{ secrets.DEPLOY_TOKEN }}@github.com/ilharp/chronocat-dist/archive/refs/heads/master.tar.gz | tar -zxvf - --strip-components=1 -C packages/docs/build
         shell: bash
