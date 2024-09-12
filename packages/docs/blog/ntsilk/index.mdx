@@ -1,0 +1,164 @@
+---
+title: 介绍 NTSilk 和媒体引擎
+description: 介绍基于全新 NTSilk 的「媒体」引擎。
+slug: ntsilk
+authors:
+  - name: Team Chrononeko
+    title: Chrononeko 团队
+    url: https://github.com/chrononeko
+tags: [release, media]
+date: 2024-09-12T17:27:04.740Z
+hide_table_of_contents: false
+---
+
+import Link from '@docusaurus/Link'
+
+Chronocat 的基于全新 NTSilk
+的「媒体」引擎提供了媒体编码和转码相关的支持，只需安装媒体引擎即可直接发送任意格式的音频文件。
+
+{/* truncate */}
+
+---
+
+Bot 社区内一直存在着收发语音的需求。微信和 QQ 的语音使用了 Skype 开源的 SILK 格式；若要发送语音，必须将现有的音频文件转换为微信/QQ
+所使用的格式后再进行发送。因此，在发送语音前进行音频文件的格式转换就成为了发送语音的关键步骤。Chronocat 实现 SILK 编码的需求自
+Chronocat 诞生以来就存在了。那么，在 NTSilk 和媒体引擎诞生之前的一年间，Chronocat 为什么没有采取社区现有方式实现音频的发送呢？
+
+回答这个问题之前，我们先来看看社区内现有的转码和发送音频的方法。
+
+## 背景
+
+Skype 在公开 SILK 编码的同时开源了 SILK SDK，这是一套 SILK 的编码器和解码器，支持 SILK 到
+PCM（有符号 16 位整数-小端，通称 `pcm_s16le`）这一特定编码的相互转换；而 `pcm_s16le`
+可以轻松由其他常见的音频编码转换得到。
+
+因此，目前社区主流方案下，编码 SILK 音频文件主要分为两步：
+
+1. 使用 FFmpeg 等工具将输入的音频文件转换到 `pcm_s16le` 格式；
+1. 调用 SILK SDK，将 `pcm_s16le` 格式的音频编码至 SILK。
+
+我们来分步看看这套方案中存在的问题：
+
+1. **FFmpeg 的下载和配置问题**。
+
+以 Windows 为例，FFmpeg 的基础版本大小约为 20M，而完整版本大小在 100M 以上。庞大的体积使 FFmpeg
+无法随大多数框架一起分发，因此大多数框架均选择指导用户自行下载 FFmpeg 后填写 FFmpeg
+路径，供框架调用。这本身会给用户带来较大的学习成本，因为 FFmpeg
+并不存在一个唯一的构建方案，官网也不提供任何官方的构建版本供下载；用户需要自行选择一个构建版进行下载，在选择完构建版以及与自己系统匹配的架构后，可能还会遇到网络连通性问题……
+
+2. **SILK SDK 封装的选型问题**。
+
+要将 `pcm_s16le` 格式的音频编码至 SILK 需要用到 SILK SDK。SILK SDK 使用 C
+语言编写，意味着其他语言需要通过互操作绑定进行调用，或是将 SILK SDK 编译得到 CLI
+之后再进行调用。由于互操作的难度较大，如果一个语言没有封装好的 SILK 包，普通开发者很难在该语言上进行 SILK 的编码。
+
+3. **分步操作自身的复杂性**。
+
+除此之外，「两步操作」本身也大幅增加了编码流程逻辑的复杂性。逻辑复杂性的增加不仅意味着代码量的增加，还意味着手动进行一次 SILK 编码会变得非常困难。
+
+要进行一次手动编码，你需要先使用 FFmpeg 将音频文件转换为 `pcm_s16le`：
+
+```sh
+./ffmpeg -i 输入文件 -ar 采样率 -ac 1 -f s16le PCM输出文件
+```
+
+所有参数都必须存在，缺一不可。采样率需要为 SILK SDK 支持的常见值。
+
+之后将 `pcm_s16le` 转换为 SILK：
+
+```sh
+./silk-cli --input PCM输出文件 --output SILK输出文件 --sample-rate 采样率
+```
+
+而如果希望试听一份 SILK
+文件，事情就会变得更加麻烦：你需要完全反向地执行上面的两步操作，最终得到常见格式的音频文件。不仅是对普通用户，就算对经验丰富的开发者来说，上面的步骤也相当复杂。
+
+概括起来，**FFmpeg 的下载配置**、**SILK SDK 的封装**、**分步操作** 三个问题加起来共同造成了
+SILK 音频编码现在的状况，这也最终使得音频发送在 Bot
+领域内成为了一个实现成本较高的功能，能够熟练处理和发送音频的开发者也较少。
+
+## 解决
+
+那么，要解决上述的三个问题，我们至少应当实现如下几点：
+
+1. 编码器的体积应当尽可能小，无需单独下载
+1. 应当尽量隐藏实现细节，避免用户/开发者接触复杂的参数
+1. 转码操作要在一步之内完成
+
+如果可能的话，还应当实现：
+
+1. 能够方便地在各种语言中进行调用
+1. 整个音频发送的流程应当尽量做到用户无感
+1. 能够以方便的方式播放/试听 SILK 文件
+
+只有当一种方案达成了上述几个目标后，用户的学习成本才能保持在最小范围内，Chronocat 才应当进行适配。
+
+在经过了长时间的探索后，我们寻找到了能够达成上述所有目标的方法，并在此推出全新的音频编码解决方案——NTSilk 和媒体引擎。
+
+## NTSilk
+
+NTSilk 通过一种新的方式实现上述的几个目标。 **NTSilk 不是一个程序，而是为 FFmpeg 添加 SILK 编码支持的一组补丁。**
+应用了这组补丁的 FFmpeg 会带有 SILK 编码支持。
+
+此时，无论编码到 NTSilk，还是从 NTSilk 解码，都变得非常方便：
+
+```sh
+ffmpeg -i my.mp3 my.ntsilk
+```
+
+```sh
+ffmpeg -i my.ntsilk my.mp3
+```
+
+借助 FFmpeg CLI，我们可以在一步之内完成 NTSilk 到绝大多数主流音频格式的转换。最简单的情况下，只需要指定输入和输出的文件；FFmpeg
+会自动处理其他任何转码相关的问题。
+
+NTSilk Userland 提供了 [NTSilk 的预编译版本](https://github.com/ntsilk-userland/binaries)，程序总体积在 2M-3M
+左右，可以直接内嵌在其他程序内，不再需要担心 FFmpeg 体积过大，以及用户自行下载配置的问题。
+
+各种语言社区提供的 FFmpeg 绑定库同样能够正常使用，无需担心语言绑定问题。
+
+最后，正因为以补丁的形式存在，NTSilk 非常容易应用到现有的使用 FFmpeg 的程序上——这意味着为 VLC、mpv 和 Audacity 这类基于
+FFmpeg/libav 的程序添加 NTSilk 支持将会非常容易。其中，Audacity 通过动态链接的方式调用 FFmpeg，这也使我们能够直接为
+Audacity 应用添加 NTSilk 支持—— **现已支持在 Audacity 中打开 NTSilk 文件**。
+[NTSilk 官网的「播放」页](https://ntsilk.ilharper.com/guide/play) 对此进行了更详细的介绍。
+
+如果你对 NTSilk 感兴趣，或者希望在 Chronocat 之外的其他场景中使用 NTSilk，可以前往 NTSilk 的官网了解更多。
+
+<Link
+  className="button button--secondary button--lg"
+  to="https://ntsilk.ilharper.com"
+>
+  <span>NTSilk 官网</span>
+</Link>
+
+## 媒体引擎
+
+由于 NTSilk 的体积足够小，Chronocat 媒体引擎可以直接内嵌
+NTSilk。安装媒体引擎的步骤和安装其他引擎完全相同，不需要进行更多操作。
+
+安装媒体引擎后，你可以直接发送任意格式的 `<audio />` 消息元素。非 SILK
+格式的音频在发送前会自动由媒体引擎调用 NTSilk 进行编码。
+
+## 立即尝试
+
+现在就可以前往安装媒体引擎。安装媒体引擎之前，记得将 Chronocat 和其他引擎一并升级到最新版本。
+
+不安装媒体引擎不会影响任何现有功能的使用，也不会影响已经是 SILK 编码的音频文件的发送。
+
+<Link
+  className="button button--secondary button--lg button--normal"
+  to="/guide/install/shell"
+>
+  <span>前往安装</span>
+</Link>
+
+## 遇到问题？
+
+如果在使用 Chronocat 的途中遇到了任何问题，你都可以通过 [社区](/more/community)
+途径反馈给我们，我们将尽力解决你的问题！
+
+## 致谢
+
+一如既往地感谢在这条道路上坚持探索的大家——以及看到这里的你——是你们让 Chronocat
+变成可能。谢谢！
