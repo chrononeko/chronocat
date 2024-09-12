@@ -1,5 +1,33 @@
 # CHANGELOG
 
+## v0.2.16 (2024-09-13)
+
+### shell
+
+- 在非 QQ 本体启动时阻止启动 (#76)
+- 补充 Login 资源中字段 (ab26d188132c392551dbd31f41c4c65f06448480)
+- 日志支持更多消息 (550f38047df51ea9acd2bb67cb3fa645cde7ddcc)
+- 修复部分 QQ 号为空问题 (c3b9a4b82bb15cdc4c3f4da5f40579bcbb7f16d8, 91b713a5aad7c68c304c4cbb56d4c0c6f782bd78)
+
+### engine-chronocat-api
+
+- 支持使用媒体引擎发送语音 (d7c6292da1ce828ee4224ef20f5daddec642c5ef)
+- 修复语音长度显示为实际的 100 倍问题 (139e188c4b69c85fa97bbd1a7ceea15038df35a6)
+- `guild-request` 事件支持「已过滤的消息」 (14729260debe192b65d14947e8d2c1766f9d58c7)
+- 修复 `guild-request` 会被其他类型事件触发的问题 (c3d39746431dfd13c7d7cad9c24c6266d2707a57)
+- 修复 `message.create` 始终提示「内部错误」问题 (5467e7bfd977aa9b241c169d5babef88185ac60e)
+- 修复连续收到多条入群请求时首条 `guild-request` 事件以外事件未投递问题 (1228b3f17dfaf9c699ebd788bed8be35b1e14f12)
+
+### engine-chronocat-event
+
+- 实现 `guild-request` 事件 (d4f322dd4dc60508244fa87bbd4d22362ef906ea)
+- 入群申请接收他人邀请自己加群消息 (69d42fb56c35410498a7db9a380f14c5c3d16578)
+- 入群申请接收验证信息 (1edea8a220b56e0b3160e61b264cbfa531693c42)
+
+### engine-media
+
+- 实现媒体引擎 (e3bf7cfb95a627a207abfd81b875231d367d8fa8)
+
 ## v0.2.15 (2024-07-26)
 
 ### shell
