@@ -23,7 +23,9 @@ import type { ChronocatContext } from '@chronocat/shell'
 import type { IpcManData } from 'ipcman'
 import {
   emittedBuddyReqList,
-  emittedGroupReqList,
+  emittedGuildMemberRemovedList,
+  emittedGuildMemberRequestList,
+  emittedGuildRequestList,
   friendMap,
   groupMap,
   requestMethodMap,
@@ -31,6 +33,8 @@ import {
 } from './globalVars'
 import {
   FriendRequestDispatchMessage,
+  GuildMemberRemovedDispatchMessage,
+  GuildMemberRequestDispatchMessage,
   GuildRequestDispatchMessage,
   MessageCreatedDispatchMessage,
   MessageDeletedDispatchMessage,
@@ -219,20 +223,71 @@ const dispatcher = async (
 
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       notifies.forEach(async (x) => {
-        if ((x.type !== 1 && x.type !== 7) || x.status !== 1) return
+        switch (x.type) {
+          case 1: {
+            // guild-request
+            if (x.status !== 1) return
 
-        const uin = await ctx.chronocat.uix.getUin2(x.user1.uid) // 此时用户刚刚申请入群，不在群里，不能带 group 场景
-        if (!uin) {
-          ctx.chronocat.l.error('内部错误', { code: 2152 })
-          return
+            const uin = await ctx.chronocat.uix.getUin2(x.user2.uid)
+            if (!uin) {
+              ctx.chronocat.l.error('内部错误', { code: 2152 })
+              return
+            }
+
+            const key = `${x.group.groupCode}:${uin}:${x.seq}`
+            if (emittedGuildRequestList.includes(key)) return
+            emittedGuildRequestList.push(key)
+
+            ctx.chronocat.emit(new GuildRequestDispatchMessage(x, uin))
+
+            return
+          }
+
+          case 7: {
+            // guild-member-request
+            if (x.status !== 1) return
+
+            const uin = await ctx.chronocat.uix.getUin2(x.user1.uid)
+            if (!uin) {
+              ctx.chronocat.l.error('内部错误', { code: 2152 })
+              return
+            }
+
+            const key = `${x.group.groupCode}:${uin}:${x.seq}`
+            if (emittedGuildMemberRequestList.includes(key)) return
+            emittedGuildMemberRequestList.push(key)
+
+            // x.actionUser 此时一定为空
+
+            ctx.chronocat.emit(new GuildMemberRequestDispatchMessage(x, uin))
+
+            return
+          }
+
+          case 11: {
+            // guild-member-removed
+
+            const uin = await ctx.chronocat.uix.getUin2(x.user1.uid)
+            if (!uin) {
+              ctx.chronocat.l.error('内部错误', { code: 2152 })
+              return
+            }
+
+            const key = `${x.group.groupCode}:${uin}:${x.seq}`
+            if (emittedGuildMemberRemovedList.includes(key)) return
+            emittedGuildMemberRemovedList.push(key)
+
+            // x.actionUser 此时一定为空
+
+            ctx.chronocat.emit(new GuildMemberRemovedDispatchMessage(x, uin))
+
+            return
+          }
+
+          // case 8: {
+          //   return
+          // }
         }
-
-        const key = `${x.group.groupCode}:${uin}:${x.seq}`
-        if (emittedGroupReqList.includes(key)) return
-
-        emittedGroupReqList.push(key)
-
-        ctx.chronocat.emit(new GuildRequestDispatchMessage(x, uin))
       })
 
       return

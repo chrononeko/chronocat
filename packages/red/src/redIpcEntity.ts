@@ -216,39 +216,30 @@ export interface OnGroupSingleScreenNotifies {
   notifies: GroupNotify[]
 }
 
-export interface GroupNotify {
+export type GroupNotify =
+  | GroupNotifyGuildRequest
+  | GroupNotifyGuildMemberRequest
+  | GroupNotifyGuildMemberRemoved
+  | GroupNotifyGuildSetAdmin
+
+export interface GroupNotifyBase {
   seq: string // '1716209619000000'
-
-  type: number // 7 申请入群，11 已退群
-
-  status: number // 0 无需操作，1 未操作，2 已操作
 
   group: {
     groupCode: string
     groupName: string
   }
 
-  user1: {
-    uid: string
-    nickName: string
-  }
-
-  user2: {
-    uid: string
-    nickName: string
-  }
-
-  actionUser: {
-    uid: string
-    nickName: string
-  }
-
-  actionTime: string // '0'
+  actionTime: string // '0'，status 变 2/3 以后有值
 
   invitationExt: {
     srcType: number // 0
     groupCode: string // '0'
-    waitStatus: number // 0
+
+    /**
+     * 2：管理员已同意
+     */
+    waitStatus: 0 | 2
   }
 
   /**
@@ -256,7 +247,155 @@ export interface GroupNotify {
    */
   postscript: string
 
-  repeatSeqs: []
+  repeatSeqs: string[]
 
   warningTips: string // '该账号存在风险，请谨慎操作'
+}
+
+export interface GroupNotifyGuildRequest extends GroupNotifyBase {
+  /**
+   * guild-request 事件
+   */
+  type: 1
+
+  /**
+   * 1：等待操作
+   * 2：已同意
+   * 3：已拒绝
+   */
+  status: 1 | 2 | 3
+
+  /**
+   * 自身，可忽略该字段
+   */
+  user1: {
+    uid: string
+    nickName: string
+  }
+
+  /**
+   * 邀请自身进群的人
+   */
+  user2: {
+    uid: string
+    nickName: string
+  }
+
+  /**
+   * 自身，可忽略该字段
+   */
+  actionUser: {
+    uid: string
+    nickName: string
+  }
+}
+
+export interface GroupNotifyGuildMemberRequest extends GroupNotifyBase {
+  /**
+   * guild-member-request 事件
+   */
+  type: 7
+
+  /**
+   * 1：等待操作
+   * 2：已同意
+   * 3：已拒绝
+   */
+  status: 1 | 2 | 3
+
+  /**
+   * 申请进群的人
+   */
+  user1: {
+    uid: string
+    nickName: string
+  }
+
+  /**
+   * 值始终为空
+   */
+  user2: {
+    uid: ''
+    nickName: ''
+  }
+
+  /**
+   * 处理的管理员
+   */
+  actionUser: {
+    uid: string
+    nickName: string
+  }
+}
+
+export interface GroupNotifyGuildMemberRemoved extends GroupNotifyBase {
+  /**
+   * guild-member-removed 事件
+   */
+  type: 11
+
+  /**
+   * 无需任何操作
+   */
+  status: 0
+
+  /**
+   * 退群的用户
+   */
+  user1: {
+    uid: string
+    nickName: string
+  }
+
+  /**
+   * 值始终为空
+   */
+  user2: {
+    uid: ''
+    nickName: ''
+  }
+
+  /**
+   * 值始终为空
+   */
+  actionUser: {
+    uid: ''
+    nickName: ''
+  }
+}
+
+export interface GroupNotifyGuildSetAdmin extends GroupNotifyBase {
+  /**
+   * 群主将某群员设置为管理员
+   */
+  type: 8
+
+  /**
+   * 无需任何操作
+   */
+  status: 0
+
+  /**
+   * 自身，可忽略该字段
+   */
+  user1: {
+    uid: string
+    nickName: string
+  }
+
+  /**
+   * 将自身设置为管理员的人（群主）
+   */
+  user2: {
+    uid: string
+    nickName: string
+  }
+
+  /**
+   * 值始终为空
+   */
+  actionUser: {
+    uid: ''
+    nickName: ''
+  }
 }
