@@ -26,7 +26,6 @@ import {
   emittedGuildMemberRemovedList,
   emittedGuildMemberRequestList,
   emittedGuildRequestList,
-  friendMap,
   groupMap,
   requestMethodMap,
   sendQueue,
@@ -297,14 +296,9 @@ const dispatcher = async (
     case 'nodeIKernelBuddyListener/onBuddyListChange': {
       const { data } = payload as OnBuddyListChange
 
-      for (const category of data) {
-        for (const buddy of category.buddyList) {
+      for (const category of data)
+        for (const buddy of category.buddyList)
           ctx.chronocat.uix.add(buddy.uid, buddy.uin)
-
-          // buddy.category = category.categoryName
-          friendMap[buddy.uin] = buddy
-        }
-      }
 
       return
     }
