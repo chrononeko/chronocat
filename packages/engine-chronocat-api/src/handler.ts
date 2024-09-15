@@ -220,24 +220,59 @@ const responseDispatcher = async (
 
     case 'onBuddyListChange':
     case 'nodeIKernelBuddyListener/onBuddyListChange': {
-      const { data } = payload as OnBuddyListChange
+      const { data, buddyCategory, userSimpleInfos } =
+        payload as OnBuddyListChange
 
-      for (const category of data) {
-        for (const buddy of category.buddyList) {
-          ctx.chronocat.uix.add(buddy.uid, buddy.uin)
+      if (data) {
+        for (const category of data) {
+          for (const buddy of category.buddyList) {
+            ctx.chronocat.uix.add(buddy.uid, buddy.uin)
 
-          ctx.chronocatEngineChronocatApi.msgBoxActiv.activate({
-            chatType: ChatType.Private,
-            peerUid: buddy.uid,
-            guildId: '',
-          })
+            ctx.chronocatEngineChronocatApi.msgBoxActiv.activate({
+              chatType: ChatType.Private,
+              peerUid: buddy.uid,
+              guildId: '',
+            })
 
-          // buddy.category = category.categoryName
-          friendMap[buddy.uin] = buddy
+            // buddy.category = category.categoryName
+            friendMap[buddy.uin] = {
+              id: buddy.uin,
+              name: buddy.nick,
+              nick: buddy.remark || undefined,
+              avatar: `http://thirdqq.qlogo.cn/headimg_dl?dst_uin=${buddy.uin}&spec=640`,
+              is_bot: false,
+            }
+          }
         }
-      }
 
-      chronoEventEmitter.emitBuddyListChange()
+        chronoEventEmitter.emitBuddyListChange()
+      } else if (buddyCategory && userSimpleInfos) {
+        // 先填充 uix
+        for (const uid in userSimpleInfos)
+          ctx.chronocat.uix.add(uid, userSimpleInfos[uid]!.uin)
+
+        for (const category of buddyCategory) {
+          for (const uid of category.buddyUids) {
+            ctx.chronocatEngineChronocatApi.msgBoxActiv.activate({
+              chatType: ChatType.Private,
+              peerUid: uid,
+              guildId: '',
+            })
+
+            const userSimpleInfo = userSimpleInfos[uid]!
+
+            friendMap[userSimpleInfo.uin] = {
+              id: userSimpleInfo.uin,
+              name: userSimpleInfo.coreInfo.nick,
+              nick: userSimpleInfo.coreInfo.remark || undefined,
+              avatar: `http://thirdqq.qlogo.cn/headimg_dl?dst_uin=${userSimpleInfo.uin}&spec=640`,
+              is_bot: false,
+            }
+          }
+        }
+
+        chronoEventEmitter.emitBuddyListChange()
+      }
 
       return
     }

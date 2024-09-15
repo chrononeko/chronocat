@@ -108,27 +108,231 @@ export interface OnBuddyListChange {
   /**
    * 好友分组列表。
    */
-  data: {
-    /**
-     * 好友分组 ID。
-     */
-    categoryId: number
+  data: BuddyListChangeData[] | undefined
 
-    /**
-     * 好友分组名称。
-     */
-    categoryName: string
+  /**
+   * 好友分组列表。
+   */
+  buddyCategory: BuddyCategory[] | undefined
 
-    /**
-     * 分组内好友个数。
-     */
-    categroyMbCount: number
+  /**
+   * 用户信息，键为 uid。
+   */
+  userSimpleInfos: Record<string, UserSimpleInfo> | undefined
+}
 
-    /**
-     * 分组内好友列表。
-     */
-    buddyList: Profile[]
-  }[]
+export interface BuddyListChangeData {
+  /**
+   * 好友分组 ID。
+   */
+  categoryId: number
+
+  /**
+   * 好友分组名称。
+   */
+  categoryName: string
+
+  /**
+   * 分组内好友个数。
+   */
+  categroyMbCount: number
+
+  /**
+   * 分组内好友列表。
+   */
+  buddyList: Profile[]
+}
+
+export interface BuddyCategory {
+  categoryId: number
+
+  /**
+   * 数值越小，显示越在上方
+   */
+  categorySortId: number
+
+  categroyName: string
+
+  categroyMbCount: number
+
+  onlineCount: number
+
+  buddyUids: string[]
+}
+
+export interface UserSimpleInfo {
+  uid: string
+  uin: string
+  coreInfo: UserCoreInfo
+  baseInfo: UserBaseInfo
+  status: UserStatus | null
+  vasInfo: UserVasInfo | null
+  relationFlags: UserRelationFlags
+  otherFlags: unknown
+  intimate: unknown
+}
+
+export interface UserCoreInfo {
+  uid: string
+  uin: string
+  nick: string
+
+  /**
+   * 无情况下为空字符串
+   */
+  remark: string
+}
+
+export interface UserBaseInfo {
+  /**
+   * 无情况下为空字符串
+   */
+  qid: string
+
+  /**
+   * 无情况下为空字符串
+   */
+  longNick: string
+
+  /**
+   * 不显示情况下为 0
+   */
+  birthday_year: number
+
+  /**
+   * 不显示情况下为 0
+   */
+  birthday_month: number
+
+  /**
+   * 不显示情况下为 0
+   */
+  birthday_day: number
+  age: number
+  sex: number
+  eMail: string
+  phoneNum: string
+  categoryId: number
+  richTime: number
+  richBuffer: unknown
+}
+
+export interface UserStatus {
+  uid: string
+  uin: string
+  status: number
+  extStatus: number
+  batteryStatus: number
+  termType: number
+  netType: number
+  iconType: number
+  customStatus: {
+    faceId: string
+    faceType: string
+    wording: string
+  }
+  setTime: string
+  specialFlag: number
+  abiFlag: number
+  eNetworkType: number
+  showName: string
+  termDesc: string
+  musicInfo: {
+    buf: unknown
+  }
+  extOnlineBusinessInfo: {
+    buf: unknown
+    customStatus: unknown
+    videoBizInfo: {
+      cid: string
+      tvUrl: string
+      synchType: string
+    }
+    videoInfo: {
+      name: string
+    }
+  }
+  extBuffer: {
+    buf: unknown
+  }
+}
+
+export interface UserVasInfo {
+  /**
+   * 是否为 VIP
+   */
+  vipFlag: boolean
+
+  /**
+   * 是否为年费 VIP
+   */
+  yearVipFlag: boolean
+
+  /**
+   * 是否为 SVIP
+   */
+  svipFlag: boolean
+
+  /**
+   * VIP 等级
+   */
+  vipLevel: number
+
+  /**
+   * 是否为大会员
+   */
+  bigClub: boolean
+
+  /**
+   * 大会员等级
+   */
+  bigClubLevel: number
+
+  nameplateVipType: number
+  grayNameplateFlag: number
+  superVipTemplateId: number
+  diyFontId: number
+  pendantId: number
+  pendantDiyId: number
+  faceId: number
+  vipFont: number
+  vipFontType: number
+  magicFont: number
+  fontEffect: number
+  newLoverDiamondFlag: number
+  extendNameplateId: number
+  diyNameplateIDs: unknown[]
+  vipStartFlag: number
+  vipDataFlag: number
+  gameNameplateId: string
+  gameLastLoginTime: string
+  gameRank: number
+  gameIconShowFlag: boolean
+  gameCardId: string
+
+  /**
+   * VIP 昵称颜色类型
+   */
+  vipNameColorId: string
+
+  privilegeIcon: null
+}
+
+export interface UserRelationFlags {
+  topTime: string
+  isBlock: boolean
+  isMsgDisturb: boolean
+  isSpecialCareOpen: boolean
+  isSpecialCareZone: boolean
+  ringId: string
+  isBlocked: boolean
+  recommendImgFlag: number
+  disableEmojiShortCuts: number
+  qidianMasterFlag: number
+  qidianCrewFlag: number
+  qidianCrewFlag2: number
+  isHideQQLevel: number
+  isHidePrivilegeIcon: number
 }
 
 export interface OnAddSendMsg {

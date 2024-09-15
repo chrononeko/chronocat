@@ -294,11 +294,17 @@ const dispatcher = async (
 
     case 'onBuddyListChange':
     case 'nodeIKernelBuddyListener/onBuddyListChange': {
-      const { data } = payload as OnBuddyListChange
+      const { data, buddyCategory, userSimpleInfos } =
+        payload as OnBuddyListChange
 
-      for (const category of data)
-        for (const buddy of category.buddyList)
-          ctx.chronocat.uix.add(buddy.uid, buddy.uin)
+      if (data) {
+        for (const category of data)
+          for (const buddy of category.buddyList)
+            ctx.chronocat.uix.add(buddy.uid, buddy.uin)
+      } else if (buddyCategory && userSimpleInfos) {
+        for (const uid in userSimpleInfos)
+          ctx.chronocat.uix.add(uid, userSimpleInfos[uid]!.uin)
+      }
 
       return
     }

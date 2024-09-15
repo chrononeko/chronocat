@@ -22,12 +22,6 @@ export const buildFriendList =
     await ctx.chronocat.sleep(1000)
 
     return {
-      data: Object.values(friendMap).map((x) => ({
-        id: x.uin,
-        name: x.nick,
-        nick: x.remark || undefined,
-        avatar: `http://thirdqq.qlogo.cn/headimg_dl?dst_uin=${x.uin}&spec=640`,
-        is_bot: false,
-      })),
+      data: Object.values(friendMap),
     }
   }
