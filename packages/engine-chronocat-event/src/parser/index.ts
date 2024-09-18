@@ -258,10 +258,12 @@ async function parseGuildMemberAddedMessage(
   )
   event2.type = 'guild-member-added'
 
-  event2.operator = {
-    id: message.elements[0]!.grayTipElement!.groupElement!.adminUin!,
-    name: undefined as unknown as string,
-  }
+  // TODO: 自行入群大概率没有这个 adminUin 的，之后测下
+  if (message.elements[0]!.grayTipElement!.groupElement!.adminUin)
+    event2.operator = {
+      id: message.elements[0]!.grayTipElement!.groupElement!.adminUin!,
+      name: undefined as unknown as string,
+    }
 
   event2.user = {
     id: message.elements[0]!.grayTipElement!.groupElement!.memberUin!,
