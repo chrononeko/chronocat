@@ -1,5 +1,5 @@
 import type { Peer, Element as RedElement, RedMessage } from '@chronocat/red'
-import { AtType, ChatType, FaceType } from '@chronocat/red'
+import { ChatType, FaceType } from '@chronocat/red'
 import type {
   ChronocatContext,
   ChronocatSatoriServerConfig,
@@ -86,35 +86,10 @@ export class Messager {
   }
 
   private normalize = () => {
-    this.children = this.children.reduce<O.Partial<RedElement, 'deep'>[]>(
-      (acc, cur, idx) => {
-        const last = acc[acc.length - 1]
-        const isLastElement = idx === this.children.length - 1
-        if (
-          cur.textElement &&
-          cur.textElement?.content &&
-          cur.textElement?.atType === AtType.None &&
-          last?.textElement &&
-          last?.textElement?.content &&
-          last?.textElement?.atType === AtType.None
-        ) {
-          last.textElement.content += cur.textElement.content
-
-          if (isLastElement) {
-            last.textElement.content = last.textElement.content.trimEnd()
-          }
-        } else {
-          acc.push(cur)
-
-          if (isLastElement && cur.textElement?.content) {
-            cur.textElement.content = cur.textElement.content.trimEnd()
-          }
-        }
-        return acc
-      },
-      [],
-    )
-
+    const last = this.children[this.children.length - 1]
+    if (last?.textElement?.content) {
+      last.textElement.content = last.textElement.content.trimEnd()
+    }
     return this.children
   }
 
