@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { RedMessage } from '@chronocat/red'
 import h from '@satorijs/element'
 import { Messager } from '../../../../src/api/message/create/messager'

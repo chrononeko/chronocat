@@ -61,6 +61,11 @@ export class Messager {
   }
 
   flush = async () => {
+    if (this.text) {
+      this.children.push(r.text(this.text))
+      this.text = ''
+    }
+
     if (!this.children.length) return
 
     this.normalize()
@@ -82,8 +87,9 @@ export class Messager {
 
   private normalize = () => {
     this.children = this.children.reduce<O.Partial<RedElement, 'deep'>[]>(
-      (acc, cur) => {
+      (acc, cur, idx) => {
         const last = acc[acc.length - 1]
+        const isLastElement = idx === this.children.length - 1
         if (
           cur.textElement &&
           cur.textElement?.content &&
@@ -93,48 +99,63 @@ export class Messager {
           last?.textElement?.atType === AtType.None
         ) {
           last.textElement.content += cur.textElement.content
+
+          if (isLastElement) {
+            last.textElement.content = last.textElement.content.trimEnd()
+          }
         } else {
           acc.push(cur)
+
+          if (isLastElement && cur.textElement?.content) {
+            cur.textElement.content = cur.textElement.content.trimEnd()
+          }
         }
         return acc
       },
       [],
     )
 
-    if (this.children[this.children.length - 1]?.textElement?.content === '\n')
-      this.children.pop()
     return this.children
   }
 
-  private isEndLine = false
+  private text = ''
+  private isHardBreak = false
 
   visit = async (element: h) => {
     const { type, attrs, children } = element
 
+    if (!['text', 'br', 'p'].includes(type)) {
+      this.isHardBreak = false
+      if (this.text) {
+        this.children.push(r.text(this.text))
+        this.text = ''
+      }
+    }
+
     switch (type) {
       case 'text': {
         // 文本消息
-        this.children.push(r.text(attrs['content'] as string))
-        this.isEndLine = false
+        this.text += attrs['content'] as string
         return
       }
 
       case 'br': {
         // 换行
-        if (this.isEndLine) {
-          this.children.push(r.text('\n'))
-        }
-        this.isEndLine = false
+        this.text += '\n'
+        this.isHardBreak = true
         return
       }
 
       case 'p': {
         // 文本段落
-        if (this.isEndLine) {
-          this.children.push(r.text('\n'))
+        if (this.isHardBreak) {
+          this.isHardBreak = false
+          this.text += '\n'
+        } else if (!this.text.endsWith('\n')) {
+          this.text += '\n'
         }
         await this.render(children)
-        this.isEndLine = true
+        this.text += '\n'
         return
       }
 
@@ -143,9 +164,8 @@ export class Messager {
         const url = attrs['href'] as string
         await this.render(children)
         if (url) {
-          this.children.push(r.text(` ( ${url} )`))
+          this.text += ` ( ${url} )`
         }
-        this.isEndLine = false
         return
       }
 
@@ -185,7 +205,6 @@ export class Messager {
         }
 
         this.children.push(r.remoteImage(result, picType))
-        this.isEndLine = false
         return
       }
 
@@ -226,7 +245,6 @@ export class Messager {
                 1,
               ),
             )
-            this.isEndLine = false
 
             return
           } else {
@@ -246,7 +264,6 @@ export class Messager {
                 1,
               ),
             )
-            this.isEndLine = false
 
             return
           }
@@ -290,7 +307,6 @@ export class Messager {
                   encodeResult.waveAmplitudes,
                 ),
               )
-              this.isEndLine = false
 
               return
             } catch (cause) {
@@ -327,7 +343,6 @@ export class Messager {
                 1,
               ),
             )
-            this.isEndLine = false
 
             return
           }
@@ -351,7 +366,6 @@ export class Messager {
           fileMime: attrs['chronocat:mime'] as string | undefined,
         })
         this.children.push(r.remoteFile(result))
-        this.isEndLine = false
         return
       }
 
@@ -364,8 +378,6 @@ export class Messager {
             r.at(this.ctx, attrs['name'] as string, attrs['id'] as string),
           )
         }
-
-        this.isEndLine = false
         return
       }
 
@@ -399,8 +411,6 @@ export class Messager {
             ),
           )
         }
-
-        this.isEndLine = false
         return
       }
 
@@ -412,8 +422,6 @@ export class Messager {
             attrs['key'] as string,
           ),
         )
-
-        this.isEndLine = false
         return
       }
 
@@ -439,7 +447,6 @@ export class Messager {
             (author?.attrs['id'] as string | undefined) || undefined,
           ),
         )
-        this.isEndLine = false
         return
       }
 
@@ -488,7 +495,6 @@ export class Messager {
       default: {
         // 兜底
         await this.render(children)
-        this.isEndLine = false
         return
       }
     }

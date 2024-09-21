@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { ChronocatContext } from '@chronocat/shell'
 import h from '@satorijs/element'
 
