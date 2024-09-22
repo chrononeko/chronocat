@@ -17,6 +17,7 @@ const placeholders = {
   br: '\u0099BR\u009c',
   pStart: '\u0099PSTART\u009c',
   pEnd: '\u0099PEND\u009c',
+  pGeneral: '\u0099P\u009c',
 }
 
 class State {
@@ -101,20 +102,19 @@ export class Messager {
           .replace(new RegExp('^' + placeholders.pStart + placeholders.pEnd + '*', 'g'), '')
           .replace(new RegExp(placeholders.pStart + placeholders.pEnd + '*' + '$', 'g'), '')
           // 合并连续段落起始标记和结束标记
-          .replace(new RegExp(placeholders.pEnd + '{2,}', 'g'), placeholders.pEnd)
           .replace(new RegExp(placeholders.pStart + '{2,}', 'g'), placeholders.pStart)
+          .replace(new RegExp(placeholders.pEnd + '{2,}', 'g'), placeholders.pEnd)
           // 空段落转换为换行
-          .replace(new RegExp(placeholders.pStart + placeholders.pEnd + '*', 'g'), '\n')
+          .replace(new RegExp(placeholders.pStart + placeholders.pEnd + '*', 'g'), placeholders.pGeneral)
           // 合并连续段落
-          .replace(new RegExp(placeholders.pEnd + placeholders.pStart + '*', 'g'), '\n')
+          .replace(new RegExp(placeholders.pEnd + placeholders.pStart + '*', 'g'), placeholders.pGeneral)
           // 硬换行符
           .replaceAll(placeholders.br, '\n')
           // 若是最后一个消息元素，段落起始和段落末尾段落标记替换为空
-          .replace(new RegExp(placeholders.pEnd + '*' + '$', 'g'), isLast ? '' : '\n')
-          .replace(new RegExp('^' + placeholders.pStart + '*', 'g'), isFirst ? '' : '\n')
+          .replace(new RegExp(placeholders.pEnd + '*' + '$', 'g'), isLast ? '' : placeholders.pGeneral)
+          .replace(new RegExp('^' + placeholders.pStart + '*', 'g'), isFirst ? '' : placeholders.pGeneral)
           // 替换剩余的段落标记为换行
-          .replace(new RegExp(placeholders.pEnd + '*', 'g'), '\n')
-          .replace(new RegExp(placeholders.pStart + '*', 'g'), '\n')
+          .replace(new RegExp(`(${placeholders.pGeneral}|${placeholders.pStart}|${placeholders.pEnd})+`, 'g'), '\n')
       }
     })
     const last = this.children[this.children.length - 1]
