@@ -218,7 +218,7 @@ const dispatcher = async (
     }
 
     case 'nodeIKernelGroupListener/onGroupSingleScreenNotifies': {
-      const { notifies } = payload as OnGroupSingleScreenNotifies
+      const { doubt, notifies } = payload as OnGroupSingleScreenNotifies
 
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       notifies.forEach(async (x) => {
@@ -258,7 +258,9 @@ const dispatcher = async (
 
             // x.actionUser 此时一定为空
 
-            ctx.chronocat.emit(new GuildMemberRequestDispatchMessage(x, uin))
+            ctx.chronocat.emit(
+              new GuildMemberRequestDispatchMessage(x, uin, doubt),
+            )
 
             return
           }

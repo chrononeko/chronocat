@@ -8,6 +8,7 @@ import { friendRemove } from './friend/remove'
 import { guildApprove } from './guild/approve'
 import { guildGet } from './guild/get'
 import { guildList } from './guild/list'
+import { guildMemberApprove } from './guild/member/approve'
 import { guildMemberGet } from './guild/member/get'
 import { guildMemberKick } from './guild/member/kick'
 import { guildMemberList } from './guild/member/list'
@@ -41,7 +42,7 @@ const routesIntl = {
   'guild.member.get': guildMemberGet,
   'guild.member.list': guildMemberList,
   'guild.member.kick': guildMemberKick,
-  'guild.member.approve': notImplemented,
+  'guild.member.approve': guildMemberApprove,
   'guild.member.mute': guildMemberMute,
   'guild.member.role.set': notImplemented,
   'guild.member.role.unset': notImplemented,

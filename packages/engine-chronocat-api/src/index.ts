@@ -11,6 +11,7 @@ import { buildFriendRemove } from './api/friend/remove'
 import { buildGuildApprove } from './api/guild/approve'
 import { buildGuildGet } from './api/guild/get'
 import { buildGuildList } from './api/guild/list'
+import { buildGuildMemberApprove } from './api/guild/member/approve'
 import { buildGuildMemberGet } from './api/guild/member/get'
 import { buildGuildMemberKick } from './api/guild/member/kick'
 import { buildGuildMemberList } from './api/guild/member/list'
@@ -61,6 +62,7 @@ export const apply = async (ctx: ChronocatContext) => {
   register('guild.member.list', buildGuildMemberList(ctx))
   register('guild.member.kick', buildGuildMemberKick(ctx))
   register('guild.member.mute', buildGuildMemberMute(ctx))
+  register('guild.member.approve', buildGuildMemberApprove(ctx))
   register('chronocat.internal.message.create2.normal', buildMessageCreate(ctx))
   register(
     'chronocat.internal.message.create2.forward',

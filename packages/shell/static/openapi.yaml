@@ -287,6 +287,25 @@ paths:
         '500':
           $ref: '#/components/responses/500'
 
+  /guild.member.approve:
+    post:
+      operationId: guildMemberApprove
+      tags:
+        - GuildMember
+      summary: 通过群组成员申请
+      description: 处理加群请求。
+      requestBody:
+        description: 处理加群请求
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApprovePayload'
+      responses:
+        '200':
+          description: 成功处理加群请求
+        '500':
+          $ref: '#/components/responses/500'
+
   /login.get:
     post:
       operationId: loginGet

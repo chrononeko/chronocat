@@ -97,6 +97,7 @@ export class GuildMemberRequestDispatchMessage
   constructor(
     private notify: GroupNotifyGuildMemberRequest,
     private uin: string,
+    private doubt: boolean,
   ) {}
 
   type = 'satori' as const
@@ -131,7 +132,7 @@ export class GuildMemberRequestDispatchMessage
       member: {},
 
       message: {
-        id: '',
+        id: `${this.notify.seq}:${this.notify.group.groupCode}:${this.doubt ? '1' : '2'}`,
         content: this.notify.postscript,
       },
     }

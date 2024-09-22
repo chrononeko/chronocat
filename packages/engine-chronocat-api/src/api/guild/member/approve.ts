@@ -1,7 +1,7 @@
 import type { ApprovePayload, ChronocatContext } from '@chronocat/shell'
-import { operateSysNotify } from '../../definitions/groupService'
+import { operateSysNotify } from '../../../definitions/groupService'
 
-export const buildGuildApprove =
+export const buildGuildMemberApprove =
   (ctx: ChronocatContext) =>
   async ({ message_id, approve, comment }: ApprovePayload) => {
     if (comment)
@@ -12,21 +12,20 @@ export const buildGuildApprove =
         },
       )
 
-    // TODO: 看下是否是真的不支持
-    if (!approve) {
-      ctx.chronocat.l.error('暂不支持拒绝群邀请。', { code: 2145 })
-      throw new Error('暂不支持拒绝群邀请。')
-    }
+    const [seq, groupCode, doubt] = message_id.split(':')
+
+    if (!seq || !groupCode || !doubt)
+      ctx.chronocat.l.warn('message_id 不合法。将仍然尝试处理加群请求。')
 
     // 这个是同意发过来的小卡片
     await operateSysNotify({
-      doubt: false,
+      doubt: doubt! === '1',
       operateMsg: {
-        operateType: 1,
+        operateType: approve ? 1 : 2,
         targetMsg: {
-          seq: '',
-          type: 1,
-          groupCode: message_id,
+          seq: seq!,
+          type: 7,
+          groupCode: groupCode!,
           postscript: '',
         },
       },

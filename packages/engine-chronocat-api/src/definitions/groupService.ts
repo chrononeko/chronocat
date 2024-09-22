@@ -154,12 +154,12 @@ export const operateSysNotify = define<
   unknown,
   [
     {
-      doubt: false
+      doubt: boolean
       operateMsg: {
-        operateType: 1
+        operateType: 1 | 2
         targetMsg: {
-          seq: ''
-          type: 1
+          seq: string
+          type: 1 | 7
           groupCode: string
           postscript: ''
         }

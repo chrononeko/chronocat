@@ -129,6 +129,7 @@ export interface SatoriMethods {
   'guild.member.list': [[GuildMemberListPayload], GuildMemberListResponse]
   'guild.member.kick': [[GuildMemberKickPayload], Record<string, never>]
   'guild.member.mute': [[GuildMemberMutePayload], Record<string, never>]
+  'guild.member.approve': [[ApprovePayload], Record<string, never>]
 
   'chronocat.guild.member.title.set': [
     [GuildMemberTitleSetPayload],
