@@ -79,11 +79,10 @@ export class GuildRequestDispatchMessage implements SatoriDispatchMessage {
         avatar: `http://thirdqq.qlogo.cn/headimg_dl?dst_uin=${this.uin}&spec=640`,
       },
 
-      member: {
-      },
+      member: {},
 
       message: {
-        id: undefined as unknown as string,
+        id: '',
         content: this.notify.postscript,
       },
     }
@@ -129,11 +128,10 @@ export class GuildMemberRequestDispatchMessage
         avatar: `http://thirdqq.qlogo.cn/headimg_dl?dst_uin=${this.uin}&spec=640`,
       },
 
-      member: {
-      },
+      member: {},
 
       message: {
-        id: undefined as unknown as string,
+        id: '',
         content: this.notify.postscript,
       },
     }
@@ -179,11 +177,10 @@ export class GuildMemberRemovedDispatchMessage
         avatar: `http://thirdqq.qlogo.cn/headimg_dl?dst_uin=${this.uin}&spec=640`,
       },
 
-      member: {
-      },
+      member: {},
 
       message: {
-        id: undefined as unknown as string,
+        id: '',
         content: this.notify.postscript,
       },
     }
