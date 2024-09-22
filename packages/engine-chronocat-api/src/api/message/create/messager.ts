@@ -13,6 +13,12 @@ import type { Common } from '../../../common'
 import { r } from './r'
 import { unlink } from 'node:fs/promises'
 
+const placeholders = {
+  br: '\u0099BR\u009c',
+  pStart: '\u0099PSTART\u009c',
+  pEnd: '\u0099PEND\u009c',
+}
+
 class State {
   constructor(public type: 'message') {}
 }
@@ -86,6 +92,31 @@ export class Messager {
   }
 
   private normalize = () => {
+    this.children.forEach((x, idx) => {
+      const isFirst = idx === 0
+      const isLast = idx === this.children.length - 1
+      if (x.textElement?.content) {
+        x.textElement.content = x.textElement.content
+          // 去除首尾空白行
+          .replace(new RegExp('^' + placeholders.pStart + placeholders.pEnd + '*', 'g'), '')
+          .replace(new RegExp(placeholders.pStart + placeholders.pEnd + '*' + '$', 'g'), '')
+          // 合并连续段落起始标记和结束标记
+          .replace(new RegExp(placeholders.pEnd + '{2,}', 'g'), placeholders.pEnd)
+          .replace(new RegExp(placeholders.pStart + '{2,}', 'g'), placeholders.pStart)
+          // 空段落转换为换行
+          .replace(new RegExp(placeholders.pStart + placeholders.pEnd + '*', 'g'), '\n')
+          // 合并连续段落
+          .replaceAll(placeholders.pEnd + placeholders.pStart, '\n')
+          // 硬换行符
+          .replaceAll(placeholders.br, '\n')
+          // 若是最后一个消息元素，段落起始和段落末尾段落标记替换为空
+          .replace(new RegExp(placeholders.pEnd + '*' + '$', 'g'), isLast ? '' : '\n')
+          .replace(new RegExp('^' + placeholders.pStart + '*', 'g'), isFirst ? '' : '\n')
+          // 替换剩余的段落标记为换行
+          .replace(new RegExp(placeholders.pEnd + '*', 'g'), '\n')
+          .replace(new RegExp(placeholders.pStart + '*', 'g'), '\n')
+      }
+    })
     const last = this.children[this.children.length - 1]
     if (last?.textElement?.content) {
       last.textElement.content = last.textElement.content.trimEnd()
@@ -94,13 +125,11 @@ export class Messager {
   }
 
   private text = ''
-  private isHardBreak = false
 
   visit = async (element: h) => {
     const { type, attrs, children } = element
 
     if (!['text', 'br', 'p'].includes(type)) {
-      this.isHardBreak = false
       if (this.text) {
         this.children.push(r.text(this.text))
         this.text = ''
@@ -116,21 +145,15 @@ export class Messager {
 
       case 'br': {
         // 换行
-        this.text += '\n'
-        this.isHardBreak = true
+        this.text += placeholders.br
         return
       }
 
       case 'p': {
         // 文本段落
-        if (this.isHardBreak) {
-          this.isHardBreak = false
-          this.text += '\n'
-        } else if (!this.text.endsWith('\n')) {
-          this.text += '\n'
-        }
+        this.text += placeholders.pStart
         await this.render(children)
-        this.text += '\n'
+        this.text += placeholders.pEnd
         return
       }
 
