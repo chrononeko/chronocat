@@ -106,7 +106,7 @@ export class Messager {
           // 空段落转换为换行
           .replace(new RegExp(placeholders.pStart + placeholders.pEnd + '*', 'g'), '\n')
           // 合并连续段落
-          .replaceAll(placeholders.pEnd + placeholders.pStart, '\n')
+          .replace(new RegExp(placeholders.pEnd + placeholders.pStart + '*', 'g'), '\n')
           // 硬换行符
           .replaceAll(placeholders.br, '\n')
           // 若是最后一个消息元素，段落起始和段落末尾段落标记替换为空
