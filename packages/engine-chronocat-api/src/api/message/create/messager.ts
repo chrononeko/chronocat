@@ -110,9 +110,6 @@ export class Messager {
           .replace(new RegExp(`${placeholders.br}${placeholders.pEnd}`, 'g'), placeholders.pEnd)
           // 再把 br 替换为换行
           .replace(new RegExp(placeholders.br, 'g'), '\n')
-          // 若是最后一个消息元素，段落起始和段落末尾段落标记替换为空
-          .replace(new RegExp(placeholders.pEnd + '*' + '$', 'g'), placeholders.pGeneral)
-          .replace(new RegExp('^' + placeholders.pStart + '*', 'g'), placeholders.pGeneral)
 
         if (isFirst) {
           x.textElement.content = x.textElement.content
