@@ -98,9 +98,6 @@ export class Messager {
       const isLast = idx === this.children.length - 1
       if (x.textElement?.content) {
         x.textElement.content = x.textElement.content
-          // 去除首尾空白行
-          .replace(new RegExp('^' + placeholders.pStart + placeholders.pEnd + '*', 'g'), '')
-          .replace(new RegExp(placeholders.pStart + placeholders.pEnd + '*' + '$', 'g'), '')
           // 合并连续段落起始标记和结束标记
           .replace(new RegExp(placeholders.pStart + '{2,}', 'g'), placeholders.pStart)
           .replace(new RegExp(placeholders.pEnd + '{2,}', 'g'), placeholders.pEnd)
@@ -108,12 +105,27 @@ export class Messager {
           .replace(new RegExp(placeholders.pStart + placeholders.pEnd + '*', 'g'), placeholders.pGeneral)
           // 合并连续段落
           .replace(new RegExp(placeholders.pEnd + placeholders.pStart + '*', 'g'), placeholders.pGeneral)
-          // 硬换行符
-          .replaceAll(placeholders.br, '\n')
+          // 硬换行符，但段落末尾的 br 不渲染
+          // 先把 br + pEnd 替换为单独的 pEnd
+          .replace(new RegExp(`${placeholders.br}${placeholders.pEnd}`, 'g'), placeholders.pEnd)
+          // 再把 br 替换为换行
+          .replace(new RegExp(placeholders.br, 'g'), '\n')
           // 若是最后一个消息元素，段落起始和段落末尾段落标记替换为空
-          .replace(new RegExp(placeholders.pEnd + '*' + '$', 'g'), isLast ? '' : placeholders.pGeneral)
-          .replace(new RegExp('^' + placeholders.pStart + '*', 'g'), isFirst ? '' : placeholders.pGeneral)
-          // 替换剩余的段落标记为换行
+          .replace(new RegExp(placeholders.pEnd + '*' + '$', 'g'), placeholders.pGeneral)
+          .replace(new RegExp('^' + placeholders.pStart + '*', 'g'), placeholders.pGeneral)
+
+        if (isFirst) {
+          x.textElement.content = x.textElement.content
+            // 如果是第一条消息元素，删除最前面的段落标记
+            .replace(new RegExp(`^(${placeholders.pGeneral}|${placeholders.pStart}|${placeholders.pEnd})+`, 'g'), '')
+        } else if (isLast) {
+          x.textElement.content = x.textElement.content
+            // 如果是最后一条消息元素，删除最后面的段落标记
+            .replace(new RegExp(`(${placeholders.pGeneral}|${placeholders.pStart}|${placeholders.pEnd})+$`, 'g'), '')
+        }
+
+        // 最后的兜底，替换剩余的段落标记为换行
+        x.textElement.content = x.textElement.content
           .replace(new RegExp(`(${placeholders.pGeneral}|${placeholders.pStart}|${placeholders.pEnd})+`, 'g'), '\n')
       }
     })
