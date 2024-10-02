@@ -48,6 +48,7 @@ const sidebars: SidebarsConfig = {
         'guide/connect/nonebot',
         'guide/connect/avilla',
         'guide/connect/kiramibot',
+        'guild/connect/yutori',
       ],
     },
     {
