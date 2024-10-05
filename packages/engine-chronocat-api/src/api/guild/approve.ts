@@ -6,27 +6,25 @@ export const buildGuildApprove =
   async ({ message_id, approve, comment }: ApprovePayload) => {
     if (comment)
       ctx.chronocat.l.warn(
-        '不支持处理群申请时附加备注消息。备注消息将会被忽略。',
+        '不支持处理群邀请时附加备注消息。备注消息将会被忽略。',
         {
           code: 2144,
         },
       )
 
-    // TODO: 看下是否是真的不支持
-    if (!approve) {
-      ctx.chronocat.l.error('暂不支持拒绝群邀请。', { code: 2145 })
-      throw new Error('暂不支持拒绝群邀请。')
-    }
+    const [seq, groupCode] = message_id.split(':')
 
-    // 这个是同意发过来的小卡片
+    if (!seq || !groupCode)
+      ctx.chronocat.l.warn('message_id 不合法。将仍然尝试处理加群请求。')
+
     await operateSysNotify({
       doubt: false,
       operateMsg: {
-        operateType: 1,
+        operateType: approve ? 1 : 2,
         targetMsg: {
-          seq: '',
+          seq: seq!,
           type: 1,
-          groupCode: message_id,
+          groupCode: groupCode!,
           postscript: '',
         },
       },

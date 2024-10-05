@@ -82,7 +82,7 @@ export class GuildRequestDispatchMessage implements SatoriDispatchMessage {
       member: {},
 
       message: {
-        id: '',
+        id: `${this.notify.seq}:${this.notify.group.groupCode}`,
         content: this.notify.postscript,
       },
     }
