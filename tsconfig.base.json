@@ -5,6 +5,8 @@
     "module": "CommonJS",
     "emitDeclarationOnly": true,
     "declaration": true,
+    "sourceMap": true,
+    "declarationMap": true,
     "composite": true,
     "incremental": true,
     "skipLibCheck": true,
