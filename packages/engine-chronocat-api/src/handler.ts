@@ -345,7 +345,10 @@ const responseDispatcher = async (
         switch (listType) {
           case ContactListType.Normal: {
             for (const contact of changedList)
-              if (contact.chatType === ChatType.MsgBox)
+              if (
+                contact.chatType === ChatType.Private ||
+                contact.chatType === ChatType.Group
+              )
                 ctx.chronocatEngineChronocatApi.msgBoxActiv.activate({
                   chatType: contact.chatType,
                   peerUid: contact.peerUid,
