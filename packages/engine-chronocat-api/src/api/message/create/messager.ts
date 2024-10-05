@@ -1,5 +1,5 @@
 import type { Peer, Element as RedElement, RedMessage } from '@chronocat/red'
-import { AtType, ChatType, FaceType } from '@chronocat/red'
+import { ChatType, FaceType } from '@chronocat/red'
 import type {
   ChronocatContext,
   ChronocatSatoriServerConfig,
@@ -12,6 +12,13 @@ import type { O } from 'ts-toolbelt'
 import type { Common } from '../../../common'
 import { r } from './r'
 import { unlink } from 'node:fs/promises'
+
+const placeholders = {
+  br: '\u0099BR\u009c',
+  pStart: '\u0099PSTART\u009c',
+  pEnd: '\u0099PEND\u009c',
+  pGeneral: '\u0099P\u009c',
+}
 
 class State {
   constructor(public type: 'message') {}
@@ -61,6 +68,11 @@ export class Messager {
   }
 
   flush = async () => {
+    if (this.text) {
+      this.children.push(r.text(this.text))
+      this.text = ''
+    }
+
     if (!this.children.length) return
 
     this.normalize()
@@ -81,60 +93,76 @@ export class Messager {
   }
 
   private normalize = () => {
-    this.children = this.children.reduce<O.Partial<RedElement, 'deep'>[]>(
-      (acc, cur) => {
-        const last = acc[acc.length - 1]
-        if (
-          cur.textElement &&
-          cur.textElement?.content &&
-          cur.textElement?.atType === AtType.None &&
-          last?.textElement &&
-          last?.textElement?.content &&
-          last?.textElement?.atType === AtType.None
-        ) {
-          last.textElement.content += cur.textElement.content
-        } else {
-          acc.push(cur)
-        }
-        return acc
-      },
-      [],
-    )
+    this.children.forEach((x, idx) => {
+      const isFirst = idx === 0
+      const isLast = idx === this.children.length - 1
+      if (x.textElement?.content) {
+        x.textElement.content = x.textElement.content
+          // 合并连续段落起始标记和结束标记
+          .replace(new RegExp(placeholders.pStart + '{2,}', 'g'), placeholders.pStart)
+          .replace(new RegExp(placeholders.pEnd + '{2,}', 'g'), placeholders.pEnd)
+          // 空段落转换为换行
+          .replace(new RegExp(placeholders.pStart + placeholders.pEnd + '*', 'g'), placeholders.pGeneral)
+          // 合并连续段落
+          .replace(new RegExp(placeholders.pEnd + placeholders.pStart + '*', 'g'), placeholders.pGeneral)
+          // 硬换行符，但段落末尾的 br 不渲染
+          // 先把 br + pEnd 替换为单独的 pEnd
+          .replace(new RegExp(`${placeholders.br}${placeholders.pEnd}`, 'g'), placeholders.pEnd)
+          // 再把 br 替换为换行
+          .replace(new RegExp(placeholders.br, 'g'), '\n')
 
-    if (this.children[this.children.length - 1]?.textElement?.content === '\n')
-      this.children.pop()
+        if (isFirst) {
+          x.textElement.content = x.textElement.content
+            // 如果是第一条消息元素，删除最前面的段落标记
+            .replace(new RegExp(`^(${placeholders.pGeneral}|${placeholders.pStart}|${placeholders.pEnd})+`, 'g'), '')
+        } else if (isLast) {
+          x.textElement.content = x.textElement.content
+            // 如果是最后一条消息元素，删除最后面的段落标记
+            .replace(new RegExp(`(${placeholders.pGeneral}|${placeholders.pStart}|${placeholders.pEnd})+$`, 'g'), '')
+        }
+
+        // 最后的兜底，替换剩余的段落标记为换行
+        x.textElement.content = x.textElement.content
+          .replace(new RegExp(`(${placeholders.pGeneral}|${placeholders.pStart}|${placeholders.pEnd})+`, 'g'), '\n')
+      }
+    })
+    const last = this.children[this.children.length - 1]
+    if (last?.textElement?.content) {
+      last.textElement.content = last.textElement.content.trimEnd()
+    }
     return this.children
   }
 
-  private isEndLine = false
+  private text = ''
 
   visit = async (element: h) => {
     const { type, attrs, children } = element
 
+    if (!['text', 'br', 'p'].includes(type)) {
+      if (this.text) {
+        this.children.push(r.text(this.text))
+        this.text = ''
+      }
+    }
+
     switch (type) {
       case 'text': {
         // 文本消息
-        this.children.push(r.text(attrs['content'] as string))
-        this.isEndLine = false
+        this.text += attrs['content'] as string
         return
       }
 
       case 'br': {
         // 换行
-        if (this.isEndLine) {
-          this.children.push(r.text('\n'))
-        }
-        this.isEndLine = false
+        this.text += placeholders.br
         return
       }
 
       case 'p': {
         // 文本段落
-        if (this.isEndLine) {
-          this.children.push(r.text('\n'))
-        }
+        this.text += placeholders.pStart
         await this.render(children)
-        this.isEndLine = true
+        this.text += placeholders.pEnd
         return
       }
 
@@ -143,9 +171,8 @@ export class Messager {
         const url = attrs['href'] as string
         await this.render(children)
         if (url) {
-          this.children.push(r.text(` ( ${url} )`))
+          this.text += ` ( ${url} )`
         }
-        this.isEndLine = false
         return
       }
 
@@ -185,7 +212,6 @@ export class Messager {
         }
 
         this.children.push(r.remoteImage(result, picType))
-        this.isEndLine = false
         return
       }
 
@@ -226,7 +252,6 @@ export class Messager {
                 1,
               ),
             )
-            this.isEndLine = false
 
             return
           } else {
@@ -246,7 +271,6 @@ export class Messager {
                 1,
               ),
             )
-            this.isEndLine = false
 
             return
           }
@@ -290,7 +314,6 @@ export class Messager {
                   encodeResult.waveAmplitudes,
                 ),
               )
-              this.isEndLine = false
 
               return
             } catch (cause) {
@@ -327,7 +350,6 @@ export class Messager {
                 1,
               ),
             )
-            this.isEndLine = false
 
             return
           }
@@ -351,7 +373,6 @@ export class Messager {
           fileMime: attrs['chronocat:mime'] as string | undefined,
         })
         this.children.push(r.remoteFile(result))
-        this.isEndLine = false
         return
       }
 
@@ -364,8 +385,6 @@ export class Messager {
             r.at(this.ctx, attrs['name'] as string, attrs['id'] as string),
           )
         }
-
-        this.isEndLine = false
         return
       }
 
@@ -399,8 +418,6 @@ export class Messager {
             ),
           )
         }
-
-        this.isEndLine = false
         return
       }
 
@@ -412,8 +429,6 @@ export class Messager {
             attrs['key'] as string,
           ),
         )
-
-        this.isEndLine = false
         return
       }
 
@@ -439,7 +454,6 @@ export class Messager {
             (author?.attrs['id'] as string | undefined) || undefined,
           ),
         )
-        this.isEndLine = false
         return
       }
 
@@ -488,7 +502,6 @@ export class Messager {
       default: {
         // 兜底
         await this.render(children)
-        this.isEndLine = false
         return
       }
     }

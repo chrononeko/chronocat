@@ -52,23 +52,17 @@ exports[`Red 编码器应当正确编码 br/p 混搭换行 1`] = `
           "content": "aaa
 bbb
 uuu
-
 ccc
 ddd
-
 eee
-
 vvv
 www
 fff
 ggg
-
 hhh
 iii
-
 xxx
 yyy
-
 
 zzz",
         },
@@ -97,15 +91,11 @@ exports[`Red 编码器应当正确编码 p 换行 1`] = `
           "atUid": "",
           "content": "aaa
 bbb
-
 ccc
 ddd
-
 eee
-
 fff
 ggg
-
 hhh
 iii",
         },
