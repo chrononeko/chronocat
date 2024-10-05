@@ -205,7 +205,7 @@ const responseDispatcher = async (
 
     case 'onGroupListUpdate':
     case 'nodeIKernelGroupListener/onGroupListUpdate': {
-      const { groupList } = payload as OnGroupListUpdate
+      const { groupList, updateType } = payload as OnGroupListUpdate
 
       for (const group of groupList) {
         ctx.chronocatEngineChronocatApi.msgBoxActiv.activate({
@@ -214,7 +214,9 @@ const responseDispatcher = async (
           guildId: '',
         })
 
-        groupMap[group.groupCode] = group
+        if (updateType === 1) groupMap[group.groupCode] = group
+        else if (updateType === 3)
+          if (groupMap[group.groupCode]) delete groupMap[group.groupCode]
       }
 
       chronoEventEmitter.emitGroupListUpdate()

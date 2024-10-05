@@ -104,7 +104,11 @@ export interface OnEmojiDownloadComplete {
 }
 
 export interface OnGroupListUpdate {
-  updateType: 1
+  /**
+   * 1 为增加，3 为退出。
+   */
+  updateType: 1 | 3
+
   groupList: Group[]
 }
 
