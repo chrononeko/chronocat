@@ -1,5 +1,39 @@
 # CHANGELOG
 
+## v0.2.17 (2024-10-05)
+
+### engine-chronocat-api
+
+- `friend.list` 适配新版本 (afbee93033bda8d814f9e59513d901d7cd03258d)
+- 实现 `guild.member.approve` (18c5be2098d5e3a4530a5ae4b17647e5cfbe7401)
+- 修复 `guild.approve` (d09ac0e04096ce94bafbd703a32ee62495fc1ee8)
+- 修复 `<br />` 和 `<p />` 元素发送 @MaikoTan (8540f32c4b6a42a310e6c4f5f1b2e90d0e1bec3d)
+- 修复了退群后调用 `guild.list` 群仍然存在的问题 (e5b907d1554e93ca8e4a70b1819ebe08c26da8a3)
+- 修复了一个加群请求相关的严重问题 (e5d4a3f456ed44c784c2206011a942a297578ec3)
+
+此版本修复了一个严重的问题，该问题影响至 9 月 10 日以来的所有版本。所有用户都应立即升级到此版本。
+
+- 尝试修复 #78 (bc238645b45539b6e8d979e1b09636803ccb0494)
+
+使用一种简单的方法尝试修复 #78。如果问题仍然存在，则还有几种更复杂的办法进行修复。
+
+### engine-chronocat-event
+
+- 修正 `guild-request`/`guild-member-request`/`guild-member-removed` 三类事件中存在的问题 (fe48309be07a78f3e9d6a838e7b81ceb598c259b)
+- `guild-request`/`guild-member-request`/`guild-member-removed` 中补齐 `member` 字段 (b1bbadde835fe3497ac1122ece86a91583d9c4cb)
+- 修复了 `guild-member-added` 中不存在 `operator` 时错误地出现了 `operator` 字段的问题 (00c4688386c72e507325b046a16936250ac5e0ab)
+- `guild-request`/`guild-member-request`/`guild-member-removed` 中补齐 `message.id` 字段 (36cc8f89eaaa29aadc5cfdc792b949c55b0db392)
+
+### crychiccat
+
+这是最后一个适配旧版 QQ（26909 及以下）的版本。v0.2.18 开始，Crychiccat 将不再适配旧版 QQ。请将 QQ 升级至 27187 及以上版本。
+
+未来 **有** 重新同时适配新/旧版 QQ 的计划。
+
+### docs
+
+- 添加 Yutori 使用说明 @Nyayurn (22ccf3b7f0ccd90bc62c4335c5aca601b2e08894)
+
 ## v0.2.16 (2024-09-13)
 
 ### shell
