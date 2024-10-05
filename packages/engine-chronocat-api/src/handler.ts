@@ -10,6 +10,7 @@ import type {
   OnMsgInfoListUpdate,
   OnOpenParamChange,
   OnProfileChanged,
+  OnProfileSimpleChanged,
   OnRecentContactListChangedVer2,
   OnRecvMsg,
   OnRichMediaDownloadComplete,
@@ -111,7 +112,8 @@ const responseDispatcher = async (
 ) => {
   switch (method) {
     case 'nodeIKernelMsgListener/onRecvActiveMsg':
-    case 'nodeIKernelMsgListener/onRecvMsg': {
+    case 'nodeIKernelMsgListener/onRecvMsg':
+    case 'nodeIKernelMsgService/getAioFirstViewLatestMsgsAndAddActiveChat': {
       const { msgList } = payload as OnRecvMsg
 
       for (const msg of msgList) {
@@ -165,6 +167,16 @@ const responseDispatcher = async (
       const profile = profiles ?? infos
       if (profile)
         for (const [uid, { uin }] of profile) ctx.chronocat.uix.add(uid, uin)
+
+      return
+    }
+
+    case 'onProfileSimpleChanged': {
+      const { profiles } = payload as OnProfileSimpleChanged
+
+      if (profiles)
+        for (const uid in profiles)
+          ctx.chronocat.uix.add(uid, profiles[uid]!.uin)
 
       return
     }

@@ -36,6 +36,10 @@ export interface OnProfileChanged {
   info: Profile
 }
 
+export interface OnProfileSimpleChanged {
+  profiles: Record<string, UserSimpleInfo>
+}
+
 export interface OnMemberInfoChange {
   groupCode: string
   dataSource: number

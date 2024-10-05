@@ -11,6 +11,7 @@ import type {
   OnMsgInfoListUpdate,
   OnOpenParamChange,
   OnProfileChanged,
+  OnProfileSimpleChanged,
   OnRecentContactListChangedVer2,
   OnRecvMsg,
   Peer,
@@ -122,6 +123,18 @@ const dispatcher = async (
       return
     }
 
+    case 'nodeIKernelMsgService/getAioFirstViewLatestMsgsAndAddActiveChat': {
+      const { msgList } = payload as OnRecvMsg
+
+      for (const msg of msgList) {
+        ctx.chronocat.uix.add(msg.senderUid, msg.senderUin)
+        if (msg.chatType === ChatType.Private)
+          ctx.chronocat.uix.add(msg.peerUid, msg.peerUin)
+      }
+
+      return
+    }
+
     case 'nodeIKernelProfileListener/onProfileSimpleChanged':
     case 'nodeIKernelProfileListener/onProfileDetailInfoChanged':
     case 'nodeIKernelGroupListener/onSearchMemberChange':
@@ -138,6 +151,16 @@ const dispatcher = async (
       const profile = profiles ?? infos
       if (profile)
         for (const [uid, { uin }] of profile) ctx.chronocat.uix.add(uid, uin)
+
+      return
+    }
+
+    case 'onProfileSimpleChanged': {
+      const { profiles } = payload as OnProfileSimpleChanged
+
+      if (profiles)
+        for (const uid in profiles)
+          ctx.chronocat.uix.add(uid, profiles[uid]!.uin)
 
       return
     }
