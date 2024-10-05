@@ -137,6 +137,11 @@ export interface Group {
   groupCode: string
 
   /**
+   * 与 groupCode 相同，使用 groupCode 保证最大兼容性
+   */
+  groupUin: string
+
+  /**
    * 最大人数
    */
   maxMember: number
@@ -192,7 +197,11 @@ export interface Group {
 
   avatarUrl?: string
 
+  /**
+   * 始终为 false，即使有 groupMemo
+   */
   hasMemo: boolean
+
   groupShutupExpireTime: string
   personShutupExpireTime: string
 
@@ -208,13 +217,48 @@ export interface Group {
   groupFlagExt3: number
 
   groupOwnerId: {
-    memberUin: '0'
+    /**
+     * 始终是字符串 '0'
+     */
+    memberUin: string
 
     /**
      * 不一定存在，勿使用
      */
-    memberUid: ''
+    memberUid: string
+
+    memberQid: string
   }
+
+  createTime: string // '1592570000'
+  groupClassExt: number
+  groupTypeFlag: number
+  groupFlagExt4: number
+
+  /**
+   * 格式类似
+   *
+   * ```json
+   * { "0": 231, "1": 131, "2": 173 }
+   * ```
+   *
+   */
+  groupMemo: Record<string, number>
+
+  groupSecLevelInfo: number
+  appealDeadline: number
+  subscriptionUin: string // '0'
+  hlGuildAppId: number
+  hlGuildSubType: number
+  memberChangeSeq: number
+  groupInfoChangeSeq: number
+  memberCardChangeSeq: number
+  memberLevelNameSeq: number
+  joinTime: number
+  cmdUinFlag: number
+  cmdUinFlagEx2: number
+  cmdUinRingtoneId: number
+  cmdUinMsgMask: number
 }
 
 export enum ChatType {
