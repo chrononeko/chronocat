@@ -44,7 +44,7 @@ export interface ApprovePayload {
   /**
    * 备注信息
    */
-  comment: string | undefined
+  comment?: string
 }
 
 export interface FriendListResponse extends Next {
