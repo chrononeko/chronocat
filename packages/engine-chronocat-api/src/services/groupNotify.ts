@@ -1,4 +1,4 @@
-import { debounce } from 'lodash-es'
+import { throttle } from 'lodash-es'
 import { getSingleScreenNotifies } from '../definitions/groupService'
 
 const refreshIntl2 = async () => {
@@ -14,8 +14,13 @@ const refreshIntl2 = async () => {
   })
 }
 
-const refreshIntl1 = debounce(refreshIntl2, 2000, {
-  maxWait: 2000,
+// const refreshIntl1 = debounce(refreshIntl2, 2000, {
+//   maxWait: 2000,
+// })
+
+const refreshIntl1 = throttle(refreshIntl2, 4000, {
+  leading: true,
+  trailing: false,
 })
 
 const refresh = () => setTimeout(refreshIntl1, 2000)
