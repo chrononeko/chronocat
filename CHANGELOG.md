@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v0.2.18 (2024-10-07)
+
+### crychiccat
+
+- 适配 27187 及以上版本 (cf667185a1e91cee54b01dc7c6acb4ade71952f0)
+
+未来 **有** 重新同时适配新/旧版 QQ 的计划。
+
 ## v0.2.17 (2024-10-05)
 
 ### engine-chronocat-api
