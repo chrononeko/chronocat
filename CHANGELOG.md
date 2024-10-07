@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## v0.2.19 (2024-10-08)
+
+### crychiccat
+
+- 支持 Linux (2963c57f2f09b5f235144bc0bbd8892b5db8ecb7, 763635f198a19319d8ca1204f4e79c4f1bb127ed, f9b824dba279788fc727e48a2aa1ce8c544111cc, 8a4fb77f78f922a05365db1fed26b39be9d1a12d, b16c76753c48ab25ed43b6f0fca8b27465a2f9ff)
+
+Crychiccat 现已支持 Linux。Linux 用户现在可以使用伪造合并转发和戳一戳发送等功能。
+
+Windows 的版本没有变化。
+
 ## v0.2.18 (2024-10-07)
 
 ### crychiccat
