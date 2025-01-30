@@ -72,6 +72,8 @@ export const buildHandler = (ctx: ChronocatContext) => (data: IpcManData) => {
   }
 }
 
+const triggeredMsgId = new Set<string>()
+
 const dispatcher = async (
   ctx: ChronocatContext,
   channel: string,
@@ -86,6 +88,10 @@ const dispatcher = async (
       const { msgList } = payload as OnRecvMsg
 
       for (const msg of msgList) {
+        // prevent duplicate message triggrs
+        if(triggeredMsgId.has(msg.msgId)) continue
+        triggeredMsgId.add(msg.msgId)
+
         ctx.chronocat.uix.add(msg.senderUid, msg.senderUin)
         if (msg.chatType === ChatType.Private)
           ctx.chronocat.uix.add(msg.peerUid, msg.peerUin)
