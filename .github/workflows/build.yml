@@ -31,49 +31,49 @@ jobs:
         shell: bash
 
       - name: Upload LiteLoaderQQNT Plugin
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: chronocat-llqqnt-${{ github.sha }}
           path: build/dist/llqqnt
 
       - name: Upload engine-chronocat-api LiteLoaderQQNT Plugin
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: chronocat-llqqnt-engine-chronocat-api-${{ github.sha }}
           path: build/dist/llqqnt-plugin-chronocat-engine-chronocat-api
 
       - name: Upload engine-chronocat-event LiteLoaderQQNT Plugin
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: chronocat-llqqnt-engine-chronocat-event-${{ github.sha }}
           path: build/dist/llqqnt-plugin-chronocat-engine-chronocat-event
 
       - name: Upload engine-media LiteLoaderQQNT Plugin
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: chronocat-llqqnt-engine-media-${{ github.sha }}
           path: build/dist/llqqnt-plugin-chronocat-engine-media
 
       # - name: Upload engine-chronocat-api
-      #   uses: actions/upload-artifact@v3
+      #   uses: actions/upload-artifact@v4
       #   with:
       #     name: engine-chronocat-api-${{ github.sha }}
       #     path: build/dist/engine-chronocat-api
 
       # - name: Upload engine-chronocat-event
-      #   uses: actions/upload-artifact@v3
+      #   uses: actions/upload-artifact@v4
       #   with:
       #     name: engine-chronocat-event-${{ github.sha }}
       #     path: build/dist/engine-chronocat-event
 
       # - name: Upload engine-chronocat-event
-      #   uses: actions/upload-artifact@v3
+      #   uses: actions/upload-artifact@v4
       #   with:
       #     name: engine-media-${{ github.sha }}
       #     path: build/dist/engine-media
 
       # - name: Upload IIFE
-      #   uses: actions/upload-artifact@v3
+      #   uses: actions/upload-artifact@v4
       #   with:
       #     name: chronocat-iife-${{ github.sha }}
       #     path: build/dist/iife
@@ -94,13 +94,13 @@ jobs:
         env:
           TI_KEY: ${{ secrets.TI_KEY }}
         if: env.TI_KEY != null
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: chronocat-iife-ti-${{ github.sha }}
           path: build/dist/iife-ti/chronocat.js.ti.bin
 
       - name: Upload Build Metadata
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: meta-${{ github.sha }}
           path: build/meta
