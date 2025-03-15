@@ -60,7 +60,7 @@ export class GuildRequestDispatchMessage implements SatoriDispatchMessage {
     >,
   ) => {
     const event: Event = {
-      id: undefined as unknown as number,
+      sn: undefined as unknown as number,
       type: 'guild-request',
 
       platform: ctx.chronocat.platform,
@@ -110,7 +110,7 @@ export class GuildMemberRequestDispatchMessage
     >,
   ) => {
     const event: Event = {
-      id: undefined as unknown as number,
+      sn: undefined as unknown as number,
       type: 'guild-member-request',
 
       platform: ctx.chronocat.platform,
@@ -159,7 +159,7 @@ export class GuildMemberRemovedDispatchMessage
     >,
   ) => {
     const event: Event = {
-      id: undefined as unknown as number,
+      sn: undefined as unknown as number,
       type: 'guild-member-removed',
 
       platform: ctx.chronocat.platform,
@@ -206,7 +206,7 @@ export class FriendRequestDispatchMessage implements SatoriDispatchMessage {
     >,
   ) => {
     const event: Event = {
-      id: undefined as unknown as number,
+      sn: undefined as unknown as number,
       type: 'friend-request',
 
       platform: ctx.chronocat.platform,

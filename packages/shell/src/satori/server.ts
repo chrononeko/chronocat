@@ -8,7 +8,7 @@ import type { ChronocatSatoriServerConfig } from '../services/config/configEntit
 import type { ChronocatContext, SatoriDispatchMessage } from '../types'
 import { PLATFORM } from '../utils/consts'
 import { timeout } from '../utils/time'
-import { buildEventIdCounter } from '../utils/token'
+import { buildEventSnCounter } from '../utils/token'
 import type { Routes } from './routes'
 import { routes } from './routes'
 import { assets } from './routes/assets'
@@ -36,7 +36,7 @@ export const initSatoriServer = async (
 
   const authorizedClients: WebSocket[] = []
 
-  const getId = buildEventIdCounter()
+  const getSn = buildEventSnCounter()
 
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   const server = createServer(async (req, res) => {
@@ -337,7 +337,7 @@ export const initSatoriServer = async (
               op: Op.Event,
               body: {
                 ...body,
-                id: getId(),
+                sn: getSn(),
                 platform: cctx.chronocat.platform,
                 self_id: uin,
               },

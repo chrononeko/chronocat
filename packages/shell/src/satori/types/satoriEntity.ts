@@ -10,7 +10,7 @@ export interface Event {
   /**
    * 事件 ID
    */
-  id: number
+  sn: number
 
   /**
    * 事件类型
