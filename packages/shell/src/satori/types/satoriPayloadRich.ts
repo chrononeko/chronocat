@@ -31,6 +31,7 @@ export type {
 export type WebSocketIncomingMessage =
   | WebSocketIncomingHeartbeatMessage
   | WebSocketIncomingVerifyMessage
+  | WebSocketIncomingUpdateMetaMessage
 
 export interface WebSocketIncomingHeartbeatMessage {
   op: Op.Ping
@@ -41,6 +42,13 @@ export interface WebSocketIncomingVerifyMessage {
   op: Op.Identify
   body?: {
     token?: string
+  }
+}
+
+export interface WebSocketIncomingUpdateMetaMessage {
+  op: Op.Meta
+  body: {
+    proxy_urls: string[]
   }
 }
 

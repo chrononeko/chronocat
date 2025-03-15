@@ -6,9 +6,9 @@ import { WebSocketServer } from 'ws'
 import satoriHtml from '../../static/satori.html'
 import type { ChronocatSatoriServerConfig } from '../services/config/configEntity'
 import type { ChronocatContext, SatoriDispatchMessage } from '../types'
-import { PLATFORM } from '../utils/consts'
+import { ADAPTER, PLATFORM } from '../utils/consts'
 import { timeout } from '../utils/time'
-import { buildEventSnCounter } from '../utils/token'
+import { buildSnCounter } from '../utils/token'
 import type { Routes } from './routes'
 import { routes } from './routes'
 import { assets } from './routes/assets'
@@ -36,7 +36,8 @@ export const initSatoriServer = async (
 
   const authorizedClients: WebSocket[] = []
 
-  const getSn = buildEventSnCounter()
+  const getEventSn = buildSnCounter()
+  const getLoginSn = buildSnCounter()
 
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   const server = createServer(async (req, res) => {
@@ -235,14 +236,16 @@ export const initSatoriServer = async (
           const uin = (await cctx.chronocat.getAuthData()).uin
 
           const login: Login = {
+            sn: getLoginSn(),
+            platform: PLATFORM,
             user: {
               id: uin,
               name: cctx.chronocat.getSelfProfile().nick,
+              avatar: `http://thirdqq.qlogo.cn/headimg_dl?dst_uin=${uin}&spec=640`,
               is_bot: false,
             },
-            self_id: uin,
-            platform: PLATFORM,
             status: LoginStatus.ONLINE,
+            adapter: ADAPTER,
             features: [
               'channel.get',
               'channel.list',
@@ -285,7 +288,6 @@ export const initSatoriServer = async (
               'chronocat.putongdejiekou1',
               'guild.plain',
             ],
-            proxy_urls: [],
           }
 
           ws.send(
@@ -293,12 +295,18 @@ export const initSatoriServer = async (
               op: Op.Ready,
               body: {
                 logins: [login],
+                proxy_urls: [],
               },
             }),
           )
 
           l.info(`satori: 接受连接，来自 ${req.socket.remoteAddress}`)
 
+          return
+        }
+
+        case Op.Meta: {
+          // TODO: implement this
           return
         }
 
@@ -337,7 +345,7 @@ export const initSatoriServer = async (
               op: Op.Event,
               body: {
                 ...body,
-                sn: getSn(),
+                sn: getEventSn(),
                 platform: cctx.chronocat.platform,
                 self_id: uin,
               },
@@ -363,10 +371,10 @@ function buildRouteCtx(
   path: string,
 ): RouteContext {
   const buffer = () => {
-    const chunks: Buffer[] = []
+    const chunks: Uint8Array[] = []
     return new Promise<Buffer>((resolve, reject) => {
       req.on('data', (chunk) => {
-        chunks.push(chunk as Buffer)
+        chunks.push(chunk)
       })
       req.on('end', () => {
         resolve(Buffer.concat(chunks))

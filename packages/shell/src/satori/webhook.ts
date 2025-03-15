@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 import type { ChronocatSatoriWebHookConfig } from '../services/config/configEntity'
 import type { ChronocatContext, SatoriDispatchMessage } from '../types'
-import { buildEventSnCounter } from '../utils/token'
+import { buildSnCounter } from '../utils/token'
 
 export const initSatoriWebHook = async (
   cctx: ChronocatContext,
@@ -13,7 +13,7 @@ export const initSatoriWebHook = async (
   if (config.self_url.endsWith('/'))
     config.self_url = config.self_url.slice(0, config.self_url.length - 1)
 
-  const getSn = buildEventSnCounter()
+  const getSn = buildSnCounter()
 
   const dispatcher = (message: SatoriDispatchMessage) => {
     void (async () => {
