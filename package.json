@@ -2,7 +2,7 @@
   "name": "chronocat-workspace",
   "description": "模块化的 Satori 框架",
   "version": "0.0.0",
-  "packageManager": "yarn@4.1.0",
+  "packageManager": "yarn@4.7.0",
   "private": true,
   "license": "UNLICENSED",
   "workspaces": [
