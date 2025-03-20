@@ -76,7 +76,7 @@ export const parseMessage = async (
   message: RedMessage,
 ) => {
   const event: Event = {
-    id: undefined as unknown as number,
+    sn: undefined as unknown as number,
     type: undefined as unknown as string,
 
     platform: undefined as unknown as string,

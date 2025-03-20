@@ -14,7 +14,7 @@ import { uix } from './services/uix'
 import { validate } from './services/validate'
 import type { ChronocatContext, Engine } from './types'
 import { bold, cyan, grey } from './utils/colors'
-import { PLATFORM } from './utils/consts'
+import { ADAPTER, PLATFORM } from './utils/consts'
 import { exists } from './utils/fs'
 import { STARTUP_TEXT } from './utils/startup'
 import { sleep, timeout } from './utils/time'
@@ -53,6 +53,7 @@ export const chronocat = () => {
       l,
       mime,
       platform: PLATFORM,
+      adapter: ADAPTER,
       sleep,
       timeout,
       uix,

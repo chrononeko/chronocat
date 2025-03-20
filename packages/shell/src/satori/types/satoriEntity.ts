@@ -4,13 +4,14 @@ export enum Op {
   Pong = 2,
   Identify = 3,
   Ready = 4,
+  Meta = 5,
 }
 
 export interface Event {
   /**
    * 事件 ID
    */
-  id: number
+  sn: number
 
   /**
    * 事件类型
@@ -141,14 +142,9 @@ export interface Guild {
 
 export interface Login {
   /**
-   * 用户对象
+   * 序列号
    */
-  user?: User
-
-  /**
-   * 平台账号
-   */
-  self_id?: string
+  sn: number
 
   /**
    * 平台名称
@@ -156,19 +152,24 @@ export interface Login {
   platform?: string
 
   /**
+   * 用户对象
+   */
+  user?: User
+
+  /**
    * 在线状态
    */
   status: LoginStatus
 
   /**
-   * 平台特性列表
+   * 适配器名称
    */
-  features: string[]
+  adapter: string
 
   /**
-   * 代理路由列表
+   * 平台特性列表
    */
-  proxy_urls: string[]
+  features?: string[]
 }
 
 export enum LoginStatus {
