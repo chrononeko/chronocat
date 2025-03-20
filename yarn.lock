@@ -1749,6 +1749,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@chronocat/builder@workspace:packages/builder":
+  version: 0.0.0-use.local
+  resolution: "@chronocat/builder@workspace:packages/builder"
+  dependencies:
+    esbuild: "npm:^0.19.2"
+    esbuild-register: "npm:^3.5.0"
+  languageName: unknown
+  linkType: soft
+
 "@chronocat/docs@workspace:packages/docs":
   version: 0.0.0-use.local
   resolution: "@chronocat/docs@workspace:packages/docs"
