@@ -51,7 +51,7 @@ import type { mime } from './services/mime'
 import type { getSelfProfile } from './services/selfProfile'
 import type { uix } from './services/uix'
 import type { validate } from './services/validate'
-import type { PLATFORM,ADAPTER } from './utils/consts'
+import type { PLATFORM, ADAPTER } from './utils/consts'
 import type { exists } from './utils/fs'
 import type { sleep, timeout } from './utils/time'
 
