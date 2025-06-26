@@ -28,6 +28,8 @@ export interface MessageCreatePayload {
    * 格式为 Satori 消息元素字符串。
    */
   content: string
+
+  referrer?: string
 }
 
 export interface ApprovePayload {

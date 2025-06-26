@@ -55,4 +55,5 @@ export interface WebSocketIncomingUpdateMetaMessage {
 export interface MessageCreatePayload {
   channel_id: string
   content: h[]
+  referrer?: string
 }
